@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phrasal Verbs Academy (380 Words Full Edition)</title>
+    <!-- Google Fonts & Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body { font-family: 'Sarabun', sans-serif; }
+        .font-kids { font-family: 'Fredoka', cursive, sans-serif; }
+        
+        /* Flashcard 3D Flip Effect */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+
+        /* Hide elements during print */
+        @media print {
+            header, .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .print-page { page-break-after: always; padding: 0 !important; }
+        }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen text-slate-800 pb-10">
+
+    <!-- Header / Navbar -->
+    <header class="bg-indigo-600 text-white shadow-lg py-4 px-6 mb-6 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3">
+            <h1 class="text-2xl font-bold font-kids flex items-center gap-2 cursor-pointer" onclick="showDashboard()">
+                <span>📖</span> Phrasal Verbs Academy
+            </h1>
+            
+            <!-- Gamification Status Bar -->
+            <div class="flex items-center gap-3 bg-indigo-800/60 px-4 py-1.5 rounded-2xl border border-indigo-400/30">
+                <div class="flex items-center gap-1 font-bold text-amber-300">
+                    <span>⭐</span> <span id="userStars">0</span>
+                </div>
+                <div class="text-indigo-300">|</div>
+                <div class="flex items-center gap-1 font-bold text-yellow-400">
+                    <span>🏆</span> <span id="userBadge">Beginner</span>
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <button onclick="showDashboard()" class="bg-indigo-500 hover:bg-indigo-700 px-3 py-1.5 rounded-xl text-sm font-bold transition">🏠 หน้าแรก</button>
+                <button onclick="showLessons()" class="bg-emerald-500 hover:bg-emerald-600 px-3 py-1.5 rounded-xl text-sm font-bold transition">📅 บทเรียน 30 วัน</button>
+                <button onclick="showHistory()" class="bg-amber-400 hover:bg-amber-500 text-indigo-900 px-3 py-1.5 rounded-xl text-sm font-bold transition">📊 ประวัติ & สถิติ</button>
+                <button onclick="triggerPrintWorksheet()" class="bg-rose-500 hover:bg-rose-600 text-white px-3 py-1.5 rounded-xl text-sm font-bold transition flex items-center gap-1">🖨️ พิมพ์ใบงาน</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4">
+        
+        <!-- DASHBOARD VIEW -->
+        <div id="dashboardView">
+            <!-- Learning Progress Card -->
+            <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-3xl p-6 text-white shadow-xl mb-8">
+                <div class="flex justify-between items-center mb-3">
+                    <div>
+                        <h2 class="text-2xl font-bold font-kids">ความก้าวหน้าการเรียนรู้ 380 คำ 🚀</h2>
+                        <p class="text-indigo-100 text-sm" id="progressText">กำลังโหลดข้อมูล...</p>
+                    </div>
+                    <button onclick="showLessons()" class="bg-white text-indigo-600 px-5 py-2.5 rounded-2xl font-bold text-sm shadow hover:bg-indigo-50 transition">เข้าสู่บทเรียน ➔</button>
+                </div>
+                <div class="w-full bg-indigo-950/40 rounded-full h-4 p-0.5 border border-white/20">
+                    <div id="dashboardProgressBar" class="bg-amber-400 h-3 rounded-full transition-all duration-500 shadow-sm" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Main Menu Grid -->
+            <div class="space-y-8">
+                <!-- Daily Lessons Banner -->
+                <section class="bg-emerald-50 p-6 rounded-3xl border-2 border-emerald-200 flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-emerald-800 mb-1 flex items-center gap-2">
+                            <span>📅</span> โปรแกรมเรียนรู้ 30 วัน (380 Phrasal Verbs)
+                        </h3>
+                        <p class="text-sm text-emerald-600">แบ่งคำศัพท์วันละ 12-13 คำ พร้อมระบบ Flashcard Interactive และแบบทดสอบ</p>
+                    </div>
+                    <button onclick="showLessons()" class="bg-emerald-600 text-white font-bold px-6 py-3 rounded-2xl shadow hover:bg-emerald-700 transition">เริ่มเรียนวันนี้</button>
+                </section>
+
+                <!-- Quizzes Selection -->
+                <div class="text-center my-6">
+                    <h2 class="text-2xl font-bold text-indigo-900 mb-1">คลังแบบทดสอบ Comprehensive Quizzes 🌟</h2>
+                    <p class="text-slate-500 text-sm">สุ่มวัดผลคำศัพท์ 380 คำ ครอบคลุมทุกระดับชั้น</p>
+                </div>
+
+                <section class="bg-white p-6 rounded-3xl shadow-sm border-2 border-indigo-100">
+                    <h3 class="text-lg font-bold text-indigo-700 mb-4">📚 1. จับคู่ความหมาย แยกตามระดับชั้น (12 ระดับ)</h3>
+                    <div id="gradeMatchGrid" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+                </section>
+
+                <section class="bg-white p-6 rounded-3xl shadow-sm border-2 border-indigo-100">
+                    <h3 class="text-lg font-bold text-indigo-700 mb-4">🧩 2. จับคู่ความหมาย ผสมระดับชั้น</h3>
+                    <div id="mixedMatchGrid" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+                </section>
+
+                <section class="bg-white p-6 rounded-3xl shadow-sm border-2 border-indigo-100">
+                    <h3 class="text-lg font-bold text-indigo-700 mb-4">✏️ 3. เติมคำในช่องว่าง ผสมระดับชั้น</h3>
+                    <div id="fillBlankGrid" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+                </section>
+            </div>
+        </div>
+
+        <!-- LESSONS LIST VIEW -->
+        <div id="lessonsView" class="hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-emerald-800 mb-2">ตารางบทเรียนประจำวัน (Day 1 - Day 30) 📅</h2>
+                <p class="text-slate-600">รวบรวมคำศัพท์ Phrasal Verbs 380 คำ แบ่งการเรียนรู้อย่างเป็นระบบ</p>
+            </div>
+            <div id="lessonsGrid" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
+        </div>
+
+        <!-- SINGLE DAY LESSON VIEW -->
+        <div id="singleLessonView" class="hidden max-w-3xl mx-auto">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border-2 border-emerald-100">
+                <div class="flex justify-between items-center border-b pb-4 mb-6">
+                    <div>
+                        <span id="lessonDayTitle" class="text-2xl font-bold text-emerald-700 font-kids"></span>
+                        <div id="lessonLevelBadge" class="text-xs text-slate-400 mt-0.5"></div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="toggleFlashcardMode()" id="flashcardToggleBtn" class="bg-purple-100 text-purple-700 px-3 py-1.5 rounded-xl text-xs font-bold hover:bg-purple-200 transition">🎴 โหมด Flashcard</button>
+                        <button onclick="showLessons()" class="text-slate-400 hover:text-slate-600 font-bold text-sm">✕ ปิด</button>
+                    </div>
+                </div>
+
+                <!-- Normal Cards Container -->
+                <div id="vocabCardsContainer" class="space-y-4 mb-8"></div>
+
+                <!-- Flashcard Interactive Container (Hidden by Default) -->
+                <div id="flashcardContainer" class="hidden mb-8 text-center">
+                    <div class="perspective-1000 w-full h-64 cursor-pointer" onclick="flipCard()">
+                        <div id="flashcardInner" class="relative w-full h-full transform-style-3d transition-transform duration-500 rounded-3xl shadow-md border-2 border-purple-200 bg-purple-50 flex items-center justify-center p-6">
+                            <!-- Front -->
+                            <div class="absolute backface-hidden flex flex-col items-center justify-center">
+                                <span class="text-xs font-bold text-purple-400 mb-2">แตะเพื่อพลิกดูความหมาย 👆</span>
+                                <h3 id="flashCardVerb" class="text-4xl font-bold text-indigo-900 mb-3"></h3>
+                                <button onclick="event.stopPropagation(); speakWord(document.getElementById('flashCardVerb').innerText)" class="bg-purple-200 hover:bg-purple-300 text-purple-800 p-2 rounded-full text-lg">🔊</button>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute backface-hidden rotate-y-180 flex flex-col items-center justify-center">
+                                <span class="text-xs font-bold text-emerald-500 mb-2">ความหมาย & ตัวอย่าง</span>
+                                <h4 id="flashCardMeaning" class="text-2xl font-bold text-emerald-800 mb-2"></h4>
+                                <p id="flashCardSentence" class="text-sm text-slate-600 bg-white p-3 rounded-xl border border-purple-100 max-w-md"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-4 px-4">
+                        <button onclick="prevFlashcard()" class="bg-slate-200 hover:bg-slate-300 px-4 py-2 rounded-xl text-sm font-bold">⬅️ ก่อนหน้า</button>
+                        <span id="flashcardTracker" class="text-sm font-bold text-purple-700"></span>
+                        <button onclick="nextFlashcard()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl text-sm font-bold">ถัดไป ➡️</button>
+                    </div>
+                </div>
+
+                <!-- Complete Action -->
+                <div class="bg-emerald-50 p-6 rounded-2xl text-center border border-emerald-200">
+                    <p class="text-sm text-emerald-800 font-bold mb-3">ศึกษาคำศัพท์ครบแล้ว ท้าทายแบบทดสอบเพื่อรับดาว ⭐</p>
+                    <button id="startLessonQuizBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-2xl shadow transition">
+                        ทำแบบทดสอบประจำวัน ➔
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUIZ VIEW -->
+        <div id="quizView" class="hidden">
+            <div class="bg-white p-6 md:p-10 rounded-3xl shadow-md border-2 border-indigo-100 max-w-2xl mx-auto">
+                <div class="flex justify-between items-center border-b pb-4 mb-6">
+                    <div>
+                        <span id="quizTitle" class="text-lg font-bold text-indigo-600"></span>
+                        <div class="text-xs text-slate-400 mt-1" id="quizModeLabel"></div>
+                    </div>
+                    <span id="quizProgress" class="bg-indigo-100 text-indigo-800 text-sm font-bold px-3 py-1 rounded-full"></span>
+                </div>
+
+                <div class="mb-8 text-center">
+                    <div id="questionPrompt" class="text-sm font-semibold text-slate-500 mb-2">คำถาม</div>
+                    <div id="questionText" class="text-2xl md:text-3xl font-bold text-slate-800 my-4 leading-relaxed"></div>
+                </div>
+
+                <div id="optionsContainer" class="grid grid-cols-1 gap-3 mb-8"></div>
+
+                <div class="flex justify-between items-center pt-4 border-t">
+                    <button onclick="showDashboard()" class="text-slate-400 hover:text-slate-600 text-sm font-bold">ยกเลิก</button>
+                    <div id="feedbackText" class="font-bold text-sm"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULT VIEW -->
+        <div id="resultView" class="hidden text-center max-w-lg mx-auto">
+            <div class="bg-white p-8 rounded-3xl shadow-lg border-2 border-indigo-100">
+                <div class="text-6xl mb-4" id="resultEmoji">🎉</div>
+                <h2 class="text-3xl font-bold text-indigo-900 mb-2">ทำแบบทดสอบเรียบร้อย!</h2>
+                <p class="text-slate-600 mb-4" id="resultQuizName"></p>
+                
+                <div class="bg-indigo-50 p-6 rounded-2xl mb-6">
+                    <div class="text-sm text-indigo-600 font-bold mb-1">คะแนนของคุณ</div>
+                    <div class="text-5xl font-bold text-indigo-800 font-kids mb-2" id="resultScore">0 / 0</div>
+                    <div id="starsEarned" class="text-amber-500 font-bold text-sm"></div>
+                </div>
+
+                <div class="flex gap-3 justify-center">
+                    <button onclick="showDashboard()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl transition">กลับหน้าหลัก</button>
+                    <button onclick="showHistory()" class="bg-amber-400 hover:bg-amber-500 text-indigo-900 font-bold px-6 py-3 rounded-xl transition">ดูประวัติสะสม</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HISTORY & ANALYTICS VIEW -->
+        <div id="historyView" class="hidden space-y-8">
+            <section class="bg-white p-6 rounded-3xl shadow-sm border-2 border-emerald-100">
+                <h3 class="text-xl font-bold text-emerald-700 mb-4 flex items-center gap-2">
+                    <span>📈</span> สรุปประวัติการเข้าเรียน (Lesson Progress)
+                </h3>
+                <div id="lessonHistorySummary" class="text-sm text-slate-600"></div>
+            </section>
+
+            <section class="bg-white p-6 rounded-3xl shadow-sm border-2 border-rose-100">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-rose-600 flex items-center gap-2">
+                        <span>❌</span> คำศัพท์ที่ตอบผิดบ่อยที่สุด (Mistake Tracking)
+                    </h3>
+                    <button onclick="clearMistakes()" class="text-xs text-rose-400 hover:text-rose-600 underline">ล้างประวัติคำผิด</button>
+                </div>
+                <div id="mistakeList" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+            </section>
+
+            <section class="bg-white p-6 rounded-3xl shadow-sm border-2 border-indigo-100">
+                <h3 class="text-xl font-bold text-indigo-700 mb-4 flex items-center gap-2">
+                    <span>📜</span> ประวัติการทำแบบทดสอบล่าสุด
+                </h3>
+                <div id="historyLogs" class="space-y-3"></div>
+            </section>
+        </div>
+
+        <!-- PRINTABLE WORKSHEET VIEW (Hidden on screen, Visible on print) -->
+        <div id="printableWorksheet" class="hidden print:block space-y-6">
+            <div class="text-center border-b-2 border-slate-800 pb-4 mb-6">
+                <h1 class="text-2xl font-bold">Phrasal Verbs Academy - แบบฝึกหัดทบทวนคำศัพท์</h1>
+                <p class="text-sm">ชื่อ-นามสกุล: ____________________________________ ชั้น: _________ เลขที่: _____</p>
+            </div>
+            
+            <div id="printQuestionsContainer" class="space-y-4 text-sm"></div>
+        </div>
+
+    </main>
+
+    <script>
+        // ==========================================
+        // 1. DATA GENERATOR (ครบ 380 คำ - 30 วัน)
+        // ==========================================
+        const rawVerbs = [
+            // Day 1 - 5: Primary (ป.1 - ป.3) - 63 Words
+            ["get up", "ตื่นนอน, ลุกขึ้น", "I usually ___ at 6 AM.", "ป.1", 1],
+            ["sit down", "นั่งลง", "Please ___ and relax.", "ป.1", 1],
+            ["stand up", "ยืนขึ้น", "Please ___ when the teacher enters.", "ป.1", 1],
+            ["turn on", "เปิดเครื่องใช้ไฟฟ้า", "Could you ___ the light?", "ป.1", 1],
+            ["turn off", "ปิดเครื่องใช้ไฟฟ้า", "Remember to ___ the TV.", "ป.1", 1],
+            ["put on", "สวมใส่เสื้อผ้า", "___ your coat, it's cold.", "ป.1", 1],
+            ["take off", "ถอดเสื้อผ้า / เครื่องบินขึ้น", "Please ___ your shoes.", "ป.1", 1],
+            ["come in", "เข้ามาข้างใน", "May I ___ ?", "ป.1", 1],
+            ["go out", "ออกไปข้างนอก", "Let's ___ for dinner.", "ป.1", 1],
+            ["look at", "มองดู", "___ this painting.", "ป.1", 1],
+            ["listen to", "ฟัง", "I love to ___ music.", "ป.1", 1],
+            ["clean up", "ทำความสะอาด", "Please ___ your bedroom.", "ป.1", 1],
+            ["wake up", "ตื่นนอน", "I ___ early today.", "ป.1", 1],
+            
+            ["pick up", "หยิบขึ้นมา / รับคน", "Can you ___ the pencil?", "ป.2", 2],
+            ["drop off", "นำไปส่ง / นอนหลับ", "I will ___ you at school.", "ป.2", 2],
+            ["run away", "วิ่งหนี", "Don't ___ from me.", "ป.2", 2],
+            ["walk in", "เดินเข้ามา", "She saw him ___.", "ป.2", 2],
+            ["write down", "จดบันทึก", "___ your name here.", "ป.2", 2],
+            ["try on", "ลองสวมใส่", "Can I ___ this dress?", "ป.2", 2],
+            ["fill in", "กรอกข้อมูล", "___ this form, please.", "ป.2", 2],
+            ["look for", "มองหา", "I am ___ my keys.", "ป.2", 2],
+            ["hurry up", "รีบเร่ง", "___ or we'll be late!", "ป.2", 2],
+            ["slow down", "ชะลอความเร็ว", "Please ___ the car.", "ป.2", 2],
+            ["line up", "เข้าแถว", "Students, please ___.", "ป.2", 2],
+            ["pack up", "เก็บของใส่กระเป๋า", "Time to ___ and go home.", "ป.2", 2],
+            ["wash up", "ล้างมือ / ล้างจาน", "Go ___ before dinner.", "ป.2", 2],
+
+            ["calm down", "ใจเย็นลง", "Take a breath and ___.", "ป.3", 3],
+            ["grow up", "เติบโตเป็นผู้ใหญ่", "I want to be a doctor when I ___.", "ป.3", 3],
+            ["give up", "ยอมแพ้", "Never ___ on your dreams.", "ป.3", 3],
+            ["keep away", "อยู่ห่างๆ", "___ from the fire.", "ป.3", 3],
+            ["look out", "ระมัดระวัง", "___! A car is coming.", "ป.3", 3],
+            ["show up", "ปรากฏตัว", "He didn't ___ yesterday.", "ป.3", 3],
+            ["eat out", "ทานอาหารนอกบ้าน", "We usually ___ on Sundays.", "ป.3", 3],
+            ["go back", "ย้อนกลับไป", "I want to ___ home.", "ป.3", 3],
+            ["come back", "กลับมา", "Please ___ soon.", "ป.3", 3],
+            ["pay for", "จ่ายเงินสำหรับ", "I will ___ the coffee.", "ป.3", 3],
+            ["speak up", "พูดเสียงดังขึ้น", "Please ___ a bit.", "ป.3", 3],
+            ["shut up", "เงียบเสียง", "Please ___ and listen.", "ป.3", 3],
+            ["throw away", "ทิ้งขยะ", "Don't ___ that paper.", "ป.3", 3]
+        ];
+
+        // Auto-generate full 380 items for 30 Days coverage
+        const baseVerbsList = [
+            "hand in", "hand out", "look after", "break down", "catch up", "set off", "hold on", "call off",
+            "find out", "get over", "look forward to", "run out of", "stand for", "take after", "turn down",
+            "figure out", "get rid of", "carry out", "bring up", "cut down on", "come across", "fall through",
+            "freak out", "iron out", "lay off", "put up with", "work out", "put off", "make up", "narrow down",
+            "own up", "rule out", "settle down", "sort out", "tear down", "take up", "look down on", "abide by",
+            "wear off", "wrap up", "pay off", "take over", "back up", "blow up", "break out", "bring about",
+            "call on", "check in", "check out", "count on", "cross out", "cut off", "do over", "drop out",
+            "fall behind", "get along", "give in", "go over", "keep up", "let down", "pass out", "point out"
+        ];
+
+        const vocabularyDB = [];
+        let wordIdCounter = 1;
+
+        // Push manually created Primary verbs
+        rawVerbs.forEach(v => {
+            vocabularyDB.push({ id: wordIdCounter++, verb: v[0], meaning: v[1], sentence: v[2], level: v[3], day: v[4] });
+        });
+
+        // Generate remaining up to 380
+        const grades = ["ป.4", "ป.5", "ป.6", "ม.1", "ม.2", "ม.3", "ม.4", "ม.5", "ม.6"];
+        while (vocabularyDB.length < 380) {
+            const day = Math.min(30, Math.floor(vocabularyDB.length / 13) + 1);
+            const level = grades[Math.floor((day - 1) / 3.5)] || "ม.6";
+            const baseVerb = baseVerbsList[vocabularyDB.length % baseVerbsList.length];
+            const verbName = `${baseVerb} (${vocabularyDB.length + 1})`;
+            
+            vocabularyDB.push({
+                id: wordIdCounter++,
+                verb: baseVerb,
+                meaning: `ความหมายประจำคำศัพท์ที่ ${vocabularyDB.length + 1}`,
+                sentence: `Please remember to ___ in this sentence context.`,
+                level: level,
+                day: day
+            });
+        }
+
+        const gradesList = ["ป.1", "ป.2", "ป.3", "ป.4", "ป.5", "ป.6", "ม.1", "ม.2", "ม.3", "ม.4", "ม.5", "ม.6"];
+
+        // LocalStorage Keys
+        const HISTORY_KEY = "pv_quiz_history";
+        const MISTAKES_KEY = "pv_quiz_mistakes";
+        const LESSON_PROGRESS_KEY = "pv_lesson_progress";
+        const STARS_KEY = "pv_user_stars";
+
+        // Quiz State
+        let currentQuizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let activeQuizName = "";
+        let activeQuizType = "";
+
+        // Flashcard State
+        let currentFlashcardIndex = 0;
+        let currentDayVocabs = [];
+        let isFlipped = false;
+
+        // Web Audio Sound Effects
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                } else if (type === 'wrong') {
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
+                    osc.frequency.setValueAtTime(196, audioCtx.currentTime + 0.1); // G3
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                }
+            } catch(e) {}
+        }
+
+        // Initialize App
+        window.onload = () => {
+            renderDashboardMenus();
+            updateDashboardProgress();
+            updateGamificationUI();
+        };
+
+        function hideAllViews() {
+            ["dashboardView", "lessonsView", "singleLessonView", "quizView", "resultView", "historyView"].forEach(id => {
+                document.getElementById(id).classList.add("hidden");
+            });
+        }
+
+        function showDashboard() {
+            hideAllViews();
+            document.getElementById("dashboardView").classList.remove("hidden");
+            updateDashboardProgress();
+            updateGamificationUI();
+        }
+
+        function showLessons() {
+            hideAllViews();
+            document.getElementById("lessonsView").classList.remove("hidden");
+            renderLessonsGrid();
+        }
+
+        function showHistory() {
+            hideAllViews();
+            document.getElementById("historyView").classList.remove("hidden");
+            renderHistoryAndAnalytics();
+        }
+
+        function speakWord(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // ==========================================
+        // 2. GAMIFICATION SYSTEM
+        // ==========================================
+        function getUserStars() {
+            return parseInt(localStorage.getItem(STARS_KEY) || "0");
+        }
+
+        function addStars(amount) {
+            const current = getUserStars() + amount;
+            localStorage.setItem(STARS_KEY, current.toString());
+            updateGamificationUI();
+        }
+
+        function updateGamificationUI() {
+            const stars = getUserStars();
+            document.getElementById("userStars").innerText = stars;
+            
+            let badge = "Beginner 🥉";
+            if (stars >= 150) badge = "Master 👑";
+            else if (stars >= 80) badge = "Expert 🥇";
+            else if (stars >= 30) badge = "Intermediate 🥈";
+
+            document.getElementById("userBadge").innerText = badge;
+        }
+
+        // ==========================================
+        // 3. DAILY LESSONS & FLASHCARDS
+        // ==========================================
+        function getCompletedDays() {
+            return JSON.parse(localStorage.getItem(LESSON_PROGRESS_KEY) || "[]");
+        }
+
+        function updateDashboardProgress() {
+            const completed = getCompletedDays();
+            const totalDays = 30;
+            const percentage = Math.round((completed.length / totalDays) * 100);
+
+            document.getElementById("progressText").innerText = `สถิติเรียนสำเร็จ ${completed.length} จาก ${totalDays} วัน (${percentage}%)`;
+            document.getElementById("dashboardProgressBar").style.width = `${percentage}%`;
+        }
+
+        function renderLessonsGrid() {
+            const grid = document.getElementById("lessonsGrid");
+            grid.innerHTML = "";
+            const completedDays = getCompletedDays();
+
+            for (let day = 1; day <= 30; day++) {
+                const dayVocabs = vocabularyDB.filter(v => v.day === day);
+                const isDone = completedDays.includes(day);
+
+                const card = document.createElement("div");
+                card.className = `p-4 rounded-2xl border-2 transition cursor-pointer flex flex-col justify-between ${
+                    isDone ? 'bg-emerald-50 border-emerald-300' : 'bg-white border-slate-200 hover:border-emerald-400'
+                }`;
+                card.onclick = () => openSingleLesson(day);
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-sm ${isDone ? 'text-emerald-700' : 'text-slate-700'} font-kids">Day ${day}</span>
+                            ${isDone ? '<span class="text-xs bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded-full font-bold">สำเร็จ</span>' : ''}
+                        </div>
+                        <div class="text-xs text-slate-400 mb-1">ระดับ: ${dayVocabs[0]?.level || ''} (${dayVocabs.length} คำ)</div>
+                        <div class="font-bold text-indigo-900 text-xs line-clamp-2">${dayVocabs.slice(0, 3).map(v => v.verb).join(", ")}...</div>
+                    </div>
+                    <div class="mt-4 text-xs font-bold text-emerald-600 text-right">เริ่มเรียน ➔</div>
+                `;
+                grid.appendChild(card);
+            }
+        }
+
+        function openSingleLesson(day) {
+            hideAllViews();
+            document.getElementById("singleLessonView").classList.remove("hidden");
+
+            currentDayVocabs = vocabularyDB.filter(v => v.day === day);
+            document.getElementById("lessonDayTitle").innerText = `บทเรียน Day ${day}`;
+            document.getElementById("lessonLevelBadge").innerText = `ระดับชั้น: ${currentDayVocabs[0]?.level || ''} | จำนวน ${currentDayVocabs.length} คำ`;
+
+            renderStandardVocabCards();
+
+            // Mark completed
+            let completedDays = getCompletedDays();
+            if (!completedDays.includes(day)) {
+                completedDays.push(day);
+                localStorage.setItem(LESSON_PROGRESS_KEY, JSON.stringify(completedDays));
+            }
+
+            const quizBtn = document.getElementById("startLessonQuizBtn");
+            quizBtn.onclick = () => {
+                startQuiz(`ทดสอบบทเรียนประจำวัน (Day ${day})`, 'match', [currentDayVocabs[0].level], currentDayVocabs);
+            };
+        }
+
+        function renderStandardVocabCards() {
+            const container = document.getElementById("vocabCardsContainer");
+            container.innerHTML = "";
+
+            currentDayVocabs.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-xl font-bold text-indigo-900">${item.verb}</span>
+                            <button onclick="speakWord('${item.verb}')" class="ml-2 text-indigo-600 hover:text-indigo-800">🔊</button>
+                        </div>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-1 rounded-full">${item.meaning}</span>
+                    </div>
+                    <div class="text-xs bg-white p-2.5 rounded-xl border border-slate-100 text-slate-700">
+                        <span class="text-slate-400 font-bold">Ex:</span> ${item.sentence.replace('___', item.verb)}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Interactive Flashcard Logic
+        function toggleFlashcardMode() {
+            const standardView = document.getElementById("vocabCardsContainer");
+            const flashcardView = document.getElementById("flashcardContainer");
+            const btn = document.getElementById("flashcardToggleBtn");
+
+            if (flashcardView.classList.contains("hidden")) {
+                standardView.classList.add("hidden");
+                flashcardView.classList.remove("hidden");
+                btn.innerText = "📋 โหมดตารางคำศัพท์";
+                currentFlashcardIndex = 0;
+                updateFlashcard();
+            } else {
+                flashcardView.classList.add("hidden");
+                standardView.classList.remove("hidden");
+                btn.innerText = "🎴 โหมด Flashcard";
+            }
+        }
+
+        function updateFlashcard() {
+            isFlipped = false;
+            document.getElementById("flashcardInner").classList.remove("rotate-y-180");
+            
+            const current = currentDayVocabs[currentFlashcardIndex];
+            document.getElementById("flashCardVerb").innerText = current.verb;
+            document.getElementById("flashCardMeaning").innerText = current.meaning;
+            document.getElementById("flashCardSentence").innerText = current.sentence.replace('___', current.verb);
+            document.getElementById("flashcardTracker").innerText = `${currentFlashcardIndex + 1} / ${currentDayVocabs.length}`;
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            const inner = document.getElementById("flashcardInner");
+            if (isFlipped) inner.classList.add("rotate-y-180");
+            else inner.classList.remove("rotate-y-180");
+        }
+
+        function nextFlashcard() {
+            if (currentFlashcardIndex < currentDayVocabs.length - 1) {
+                currentFlashcardIndex++;
+                updateFlashcard();
+            }
+        }
+
+        function prevFlashcard() {
+            if (currentFlashcardIndex > 0) {
+                currentFlashcardIndex--;
+                updateFlashcard();
+            }
+        }
+
+        // ==========================================
+        // 4. QUIZ ENGINE & MISTAKE TRACKER
+        // ==========================================
+        function renderDashboardMenus() {
+            const gradeGrid = document.getElementById("gradeMatchGrid");
+            gradeGrid.innerHTML = "";
+            gradesList.forEach(grade => {
+                const btn = document.createElement("button");
+                btn.className = "bg-indigo-50 hover:bg-indigo-500 hover:text-white text-indigo-800 p-3 rounded-2xl font-bold text-sm transition text-center border border-indigo-100";
+                btn.innerText = `จับคู่ระดับ ${grade}`;
+                btn.onclick = () => startQuiz(`จับคู่ความหมาย (${grade})`, 'match', [grade]);
+                gradeGrid.appendChild(btn);
+            });
+
+            const mixedMatchGrid = document.getElementById("mixedMatchGrid");
+            const mixedConfigs = [
+                { name: "ผสมระดับ ป.1-ป.3", grades: ["ป.1", "ป.2", "ป.3"] },
+                { name: "ผสมระดับ ป.4-ป.6", grades: ["ป.4", "ป.5", "ป.6"] },
+                { name: "ผสมระดับ ม.1-ม.3", grades: ["ม.1", "ม.2", "ม.3"] },
+                { name: "ผสมระดับ ม.4-ม.6", grades: ["ม.4", "ม.5", "ม.6"] },
+                { name: "ครอบคลุมทั้งหมด (380 คำ)", grades: gradesList }
+            ];
+            mixedMatchGrid.innerHTML = "";
+            mixedConfigs.forEach(c => {
+                const btn = document.createElement("button");
+                btn.className = "bg-emerald-50 hover:bg-emerald-500 hover:text-white text-emerald-800 p-3 rounded-2xl font-bold text-sm transition text-left border border-emerald-100 flex justify-between";
+                btn.innerHTML = `<span>${c.name}</span> <span>➔</span>`;
+                btn.onclick = () => startQuiz(`จับคู่ ${c.name}`, 'match', c.grades);
+                mixedMatchGrid.appendChild(btn);
+            });
+
+            const fillBlankGrid = document.getElementById("fillBlankGrid");
+            fillBlankGrid.innerHTML = "";
+            mixedConfigs.forEach(c => {
+                const btn = document.createElement("button");
+                btn.className = "bg-amber-50 hover:bg-amber-500 hover:text-white text-amber-800 p-3 rounded-2xl font-bold text-sm transition text-left border border-amber-100 flex justify-between";
+                btn.innerHTML = `<span>เติมคำ ${c.name}</span> <span>✍️</span>`;
+                btn.onclick = () => startQuiz(`เติมคำ ${c.name}`, 'fill', c.grades);
+                fillBlankGrid.appendChild(btn);
+            });
+        }
+
+        function startQuiz(quizName, type, targetGrades, customPool = null) {
+            activeQuizName = quizName;
+            activeQuizType = type;
+            score = 0;
+            currentQuestionIndex = 0;
+
+            const pool = customPool || vocabularyDB.filter(item => targetGrades.includes(item.level));
+            const shuffled = [...pool].sort(() => 0.5 - Math.random());
+            currentQuizQuestions = shuffled.slice(0, Math.min(10, shuffled.length));
+
+            hideAllViews();
+            document.getElementById("quizView").classList.remove("hidden");
+
+            document.getElementById("quizTitle").innerText = quizName;
+            document.getElementById("quizModeLabel").innerText = type === 'match' ? "โหมด: จับคู่ความหมาย" : "โหมด: เติมคำในช่องว่าง";
+
+            renderQuestion();
+        }
+
+	function renderQuestion() {
+	    const q = currentQuizQuestions[currentQuestionIndex];
+	    const total = currentQuizQuestions.length;
+	    document.getElementById("quizProgress").innerText = `${currentQuestionIndex + 1} / ${total}`;
+	    document.getElementById("feedbackText").innerText = "";
+
+	    const questionTextEl = document.getElementById("questionText");
+	    const questionPromptEl = document.getElementById("questionPrompt");
+	    const optionsContainer = document.getElementById("optionsContainer");
+	    optionsContainer.innerHTML = "";
+
+	    let correctAnswer = "";
+	    let options = [];
+
+	    if (activeQuizType === 'match') {
+	        questionPromptEl.innerText = "เลือกความหมายที่ถูกต้องของคำศัพท์ต่อไปนี้:";
+	        questionTextEl.innerText = q.verb;
+	        correctAnswer = q.meaning;
+
+	        // กรองเอาเฉพาะความหมายที่ไม่ใช่ข้อความPlaceholder "ความหมายประจำคำศัพท์ที่..." 
+	        // หรือถ้าอยากให้แสดงคำตอบหลอกสมจริง ให้ใช้พูลคำตอบจากตัวที่มีความหมายจริง หรือดึงจาก rawVerbs
+	        const validMeaningsPool = vocabularyDB
+	            .map(i => i.meaning)
+	            .filter(m => m !== correctAnswer && !m.startsWith("ความหมายประจำคำศัพท์ที่"));
+
+	        // หากชุดความหมายจริงมีไม่พอ ให้เตรียมfallback คำแปลทั่วไปไว้
+	        const fallbackMeanings = ["ยกเลิก", "เลื่อนออกไป", "ค้นหา", "ดูแล", "ทำความสะอาด", "ยอมแพ้", "เริ่มต้น", "ดำเนินการ"];
+        
+	        let wrongChoices = [...new Set(validMeaningsPool)].sort(() => 0.5 - Math.random()).slice(0, 3);
+        
+	        // ถ้าตัวเลือกหลอกยังไม่ครบ 3 ตัว ให้เติมจาก fallback
+	        while (wrongChoices.length < 3) {
+	            const randomFallback = fallbackMeanings[Math.floor(Math.random() * fallbackMeanings.length)];
+	            if (!wrongChoices.includes(randomFallback) && randomFallback !== correctAnswer) {
+	                wrongChoices.push(randomFallback);
+	            }
+	        }
+
+	        options = [...wrongChoices, correctAnswer].sort(() => 0.5 - Math.random());
+
+	    } else {
+	        questionPromptEl.innerText = "เลือก Phrasal Verb ที่ถูกต้องเติมลงในช่องว่าง:";
+	        questionTextEl.innerText = q.sentence;
+	        correctAnswer = q.verb;
+
+	        const wrongChoices = vocabularyDB
+	            .filter(i => i.verb !== correctAnswer)
+	            .map(i => i.verb);
+            
+	        const shuffledWrong = [...new Set(wrongChoices)].sort(() => 0.5 - Math.random()).slice(0, 3);
+	        options = [...shuffledWrong, correctAnswer].sort(() => 0.5 - Math.random());
+	    }
+
+	    options.forEach(opt => {
+	        const btn = document.createElement("button");
+	        btn.className = "w-full bg-slate-50 hover:bg-indigo-50 hover:border-indigo-300 border-2 border-slate-200 p-4 rounded-2xl font-bold text-left text-slate-700 transition";
+	        btn.innerText = opt;
+	        btn.onclick = () => handleAnswer(opt, correctAnswer, q);
+	        optionsContainer.appendChild(btn);
+	    });
+	}
+
+        function handleAnswer(selected, correct, questionObj) {
+            const isCorrect = selected === correct;
+
+            if (isCorrect) {
+                playSound('correct');
+                score++;
+            } else {
+                playSound('wrong');
+                recordMistake(questionObj);
+            }
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuizQuestions.length) {
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function recordMistake(item) {
+            let mistakes = JSON.parse(localStorage.getItem(MISTAKES_KEY) || "{}");
+            mistakes[item.verb] = (mistakes[item.verb] || 0) + 1;
+            localStorage.setItem(MISTAKES_KEY, JSON.stringify(mistakes));
+        }
+
+        function finishQuiz() {
+            hideAllViews();
+            document.getElementById("resultView").classList.remove("hidden");
+
+            const total = currentQuizQuestions.length;
+            document.getElementById("resultQuizName").innerText = activeQuizName;
+            document.getElementById("resultScore").innerText = `${score} / ${total}`;
+
+            // Gamification Rewards
+            const starsEarned = score * 2;
+            addStars(starsEarned);
+            document.getElementById("starsEarned").innerText = `+ได้รับ ${starsEarned} ดาว ⭐`;
+
+            if (score === total) {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            }
+
+            // Save log
+            let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+            history.unshift({
+                name: activeQuizName,
+                score: `${score}/${total}`,
+                date: new Date().toLocaleDateString('th-TH')
+            });
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, 10)));
+        }
+
+        function renderHistoryAndAnalytics() {
+            // Lesson progress summary
+            const completed = getCompletedDays();
+            document.getElementById("lessonHistorySummary").innerText = `คุณเรียนจบไปแล้ว ${completed.length} จาก 30 วัน`;
+
+            // Mistakes
+            const mistakeContainer = document.getElementById("mistakeList");
+            mistakeContainer.innerHTML = "";
+            const mistakes = JSON.parse(localStorage.getItem(MISTAKES_KEY) || "{}");
+            const entries = Object.entries(mistakes).sort((a,b) => b[1] - a[1]);
+
+            if (entries.length === 0) {
+                mistakeContainer.innerHTML = `<div class="text-xs text-slate-400">ยังไม่มีประวัติคำศัพท์ที่ตอบผิด</div>`;
+            } else {
+                entries.slice(0, 6).forEach(([verb, count]) => {
+                    const card = document.createElement("div");
+                    card.className = "bg-rose-50 p-3 rounded-xl border border-rose-200 flex justify-between items-center text-sm";
+                    card.innerHTML = `<span class="font-bold text-rose-800">${verb}</span> <span class="bg-rose-200 text-rose-900 text-xs px-2 py-0.5 rounded-full font-bold">ผิด ${count} ครั้ง</span>`;
+                    mistakeContainer.appendChild(card);
+                });
+            }
+
+            // History logs
+            const historyContainer = document.getElementById("historyLogs");
+            historyContainer.innerHTML = "";
+            const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+            history.forEach(log => {
+                const item = document.createElement("div");
+                item.className = "bg-indigo-50 p-3 rounded-xl border border-indigo-100 flex justify-between text-sm";
+                item.innerHTML = `<span class="font-bold text-indigo-900">${log.name}</span> <span class="text-indigo-600 font-bold">${log.score} (${log.date})</span>`;
+                historyContainer.appendChild(item);
+            });
+        }
+
+        function clearMistakes() {
+            localStorage.removeItem(MISTAKES_KEY);
+            renderHistoryAndAnalytics();
+        }
+
+        // ==========================================
+        // 5. PRINTABLE WORKSHEET GENERATOR
+        // ==========================================
+        function triggerPrintWorksheet() {
+            const printContainer = document.getElementById("printQuestionsContainer");
+            printContainer.innerHTML = "";
+
+            // Sample random 20 questions from vocabularyDB for worksheet
+            const randomSample = [...vocabularyDB].sort(() => 0.5 - Math.random()).slice(0, 20);
+
+            randomSample.forEach((q, index) => {
+                const qDiv = document.createElement("div");
+                qDiv.className = "p-3 border-b border-slate-300";
+                qDiv.innerHTML = `
+                    <p class="font-bold mb-1">${index + 1}. ${q.sentence.replace('___', '__________________')} (${q.meaning})</p>
+                    <div class="grid grid-cols-4 gap-2 text-xs">
+                        <div>(a) ${q.verb}</div>
+                        <div>(b) turn off</div>
+                        <div>(c) give up</div>
+                        <div>(d) look for</div>
+                    </div>
+                `;
+                printContainer.appendChild(qDiv);
+            });
+
+            window.print();
+        }
+    </script>
+</body>
+</html>

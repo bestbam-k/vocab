@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BestBam Vocab - ศูนย์รวมคำศัพท์ภาษาอังกฤษ</title>
+    <!-- Google Fonts: Prompt สำหรับรองรับภาษาไทยและอังกฤษให้ดูสวยงามทันสมัย -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Main Container */
+        main {
+            max-width: 800px;
+            width: 90%;
+            margin: 50px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* Card Link Styles */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: #667eea;
+            transition: width 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+        }
+
+        .card:hover::before {
+            width: 10px;
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #718096;
+            line-height: 1.5;
+        }
+
+        .card .icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>BestBam Vocab</h1>
+        <p>ศูนย์รวมการเรียนรู้คำศัพท์และ Phrasal Verbs ภาษาอังกฤษ</p>
+    </header>
+
+    <!-- Navigation Cards -->
+    <main>
+        <!-- Link ไป Phrasal Verbs -->
+        <a href="phrasal_verbs.html" class="card">
+            <div class="icon">📚</div>
+            <h2>Phrasal Verbs</h2>
+            <p>เรียนรู้คำกริยาวลีที่ใช้บ่อยในชีวิตประจำวัน พร้อมความหมายและตัวอย่างประโยค</p>
+        </a>
+
+        <!-- Link ไป Vocabulary App -->
+        <a href="vocabulary_app_full_v2.html" class="card">
+            <div class="icon">🚀</div>
+            <h2>Vocabulary App</h2>
+            <p>แอปพลิเคชันฝึกฝนและทบทวนคำศัพท์ภาษาอังกฤษฉบับเต็ม เวอร์ชัน 2</p>
+        </a>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2026 BestBam Vocab. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
