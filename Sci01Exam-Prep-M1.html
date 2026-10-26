@@ -1,0 +1,2984 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบแบบฝึกหัดวิทยาศาสตร์ สอบเข้า ม.1 (200 ข้อ)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js for Progress Graphs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts Prompt -->
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          },
+          fontFamily: {
+            sans: ['Prompt', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    .dark .custom-scrollbar::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
+    .math-formula {
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200 flex flex-col">
+
+  <!-- Navbar Navigation Header -->
+  <header class="sticky top-0 z-30 bg-white/90 dark:bg-slate-800/90 backdrop-blur border-b border-slate-200 dark:border-slate-700 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="app.showPage('dashboard')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-sky-500/20">
+          <i class="fa-solid fa-atom text-xl animate-spin-slow"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600 dark:from-sky-400 dark:to-indigo-400">
+            SciMaster M.1
+          </h1>
+          <p class="text-xs text-slate-500 dark:text-slate-400">คลังข้อสอบวิทยาศาสตร์สอบเข้า ม.1 (200 ข้อ)</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2 sm:space-x-4">
+        <button onclick="app.showPage('dashboard')" class="px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-house text-sky-500"></i>
+          <span class="hidden sm:inline">หน้าหลัก</span>
+        </button>
+        <button onclick="app.showPage('analytics')" class="px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-chart-line text-emerald-500"></i>
+          <span class="hidden sm:inline">ประวัติ & สถิติ</span>
+        </button>
+
+        <!-- Dark/Light Theme Toggle -->
+        <button id="themeToggleBtn" onclick="app.toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-sky-500 transition">
+          <i class="fa-solid fa-moon text-lg dark:hidden"></i>
+          <i class="fa-solid fa-sun text-lg hidden dark:block text-amber-400"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- PAGE 1: DASHBOARD / SET SELECTION -->
+    <section id="page-dashboard" class="space-y-6">
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 p-6 sm:p-8 text-white shadow-xl">
+        <div class="relative z-10 max-w-2xl">
+          <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-semibold mb-3">
+            <i class="fa-solid fa-graduation-cap mr-1"></i> เตรียมสอบเข้า ม.1 โรงเรียนแข่งขันสูง
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold mb-2">แบบฝึกหัดตลุยโจทย์วิทยาศาสตร์ 10 ชุด</h2>
+          <p class="text-sky-100 text-sm sm:text-base leading-relaxed opacity-95">
+            ครอบคลุมเนื้อหาชีววิทยา เคมี ฟิสิกส์ กายภาพ ตามหลักสูตรเข้มข้น เรียงระดับจากพื้นฐาน ความเข้าใจ สู่โจทย์วิเคราะห์วิเคราะห์ประยุกต์และหลุมพรางสอบเข้าสวนกุหลาบ/สาธิต
+          </p>
+          <div class="mt-4 flex flex-wrap gap-4 text-xs sm:text-sm font-medium">
+            <div class="flex items-center gap-1.5 bg-black/20 px-3 py-1.5 rounded-lg">
+              <i class="fa-solid fa-list-check text-amber-300"></i> 10 ชุดแบบทดสอบ
+            </div>
+            <div class="flex items-center gap-1.5 bg-black/20 px-3 py-1.5 rounded-lg">
+              <i class="fa-solid fa-circle-question text-sky-300"></i> รวม 200 ข้อ
+            </div>
+            <div class="flex items-center gap-1.5 bg-black/20 px-3 py-1.5 rounded-lg">
+              <i class="fa-solid fa-award text-emerald-300"></i> เฉลยละเอียดทุกข้อ
+            </div>
+          </div>
+        </div>
+        <div class="absolute -right-10 -bottom-10 opacity-20 text-white text-9xl pointer-events-none hidden md:block">
+          <i class="fa-solid fa-microscope"></i>
+        </div>
+      </div>
+
+      <!-- Quick Stats Progress Summary Bar -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3">
+          <div class="p-3 bg-sky-100 dark:bg-sky-900/40 text-sky-600 dark:text-sky-400 rounded-lg text-xl">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">ทำไปแล้วทั้งหมด</div>
+            <div id="stat-completed-count" class="text-xl font-bold">0 / 10 ชุด</div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3">
+          <div class="p-3 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-lg text-xl">
+            <i class="fa-solid fa-bullseye"></i>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">คะแนนเฉลี่ย</div>
+            <div id="stat-avg-score" class="text-xl font-bold">0%</div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3">
+          <div class="p-3 bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 rounded-lg text-xl">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">คะแนนสูงสุด</div>
+            <div id="stat-max-score" class="text-xl font-bold">0/20</div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-3">
+          <div class="p-3 bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 rounded-lg text-xl">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">จำนวนครั้งที่สอบ</div>
+            <div id="stat-total-attempts" class="text-xl font-bold">0 ครั้ง</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test Sets Grid Header -->
+      <div class="flex items-center justify-between pt-2">
+        <h3 class="text-xl font-bold flex items-center gap-2">
+          <i class="fa-solid fa-book-open text-sky-500"></i> เลือกชุดแบบฝึกหัด (Set 1 - 10)
+        </h3>
+        <span class="text-xs text-slate-500">เรียงระดับตามความยาก Easy &rarr; Hard</span>
+      </div>
+
+      <!-- Test Sets Grid Containers -->
+      <div id="sets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Javascript will inject 10 Cards here dynamically -->
+      </div>
+    </section>
+
+    <!-- PAGE 2: QUIZ TAKING PAGE -->
+    <section id="page-quiz" class="hidden space-y-4">
+      <!-- Quiz Header & Progress -->
+      <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap items-center justify-between gap-4 sticky top-20 z-20">
+        <div class="flex items-center space-x-3">
+          <button onclick="app.confirmExitQuiz()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          <div>
+            <h2 id="quiz-title" class="font-bold text-lg leading-tight">แบบฝึกหัด ชุดที่ 1</h2>
+            <div id="quiz-difficulty-tag" class="text-xs text-sky-600 dark:text-sky-400">ระดับ: พื้นฐาน</div>
+          </div>
+        </div>
+
+        <!-- Timer & Progress Bar -->
+        <div class="flex items-center space-x-4">
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300 font-mono font-medium text-sm">
+            <i class="fa-regular fa-clock animate-pulse"></i>
+            <span id="quiz-timer">00:00</span>
+          </div>
+          <button onclick="app.submitQuiz()" class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg font-medium text-sm shadow-md shadow-emerald-500/20 hover:opacity-90 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-paper-plane"></i> ส่งคำตอบ
+          </button>
+        </div>
+      </div>
+
+      <!-- Quiz Body Layout (Main Question + Quick Question Navigator) -->
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- Question Box (3 cols) -->
+        <div class="lg:col-span-3 space-y-4">
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm min-h-[380px] flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span id="q-number-badge" class="px-3 py-1 bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 rounded-full text-xs font-semibold">
+                  ข้อที่ 1 / 20
+                </span>
+                <span id="q-category-tag" class="text-xs font-medium text-slate-400">
+                  ระบบนิเวศ
+                </span>
+              </div>
+
+              <!-- Question Text -->
+              <h3 id="q-text" class="text-lg sm:text-xl font-semibold mb-6 leading-relaxed">
+                ข้อใดจัดเป็นผู้ผลิตในระบบนิเวศ?
+              </h3>
+
+              <!-- Options Form -->
+              <div id="q-options" class="space-y-3">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- Quiz Navigation Controls (Prev/Next) -->
+            <div class="flex justify-between items-center pt-6 border-t border-slate-100 dark:border-slate-700 mt-6">
+              <button id="btn-prev-q" onclick="app.navQuestion(-1)" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-sm font-medium transition disabled:opacity-40 flex items-center gap-2">
+                <i class="fa-solid fa-chevron-left"></i> ย้อนกลับ
+              </button>
+              <span id="quiz-answered-count" class="text-xs text-slate-500">ตอบแล้ว 0/20 ข้อ</span>
+              <button id="btn-next-q" onclick="app.navQuestion(1)" class="px-5 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-sm font-medium shadow-md transition flex items-center gap-2">
+                ถัดไป <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question Grid Navigator (1 col) -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm h-fit space-y-4">
+          <h4 class="font-bold text-sm flex items-center gap-2 text-slate-700 dark:text-slate-300">
+            <i class="fa-solid fa-border-all text-sky-500"></i> สรุปข้อสอบ 20 ข้อ
+          </h4>
+          <div id="q-grid-nav" class="grid grid-cols-5 gap-2">
+            <!-- 20 Buttons injected via JS -->
+          </div>
+          <div class="pt-3 border-t border-slate-100 dark:border-slate-700 text-xs space-y-1.5 text-slate-500">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded bg-sky-500 inline-block"></span> ตอบแล้ว
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded bg-slate-200 dark:bg-slate-700 border inline-block"></span> ยังไม่ได้ตอบ
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: RESULT & EXPLANATIONS PAGE -->
+    <section id="page-result" class="hidden space-y-6">
+      <!-- Score Overview Header -->
+      <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 sm:p-8 shadow-sm text-center relative overflow-hidden">
+        <div id="result-confetti" class="absolute inset-0 pointer-events-none"></div>
+        <div class="inline-flex p-4 rounded-full bg-gradient-to-tr from-sky-400 to-indigo-500 text-white text-3xl mb-3 shadow-lg shadow-sky-500/30">
+          <i id="result-icon" class="fa-solid fa-trophy"></i>
+        </div>
+        <h2 id="result-title" class="text-2xl font-bold mb-1">ยอดเยี่ยมมาก!</h2>
+        <p id="result-subtitle" class="text-slate-500 dark:text-slate-400 text-sm mb-4">คุณทำแบบฝึกหัดชุดนี้เสร็จเรียบร้อยแล้ว</p>
+        
+        <div class="max-w-md mx-auto bg-slate-50 dark:bg-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-800 grid grid-cols-3 gap-2 text-center my-4">
+          <div>
+            <div class="text-xs text-slate-500">คะแนนที่ได้</div>
+            <div id="result-score" class="text-2xl font-extrabold text-sky-600 dark:text-sky-400">18 / 20</div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500">คิดเป็น</div>
+            <div id="result-percent" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">90%</div>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500">เวลาที่ใช้</div>
+            <div id="result-time" class="text-2xl font-extrabold text-purple-600 dark:text-purple-400">08:45</div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-3 mt-6">
+          <button onclick="app.showPage('dashboard')" class="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 font-medium text-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-house"></i> กลับสู่หน้าหลัก
+          </button>
+          <button onclick="app.retakeCurrentQuiz()" class="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-medium text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-rotate-right"></i> ทำแบบทดสอบอีกครั้ง
+          </button>
+        </div>
+      </div>
+
+      <!-- Explanations List Section -->
+      <div class="space-y-4">
+        <h3 class="text-xl font-bold flex items-center gap-2">
+          <i class="fa-solid fa-book-bookmark text-emerald-500"></i> เฉลยและคำอธิบายอย่างละเอียด (Explanations)
+        </h3>
+        <div id="explanations-list" class="space-y-4">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4: ANALYTICS & HISTORY PAGE -->
+    <section id="page-analytics" class="hidden space-y-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-2xl font-bold">ประวัติการสอบ & วิเคราะห์พัฒนาการ</h2>
+          <p class="text-slate-500 text-sm">ติดตามความเข้าใจและการพัฒนาในแต่ละชุดแบบฝึกหัด</p>
+        </div>
+        <button onclick="app.clearHistoryData()" class="px-3 py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 text-xs font-semibold hover:bg-rose-100 transition border border-rose-200 dark:border-rose-900 flex items-center gap-1.5">
+          <i class="fa-solid fa-trash-can"></i> ล้างประวัติทั้งหมด
+        </button>
+      </div>
+
+      <!-- Performance Chart -->
+      <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+        <h3 class="font-bold text-sm text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-chart-column text-sky-500"></i> คะแนนสูงสุดของแต่ละชุด (% ความถูกต้อง)
+        </h3>
+        <div class="h-64 sm:h-80 w-full">
+          <canvas id="progressChart"></canvas>
+        </div>
+      </div>
+
+      <!-- History Table -->
+      <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-slate-100 dark:border-slate-700 font-bold text-sm">
+          <i class="fa-solid fa-list text-indigo-500 mr-2"></i> บันทึกประวัติการสอบย้อนหลัง
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 dark:bg-slate-900 text-slate-500 text-xs uppercase border-b border-slate-200 dark:border-slate-700">
+              <tr>
+                <th class="p-3.5">วันที่-เวลา</th>
+                <th class="p-3.5">ชุดแบบฝึกหัด</th>
+                <th class="p-3.5">คะแนน (ข้อ)</th>
+                <th class="p-3.5">คิดเป็น %</th>
+                <th class="p-3.5">เวลาที่ใช้</th>
+                <th class="p-3.5 text-right">ดำเนินการ</th>
+              </tr>
+            </thead>
+            <tbody id="history-table-body" class="divide-y divide-slate-100 dark:divide-slate-700">
+              <!-- History Rows injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Confirm Exit Quiz Modal -->
+  <div id="modal-confirm" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+      <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xl mx-auto">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <div class="text-center">
+        <h3 class="text-lg font-bold">ยืนยันการออกจากแบบทดสอบ?</h3>
+        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">คำตอบที่คุณเลือกไว้ในชุดนี้จะยังไม่ถูกบันทึก คุณต้องการออกหรือไม่?</p>
+      </div>
+      <div class="flex gap-3 pt-2">
+        <button onclick="app.closeModal('modal-confirm')" class="flex-1 py-2 rounded-xl border border-slate-300 dark:border-slate-600 font-medium text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">ทำต่อ</button>
+        <button onclick="app.exitQuizNow()" class="flex-1 py-2 rounded-xl bg-rose-600 text-white font-medium text-sm hover:bg-rose-700 transition">ออกจากสอบ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Application Logic & Question Database Script -->
+  <script>
+    /* ==========================================================================
+       1. QUESTION DATABASE (10 SETS x 20 QUESTIONS = 200 QUESTIONS)
+       Based on 'วิทยาศาสตร์.pdf' Content Chapters 1-12
+       ========================================================================== */
+    const QUESTION_DATABASE = [
+      // SET 1: Easy / Basic Concepts
+      {
+        setId: 1,
+        title: "ชุดที่ 1: มโนทัศน์พื้นฐานและสิ่งมีชีวิต (Basic Concepts)",
+        difficulty: "ง่าย (Easy)",
+        desc: "เน้นการทดสอบความรู้พื้นฐาน โครงสร้างดอกไม้ ห่วงโซ่อาหาร การจำแนกสาร และพืชใบเลี้ยงเดี่ยว/คู่",
+        questions: [
+          {
+            id: 101,
+            cat: "ระบบนิเวศ",
+            text: "ในสายใยอาหาร (Food Web) ข้อใดคือจุดสังเกตสำคัญของสิ่งมีชีวิตที่เป็น 'ผู้ผลิต' (Producer)?",
+            options: [
+              "ก. มีแต่ลูกศรชี้ออกจากตัวเองเท่านั้น",
+              "ข. มีแต่ลูกศรชี้เข้าหาตัวเองเท่านั้น",
+              "ค. มีลูกศรทั้งชี้เข้าและชี้ออกจำนวนเท่ากัน",
+              "ง. ไม่มีลูกศรเชื่อมโยงกับสิ่งมีชีวิตอื่น"
+            ],
+            answer: 0,
+            explain: "ตามกฎการอ่านสายใยอาหาร ผู้ผลิตสร้างอาหารเองได้จึงเป็นผู้ให้พลังงาน ดังนั้น จะมีแต่ 'ลูกศรชี้ออกจากตัวเอง' ไปยังผู้บริโภคเท่านั้น (ไม่มีลูกศรชี้เข้า)"
+          },
+          {
+            id: 102,
+            cat: "โครงสร้างดอกไม้",
+            text: "ส่วนประกอบใดของดอกไม้ทำหน้าที่ปกป้องส่วนต่างๆ ในขณะที่ดอกยังตูมอยู่?",
+            options: ["ก. กลีบดอก", "ข. กลีบเลี้ยง", "ค. อับเรณู", "ง. ยอดเกสรเพศเมีย"],
+            answer: 1,
+            explain: "กลีบเลี้ยง (Sepal) อยู่ชั้นนอกสุด มักมีสีเขียว ทำหน้าที่ห่อหุ้มและป้องกันอันตรายแก่ส่วนของดอกขณะเป็นดอกตูม"
+          },
+          {
+            id: 103,
+            cat: "โครงสร้างดอกไม้",
+            text: "หลังจากการปฏิสนธิของพืชดอก 'รังไข่ (Ovary)' จะเจริญเติบโตไปเป็นสิ่งใด?",
+            options: ["ก. เมล็ด (Seed)", "ข. ผล (Fruit)", "ค. เปลือกคุ้มเมล็ด", "ง. เนื้อผลไม้"],
+            answer: 1,
+            explain: "หลังการปฏิสนธิ รังไข่ (Ovary) จะเจริญไปเป็น 'ผล (Fruit)' ส่วน ออวุล (Ovule) จะเจริญไปเป็น 'เมล็ด (Seed)'"
+          },
+          {
+            id: 104,
+            cat: "การจำแนกพืช",
+            text: "พืชในข้อใดต่อไปนี้จัดเป็น 'พืชใบเลี้ยงเดี่ยว' ทั้งหมด?",
+            options: [
+              "ก. มะม่วง กุหลาบ ชบา",
+              "ข. ข้าวโพด มะพร้าว ไผ่",
+              "ค. ทานตะวัน ส้ม แตงกวา",
+              "ง. ถั่ว ฝรั่ง มะเขือเทศ"
+            ],
+            answer: 1,
+            explain: "ข้าวโพด มะพร้าว ไผ่ ตระกูลหญ้า มีระบบรากฝอย เส้นใบขนาน จัดเป็นพืชใบเลี้ยงเดี่ยว"
+          },
+          {
+            id: 105,
+            cat: "การจำแนกพืช",
+            text: "กลุ่มพืชในข้อใดจัดเป็น 'พืชไม่มีดอก' ที่สืบพันธุ์ด้วยการสร้างสปอร์ทั้งหมด?",
+            options: [
+              "ก. มอส, เฟิน, ผักแว่น",
+              "ข. สนสองใบ, กล้วยไม้, ชบา",
+              "ค. ผักกูด, มะพร้าว, ปรง",
+              "ง. ชายผ้าสีดา, ทานตะวัน, ขิง"
+            ],
+            answer: 0,
+            explain: "สูตรจำพืชไร้ดอก: 'มอส - เฟิน - สน - ปรง - ผักแว่น' โดย มอส, เฟิน, ผักแว่น สืบพันธุ์ด้วยสปอร์"
+          },
+          {
+            id: 106,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์กลุ่มใดจัดเป็น 'สัตว์เลือดอุ่น' (Homeotherm) ทั้งหมด?",
+            options: [
+              "ก. ปลา และ สัตว์ครึ่งน้ำครึ่งบก",
+              "ข. สัตว์เลื้อยคลาน และ สัตว์ปีก",
+              "ค. สัตว์ปีก และ สัตว์เลี้ยงลูกด้วยนม",
+              "ง. สัตว์เลี้ยงลูกด้วยนม และ สัตว์เลื้อยคลาน"
+            ],
+            answer: 2,
+            explain: "สัตว์เลือดอุ่นอุณหภูมิร่างกายคงที่ ได้แก่ 'สัตว์ปีก' และ 'สัตว์เลี้ยงลูกด้วยนม' ส่วนกลุ่มอื่นเป็นสัตว์เลือดเย็น"
+          },
+          {
+            id: 107,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "ความสัมพันธ์ระหว่าง 'ผีเสื้อกับดอกไม้' เป็นความสัมพันธ์แบบใด?",
+            options: [
+              "ก. ภาวะพึ่งพากัน (+, +) แยกกันไม่ได้",
+              "ข. ภาวะได้ประโยชน์ร่วมกัน (+, +) แยกกันอยู่ได้",
+              "ค. ภาวะอิงอาศัย (+, 0)",
+              "ง. ภาวะปรสิต (+, -)"
+            ],
+            answer: 1,
+            explain: "ผีเสื้อได้น้ำหวาน ดอกไม้ได้รับการผสมเกสร ทั้งคู่ได้ประโยชน์ (+, +) แต่สามารถแยกกันไปอยู่อื่นได้ จัดเป็นภาวะได้ประโยชน์ร่วมกัน (Protocooperation)"
+          },
+          {
+            id: 108,
+            cat: "วิตามินและอาหาร",
+            text: "วิตามินชนิดใดจัดอยู่ในกลุ่ม 'วิตามินที่ละลายในไขมัน'?",
+            options: ["ก. วิตามิน B1 และ C", "ข. วิตามิน B12 และ C", "ค. วิตามิน A, D, E, K", "ง. วิตามิน B รวมทั้งหมด"],
+            answer: 2,
+            explain: "วิตามินที่ละลายในไขมัน ได้แก่ A, D, E, K (สูตรจำ ADEK) ส่วน B และ C ละลายในน้ำ"
+          },
+          {
+            id: 109,
+            cat: "ระบบย่อยอาหาร",
+            text: "อวัยวะใดเป็นจุดเริ่มต้นของการย่อยสารอาหารประเภท 'โปรตีน' ทางเคมี?",
+            options: ["ก. ปาก", "ข. กระเพาะอาหาร", "ค. ลำไส้เล็ก", "ง. ตับ"],
+            answer: 1,
+            explain: "กระเพาะอาหารหลั่งเอนไซม์เพปซิน (Pepsin) ย่อยโปรตีนเป็นสายเพปไทด์ ถือเป็นจุดแรกที่มีการย่อยโปรตีนทางเคมี"
+          },
+          {
+            id: 110,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "การที่ต้นกระบองเพชรเปลี่ยนใบลดรูปกลายเป็น 'หนาม' จัดเป็นการปรับตัวประเภทใด?",
+            options: ["ก. การปรับตัวทางพฤติกรรม", "ข. การปรับตัวทางโครงสร้าง", "ค. การปรับตัวทางสรีรวิทยา", "ง. การปรับตัวทางสารเคมี"],
+            answer: 1,
+            explain: "หนามเป็นอวัยวะ/ชิ้นส่วนร่างกายที่ติดตัวมาแต่กำเนิด จึงจัดเป็นการปรับตัวทางโครงสร้าง (Structural Adaptation)"
+          },
+          {
+            id: 111,
+            cat: "พันธุศาสตร์",
+            text: "ลักษณะทางกายภาพในข้อใดจัดเป็น 'ลักษณะที่ไม่ใช่พันธุกรรม' (ไม่ถ่ายทอดสู่ลูกหลาน)?",
+            options: ["ก. การมีลักยิ้ม", "ข. การห่อลิ้นได้", "ค. รอยแผลเป็นจากการผ่าตัด", "ง. ติ่งหู"],
+            answer: 2,
+            explain: "รอยแผลเป็นเกิดจากสภาพแวดล้อมและอุบัติเหตุภายหลัง ไม่ได้อยู่ในยีนของเซลล์สืบพันธุ์ จึงไม่ถ่ายทอดทางพันธุกรรม"
+          },
+          {
+            id: 112,
+            cat: "สถานะของสาร",
+            text: "การเปลี่ยนสถานะจาก 'ของแข็ง' กลายเป็น 'แก๊ส' โดยไม่ผ่านการเป็นของเหลว เรียกว่าอะไร?",
+            options: ["ก. การหลอมเหลว", "ข. การระเหย", "ค. การระเหิด", "ง. การควบแน่น"],
+            answer: 2,
+            explain: "การระเหิด (Sublimation) คือการเปลี่ยนสถานะจากของแข็งกลายเป็นแก๊สโดยตรง เช่น ลูกเหม็น น้ำแข็งแห้ง"
+          },
+          {
+            id: 113,
+            cat: "การจำแนกสาร",
+            text: "ข้อใดจัดเป็น 'สารบริสุทธิ์ประเภทสารประกอบ (Compound)'?",
+            options: ["ก. แก๊สออกซิเจน (O2)", "ข. น้ำบริสุทธิ์ (H2O)", "ค. น้ำทะเล", "ง. ทองคำ (Au)"],
+            answer: 1,
+            explain: "น้ำ (H2O) เกิดจากธาตุต่างชนิดกัน (H และ O) รวมตัวกันทางเคมี จึงเป็นสารประกอบ"
+          },
+          {
+            id: 114,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "การเปลี่ยนแปลงในข้อใดจัดเป็นการเกิด 'การเปลี่ยนแปลงทางเคมี' (Chemical Change)?",
+            options: ["ก. น้ำแข็ง melting กลายเป็นน้ำ", "ข. เกลือละลายในน้ำ", "ค. ตะปูเหล็กขึ้นสนิม", "ง. การตัดกระดาษเป็นชิ้นเล็กๆ"],
+            answer: 2,
+            explain: "การเกิดสนิมเหล็กได้สารใหม่ที่มีสมบัติเปลี่ยนไปจากเดิมและผันกลับไม่ได้ จัดเป็นการเปลี่ยนแปลงทางเคมี"
+          },
+          {
+            id: 115,
+            cat: "ระบบนิเวศ",
+            text: "สิ่งมีชีวิตที่ย่อยสลายซากพืชซากสัตว์โดยการ 'ปล่อยเอนไซม์ออกมาย่อยภายนอกเซลล์' แล้วดูดซึมคือกลุ่มใด?",
+            options: ["ก. ผู้บริโภคพืช", "ข. ผู้บริโภคซากสัตว์", "ค. ผู้ย่อยสลายสารอินทรีย์ (Decomposer)", "ง. ผู้ผลิต"],
+            answer: 2,
+            explain: "เห็ด รา แบคทีเรีย จัดเป็นผู้ย่อยสลายสารอินทรีย์ ปล่อยเอนไซม์ย่อยภายนอกเซลล์แล้วดูดซึมสารอาหาร"
+          },
+          {
+            id: 116,
+            cat: "ระบบย่อยอาหาร",
+            text: "น้ำดี (Bile) ที่สร้างจากตับและเก็บไว้ที่ถุงน้ำดี ทำหน้าที่อะไรในการย่อยอาหาร?",
+            options: [
+              "ก. ย่อยแป้งให้เป็นน้ำตาล",
+              "ข. ย่อยโปรตีนให้เป็นกรดอะมิโน",
+              "ค. ทำให้ก้อนไขมันแตกตัวเป็นหยดเล็กๆ",
+              "ง. ดูดซึมวิตามิน C เข้าสู่กระแสเลือด"
+            ],
+            answer: 2,
+            explain: "น้ำดีไม่ใช่เอนไซม์ แต่ทำหน้าที่ทางกายภาพช่วยทำให้ไขมันแตกตัวเป็นหยดเล็กๆ (Emulsification) เพื่อให้เอนไซม์ไลเพสย่อยได้ง่ายขึ้น"
+          },
+          {
+            id: 117,
+            cat: "การจำแนกสาร",
+            text: "สารที่มีขนาดอนุภาคใหญ่กว่า $10^{-4}\text{ cm}$ ตั้งทิ้งไว้แล้ว 'ตกตะกอน' จัดเป็นสารประเภทใด?",
+            options: ["ก. สารละลาย", "ข. สารคอลลอยด์", "ค. สารแขวนลอย (Suspension)", "ง. สารบริสุทธิ์"],
+            answer: 2,
+            explain: "สารแขวนลอยมีขนาดอนุภาคใหญ่ที่สุด (> $10^{-4}\text{ cm}$) และจะตกตะกอนเมื่อตั้งทิ้งไว้ เช่น น้ำโคลน น้ำแป้งดิบ"
+          },
+          {
+            id: 118,
+            cat: "พันธุศาสตร์",
+            text: "ลักษณะความแปรผันทางพันธุกรรมในข้อใดจัดเป็น 'ความแปรผันแบบไม่ต่อเนื่อง' (Discontinuous Variation)?",
+            options: ["ก. ความสูง", "ข. น้ำหนัก", "ค. หมู่เลือด ABO", "ง. สีผิว"],
+            answer: 2,
+            explain: "หมู่เลือดสามารถแยกเป็นกลุ่มชัดเจน (A, B, AB, O) ไม่มีความต่อเนื่อง ถูกควบคุมด้วยยีนเพียง 1-2 คู่"
+          },
+          {
+            id: 119,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "การขุดรูเพื่อ 'จำศีล' ของกบในช่วงฤดูแล้ง จัดเป็นการปรับตัวประเภทใด?",
+            options: ["ก. โครงสร้าง", "ข. พฤติกรรม (Behavioral)", "ค. สรีรวิทยา", "ง. พันธุกรรม"],
+            answer: 1,
+            explain: "การจำศีลและการขุดรูเป็น 'กิริยาอาการ/การกระทำ' เพื่อตอบสนองต่อสภาพแวดล้อม จึงเป็นการปรับตัวทางพฤติกรรม"
+          },
+          {
+            id: 120,
+            cat: "สถานะของสาร",
+            text: "กระบวนการเปลี่ยนสถานะจาก 'แก๊ส' กลายเป็น 'ของเหลว' เกิดขึ้นจากปฏิกิริยาพลังงานความร้อนแบบใด?",
+            options: ["ก. ดูดความร้อน (เพิ่มอุณหภูมิ)", "ข. คายความร้อน (ลดอุณหภูมิ)", "ค. ไม่มีการเปลี่ยนแปลงพลังงาน", "ง. เกิดการระเหิดกลับ"],
+            answer: 1,
+            explain: "แก๊สเปลี่ยนเป็นของเหลว (การควบแน่น) ต้องทำให้เย็นลง อนุภาคชิดกันมากขึ้น จึงเป็นการ 'คายความร้อน'"
+          }
+        ]
+      },
+      
+      // SET 2: Easy-Intermediate
+      {
+        setId: 2,
+        title: "ชุดที่ 2: ห่วงโซ่อาหาร ท่อลำเลียง และระบบย่อย",
+        difficulty: "ง่าย-ปานกลาง",
+        desc: "เน้นกฎ 10% กฎการสะสมสารพิษ ตารางเปเปรียบเทียบพืชใบเลี้ยงเดี่ยว/คู่ และกระบวนการย่อยในลำไส้เล็ก",
+        questions: [
+          {
+            id: 201,
+            cat: "ระบบนิเวศ",
+            text: "ตามกฎ 10 เปอร์เซ็นต์ (10% Law) หากผู้ผลิตมีพลังงาน $10,000\text{ kcal}$ ผู้บริโภคลำดับที่ 2 จะได้รับพลังงานเท่าใด?",
+            options: ["ก. $1,000\text{ kcal}$", "ข. $100\text{ kcal}$", "ค. $10\text{ kcal}$", "ง. $1\text{ kcal}$"],
+            answer: 1,
+            explain: "ผู้ผลิต ($10,000$) &rarr; ผู้บริโภคลำดับ 1 ($1,000$) &rarr; ผู้บริโภคลำดับ 2 ($100\text{ kcal}$)"
+          },
+          {
+            id: 202,
+            cat: "ระบบนิเวศ",
+            text: "ในสายใยอาหารที่มีการปนเปื้อนของสารเคมี DDT สิ่งมีชีวิตกลุ่มใดจะมีสารพิษสะสมในร่างกาย 'มากที่สุด' (Biomagnification)?",
+            options: [
+              "ก. ผู้ผลิต (เช่น สาหร่าย)",
+              "ข. ผู้บริโภคพืช (เช่น ปลาเล็ก)",
+              "ค. ผู้บริโภคลำดับสูงสุด (Top Predator เช่น นกเหยี่ยว)",
+              "ง. ผู้ย่อยสลายสารอินทรีย์"
+            ],
+            answer: 2,
+            explain: "สารพิษที่ไม่ถูกย่อยสลายจะถูกสะสมเพิ่มขึ้นเรื่อยๆ ตามลำดับขั้นการกิน โดยผู้บริโภคลำดับสูงสุดจะได้รับสารพิษสะสมมากที่สุด"
+          },
+          {
+            id: 203,
+            cat: "โครงสร้างดอกไม้",
+            text: "โครงสร้างของดอกไม้ในข้อใดเจริญเติบโตไปเป็น 'เปลือกและเนื้อผล (Pericarp)' หลังการปฏิสนธิ?",
+            options: ["ก. ผนังรังไข่ (Ovary wall)", "ข. เยื่อหุ้มออวุล", "ค. ออวุล", "ง. ฐานรองดอก"],
+            answer: 0,
+            explain: "ผนังรังไข่ (Ovary wall) เจริญไปเป็นเปลือกและเนื้อผล (Pericarp) ส่วนออวุลเจริญเป็นเมล็ด"
+          },
+          {
+            id: 204,
+            cat: "การจำแนกพืช",
+            text: "ข้อใดกล่าวถึงลักษณะท่อลำเลียงและข้อปล้องของ 'พืชใบเลี้ยงคู่' ได้ถูกต้อง?",
+            options: [
+              "ก. ท่อลำเลียงกระจายทั่วไป, ข้อปล้องชัดเจน",
+              "ข. ท่อลำเลียงเรียงเป็นวงระเบียบ, ข้อปล้องเห็นไม่ชัดเจน",
+              "ค. ท่อลำเลียงเรียงเป็นวงระเบียบ, มีระบบรากฝอย",
+              "ง. ท่อลำเลียงกระจายทั่วไป, กลีบดอกทวีคูณของ 3"
+            ],
+            answer: 1,
+            explain: "พืชใบเลี้ยงคู่มีท่อลำเลียงเรียงตัวเป็นวงอย่างเป็นระเบียบ มองเห็นข้อปล้องไม่ชัดเจน และมีระบบรากแก้ว"
+          },
+          {
+            id: 205,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์ในข้อใดจัดอยู่ในกลุ่ม Arthropoda (สัตว์มีขาเป็นข้อ) ที่มี 'ขา 8 ขา (4 คู่)'?",
+            options: ["ก. ตั๊กแตน ผึ้ง ยุง", "ข. แมงมุม แมงป่อง เห็บ", "ค. กุ้ง กั้ง ปู", "ง. ตะขาบ กิ้งกือ"],
+            answer: 1,
+            explain: "กลุ่มแมง (แมงมุม, แมงป่อง, เห็บ, ไร) มี 8 ขา (4 คู่) ส่วนแมลงมี 6 ขา และกุ้งปูมี 10 ขาขึ้นไป"
+          },
+          {
+            id: 206,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "ภาวะความสัมพันธ์แบบ 'ไลเคน (Lichen)' ระหว่างรากับสาหร่าย ต่างจาก 'นกเอี้ยงกับควาย' อย่างไร?",
+            options: [
+              "ก. ไลเคนแยกกันอยู่ไม่ได้ แต่นกเอี้ยงกับควายแยกกันอยู่ได้",
+              "ข. ไลเคนฝ่ายหนึ่งเสียประโยชน์ แต่นกเอี้ยงกับควายได้ประโยชน์ทั้งคู่",
+              "ค. ไลเคนเป็นภาวะอิงอาศัย แต่นกเอี้ยงกับควายเป็นภาวะพึ่งพากัน",
+              "ง. ไม่มีความแตกต่างกันเลย"
+            ],
+            answer: 0,
+            explain: "ไลเคนเป็นภาวะพึ่งพากัน (Mutualism) ทั้งคู่ (+, +) แต่ 'แยกกันอยู่ไม่ได้' ส่วนนกเอี้ยงกับควาย (+, +) แยกกันอยู่ได้"
+          },
+          {
+            id: 207,
+            cat: "วิตามินและอาหาร",
+            text: "หากผู้ป่วยมีปัญหาภาวะเลือดออกแล้ว 'เลือดแข็งตัวช้า' แสดงว่าร่างกายกำลังขาดวิตามินชนิดใด?",
+            options: ["ก. วิตามิน A", "ข. วิตามิน C", "ค. วิตามิน D", "ง. วิตามิน K"],
+            answer: 3,
+            explain: "วิตามิน K มีหน้าที่สำคัญช่วยในการแข็งตัวของเลือด (Blood clotting) ทำงานร่วมกับตับในการห้ามเลือด"
+          },
+          {
+            id: 208,
+            cat: "ระบบย่อยอาหาร",
+            text: "สารอาหารประเภทไขมัน เมื่อถูกย่อยสมบูรณ์เป็นกรดไขมันและกลีเซอรอล จะถูกดูดซึมเข้าสู่ระบบใดที่วิลลัส?",
+            options: ["ก. เส้นเลือดฝอย", "ข. ท่อน้ำเหลือง (Lacteal)", "ค. เส้นเลือดดำใหญ่", "ง. ท่อไต"],
+            answer: 1,
+            explain: "กรดไขมันและกลีเซอรอลจะถูกดูดซึมเข้าสู่ 'ท่อน้ำเหลือง (Lacteal)' ในแกนกลางของวิลลัส ไม่ได้เข้าเส้นเลือดฝอยโดยตรง"
+          },
+          {
+            id: 209,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "ผักตบชวาและผักกระเฉดสามารถลอยน้ำได้ดี เนื่องจากมีการปรับตัวทางโครงสร้างอย่างไร?",
+            options: [
+              "ก. มีใบลดรูปเป็นหนามเพื่อลดน้ำหนัก",
+              "ข. ก้านใบอวบพองและมีโพรงอากาศจำนวนมาก",
+              "ค. มีรากแก้วขนาดใหญ่ถ่วงน้ำหนัก",
+              "ง. ลำต้นแข็งแรงมีเนื้อไม้มาก"
+            ],
+            answer: 1,
+            explain: "ผักตบชวา/ผักกระเฉด มีก้านใบพองอวบภายในมีช่องว่าง/โพรงอากาศ ช่วยเพิ่มปริมาตรลดความหนาแน่นทำให้ลอยน้ำได้"
+          },
+          {
+            id: 210,
+            cat: "พันธุศาสตร์",
+            text: "บิดาแห่งพันธุศาสตร์ คือใคร และใช้พืชชนิดใดในการศึกษาทดลอง?",
+            options: [
+              "ก. ชาร์ลส์ ดาร์วิน - ต้นทานตะวัน",
+              "ข. เกรกอร์ เมนเดล - ถั่วเต้า (Pea plant)",
+              "ค. หลุยส์ ปาสเตอร์ - ต้นข้าวโพด",
+              "ง. โรเบิร์ต ฮุก - มอส"
+            ],
+            answer: 1,
+            explain: "เกรกอร์ เมนเดล (Gregor Mendel) ได้รับยกย่องเป็นบิดาแห่งพันธุศาสตร์ จากการทดลองผสมพันธุ์ถั่วเต้า"
+          },
+          {
+            id: 211,
+            cat: "สถานะของสาร",
+            text: "สารบริสุทธิ์ขณะกำลังเปลี่ยนสถานะ (เช่น น้ำแข็งกำลังหลอมเหลวเป็นน้ำ) จะมีลักษณะอุณหภูมิอย่างไร?",
+            options: [
+              "ก. อุณหภูมิจะเพิ่มขึ้นเรื่อยๆ ตามความร้อนที่ได้รับ",
+              "ข. อุณหภูมิจะลดลงอย่างรวดเร็ว",
+              "ค. อุณหภูมิจะคงที่ จนกว่าจะเปลี่ยนสถานะสมบูรณ์",
+              "ง. อุณหภูมิจะแกว่งขึ้นลงไม่แน่นอน"
+            ],
+            answer: 2,
+            explain: "ขณะสารบริสุทธิ์เปลี่ยนสถานะ อุณหภูมิจะคงที่ เพราะความร้อนถูกนำไปใช้ในการเปลี่ยนสถานะ (ความร้อนแฝง)"
+          },
+          {
+            id: 212,
+            cat: "การจำแนกสาร",
+            text: "สารใดต่อไปนี้เกิดปรากฏการณ์ทินดอลล์ (Tyndall Effect) เมื่อส่องไฟผ่าน?",
+            options: ["ก. น้ำเกลือ", "ข. น้ำนมสด (คอลลอยด์)", "ค. น้ำกรดเกลือ", "ง. น้ำแก๊สโซฮอล์"],
+            answer: 1,
+            explain: "สารคอลลอยด์ (เช่น น้ำนมสด หมอก ควัน) มีขนาดอนุภาค $10^{-7} - 10^{-4}\text{ cm}$ ทำให้เกิดการกระเจิงแสงหรือปรากฏการณ์ทินดอลล์"
+          },
+          {
+            id: 213,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "เหตุการณ์ใดต่อไปนี้เป็นการเปลี่ยนแปลงทางกายภาพทั้งหมด?",
+            options: [
+              "ก. เทียนไขหลอมเหลว, เกลือละลายน้ำ, ฉีกกระดาษ",
+              "ข. อาหารบูด, จุดไฟเผาเทียน, ตะปูขึ้นสนิม",
+              "ค. ผลไม้สุก, กล้วยหอมเน่า, การจุดพลุ",
+              "ง. การหายใจระดับเซลล์, เผาไม้เป็นขี้เถ้า, นมเปรี้ยว"
+            ],
+            answer: 0,
+            explain: "เทียนไขหลอมเหลว เกลือละลายน้ำ และการฉีกกระดาษ ไม่เกิดสารใหม่ สามารถทำให้กลับคืนรูปเดิมได้ง่าย จัดเป็นการเปลี่ยนแปลงทางกายภาพ"
+          },
+          {
+            id: 214,
+            cat: "ระบบนิเวศ",
+            text: "ข้อใดเป็นผู้บริโภคประเภท Omnivore (กินทั้งพืชและสัตว์)?",
+            options: ["ก. วัว กระต่าย", "ข. เสือ เสือดาว", "ค. คน หมู ไก่", "ง. แร้ง ไส้เดือนดิน"],
+            answer: 2,
+            explain: "Omnivore คือผู้บริโภคทั้งพืชและสัตว์ ได้แก่ คน หมู ไก่ นก หมี"
+          },
+          {
+            id: 215,
+            cat: "โครงสร้างดอกไม้",
+            text: "ยอดเกสรเพศเมีย (Stigma) มีลักษณะดักจับละอองเรณูได้อย่างไร?",
+            options: ["ก. มีหนามแหลมคม", "ข. มีสารเหนียวๆ คอยจับละอองเรณู", "ค. มีต่อมพิษ", "ง. มีกลีบเลี้ยงหุ้มมิดชิด"],
+            answer: 1,
+            explain: "ยอดเกสรเพศเมียอยู่บนสุด มักเป็นตุ่มหรือแผ่นและมีสารเหนียวเพื่อคอยจับละอองเรณูที่ปลิวมา"
+          },
+          {
+            id: 216,
+            cat: "การจำแนกพืช",
+            text: "พืชในข้อใดมีเส้นใบเป็นแบบ 'ร่างแห' (Netted Venation)?",
+            options: ["ก. ต้นข้าว", "ข. ต้นหญ้า", "ค. ต้นมะม่วง", "ง. ต้นอ้อย"],
+            answer: 2,
+            explain: "ต้นมะม่วงเป็นพืชใบเลี้ยงคู่ ใบกว้าง มีเส้นใบสานกันเป็นเครือข่ายร่างแห"
+          },
+          {
+            id: 217,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์กลุ่มปลา สัตว์ครึ่งน้ำครึ่งบก และสัตว์เลื้อยคลาน มีสิ่งใดที่เหมือนกัน?",
+            options: [
+              "ก. มีขนเป็นแผงปกคลุมร่างกาย",
+              "ข. หายใจด้วยปอดตลอดชีวิต",
+              "ค. เป็นสัตว์เลือดเย็น (Poikilotherm)",
+              "ง. มีหัวใจ 4 ห้องสมบูรณ์"
+            ],
+            answer: 2,
+            explain: "ปลา สัตว์ครึ่งน้ำครึ่งบก และสัตว์เลื้อยคลาน จัดเป็นสัตว์เลือดเย็น อุณหภูมิเปลี่ยนตามสภาพแวดล้อม"
+          },
+          {
+            id: 218,
+            cat: "ระบบย่อยอาหาร",
+            text: "เอนไซม์ชนิดใดในน้ำลายที่ทำหน้าที่ย่อยสารอาหารแป้งให้กลายเป็นน้ำตาลโมเลกุลคู่?",
+            options: ["ก. เพปซิน", "ข. อะไมเลส (Amylase)", "ค. ไลเพส", "ง. ทริปซิน"],
+            answer: 1,
+            explain: "ต่อมน้ำลายหลั่งเอนไซม์อะไมเลส (Amylase หรือ Ptyalin) ทำหน้าที่ย่อยแป้งให้เป็นน้ำตาลมอลโทส"
+          },
+          {
+            id: 219,
+            cat: "สถานะของสาร",
+            text: "ข้อใดคือตัวอย่างสารที่เกิดปรากฏการณ์ 'การระเหิด' ในชีวิตประจำวัน?",
+            options: ["ก. น้ำแข็งกลายเป็นน้ำ", "ข. ลูกเหม็น (นaphthalene) ในตู้เสื้อผ้าเล็กลง", "ค. ไอน้ำเกาะข้างแก้วน้ำเย็น", "ง. การทำน้ำแข็ง"],
+            answer: 1,
+            explain: "ลูกเหม็น พิมเสน การบูร น้ำแข็งแห้ง เป็นของแข็งที่ระเหิดกลายเป็นแก๊สโดยไม่ผ่านการเป็นของเหลว"
+          },
+          {
+            id: 220,
+            cat: "การจำแนกสาร",
+            text: "สูตรเคมีของ 'เกลือแกง' คือข้อใด?",
+            options: ["ก. $\text{H}_2\text{O}$", "ข. $\text{CaCO}_3$", "ค. $\text{NaCl}$", "ง. $\text{NaHCO}_3$"],
+            answer: 2,
+            explain: "เกลือแกง (โซเดียมคลอไรด์) มีสูตรเคมีคือ $\text{NaCl}$"
+          }
+        ]
+      },
+
+      // SET 3: Intermediate
+      {
+        setId: 3,
+        title: "ชุดที่ 3: ระบบร่างกาย ปฏิกิริยาเคมี และการปรับตัว",
+        difficulty: "ปานกลาง",
+        desc: "ทดสอบกระบวนการย่อยในกระเพาะและลำไส้ สารประกอบในชีวิตประจำวัน และความสัมพันธ์ของสิ่งมีชีวิต",
+        questions: [
+          {
+            id: 301,
+            cat: "ระบบย่อยอาหาร",
+            text: "ในกระเพาะอาหาร กรดไฮโดรคลอริก (HCl) มีบทบาทสำคัญอย่างไรในการย่อยอาหาร?",
+            options: [
+              "ก. ย่อยไขมันโดยตรง",
+              "ข. เปลี่ยนเพปซิโนเจนให้กลายเป็นเอนไซม์เพปซินที่ทำงานได้",
+              "ค. ดูดซึมกลูโคสเข้ากระแสเลือด",
+              "ง. สังเคราะห์วิตามิน K"
+            ],
+            answer: 1,
+            explain: "กรด HCl ในกระเพาะปรับสภาวะเป็นกรดเพื่อเปลี่ยนเพปซิโนเจน (ยังไม่ทำงาน) ให้กลายเป็นเอนไซม์เพปซิน"
+          },
+          {
+            id: 302,
+            cat: "วิตามินและอาหาร",
+            text: "หากต้องการเพิ่มการดูดซึมวิตามิน K ในร่างกาย ควรรับประทานอาหารประเภทใดควบคู่กันไป?",
+            options: ["ก. น้ำเปล่าปริมาณมาก", "ข. ไขมันหรือน้ำมันพืช", "ค. ผักผลไม้รสเปรี้ยว", "ง. อาหารโปรตีนสูง"],
+            answer: 1,
+            explain: "วิตามิน K เป็นวิตามินที่ละลายในไขมัน การรับประทานอาหารประเภทไขมันจะช่วยในการละลายและพาเข้าสู่ร่างกาย"
+          },
+          {
+            id: 303,
+            cat: "การจำแนกสาร",
+            text: "สูตรเคมี $\text{CaCO}_3$ เป็นสูตรเคมีของสารประกอบใดในธรรมชาติ?",
+            options: ["ก. โซดาไฟ", "ข. หินปูน / เปลือกหอย", "ค. ผงฟู", "ง. กรดเกลือ"],
+            answer: 1,
+            explain: "$\text{CaCO}_3$ คือ แคลเซียมคาร์บอเนต ซึ่งเป็นองค์ประกอบหลักของ หินปูน หินอ่อน และเปลือกหอย"
+          },
+          {
+            id: 304,
+            cat: "การจำแนกสาร",
+            text: "ผงฟู หรือ เบกกิ้งโซดา มีชื่อทางเคมีและสูตรเคมีตามข้อใด?",
+            options: [
+              "ก. โซเดียมคลอไรด์ ($\text{NaCl}$)",
+              "ข. โซเดียมไฮโดรเจนคาร์บอเนต ($\text{NaHCO}_3$)",
+              "ค. แคลเซียมไฮดรอกไซด์ ($\text{Ca(OH)}_2$)",
+              "ง. กรดแอซิติก ($\text{CH}_3\text{COOH}$)"
+            ],
+            answer: 1,
+            explain: "เบกกิ้งโซดาหรือผงฟู คือ โซเดียมไฮโดรเจนคาร์บอเนต มีสูตรเคมีคือ $\text{NaHCO}_3$"
+          },
+          {
+            id: 305,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "ต้นโกงกางที่เจริญเติบโตในป่าชายเลนมีการปรับตัวทางโครงสร้างอย่างไรเพื่อยึดลำต้นไม่ให้โค่นล้ม?",
+            options: ["ก. มีใบลดรูปเป็นหนาม", "ข. มีรากค้ำจุน (Prop root)", "ค. มีรากหายใจโผล่เหนือพ้นน้ำ", "ง. ลำต้นอวบน้ำมีสารเมือก"],
+            answer: 1,
+            explain: "ต้นโกงกางมีรากค้ำจุน (Prop root) แตกออกจากลำต้นยึดดินเลนเอาไว้ป้องกันการโค่นล้มจากคลื่นลม"
+          },
+          {
+            id: 306,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "ราเพนิซิลเลียมหลั่งสารเพนนิซิลินออกมายับยั้งการเจริญเติบโตของแบคทีเรีย จัดเป็นความสัมพันธ์แบบใด?",
+            options: [
+              "ก. ภาวะพึ่งพากัน (+, +)",
+              "ข. ภาวะหลั่งสารยับยั้ง / Amensalism (-, 0)",
+              "ค. ภาวะปรสิต (+, -)",
+              "ง. ภาวะล่าเหยื่อ (+, -)"
+            ],
+            answer: 1,
+            explain: "ภาวะหลั่งสารยับยั้ง (-, 0) ฝ่ายหนึ่งหลั่งสารเคมีทำลายอีกฝ่าย โดยที่ตัวเองไม่ได้และไม่เสียประโยชน์"
+          },
+          {
+            id: 307,
+            cat: "พันธุศาสตร์",
+            text: "ลักษณะพันธุกรรมที่มีความแปรผันแบบต่อเนื่อง (Continuous Variation) มีลักษณะอย่างไร?",
+            options: [
+              "ก. แยกเป็นกลุ่มชัดเจน ถูกควบคุมด้วยยีน 1 คู่",
+              "ข. ค่อยๆ ลดไล่ระดับ วัดค่าเป็นตัวเลขได้ มียีนหลายคู่และสภาพแวดล้อมควบคุม",
+              "ค. เกิดจากอุบัติเหตุและการผ่าตัดเท่านั้น",
+              "ง. ถ่ายทอดเฉพาะเพศชายเท่านั้น"
+            ],
+            answer: 1,
+            explain: "ความแปรผันแบบต่อเนื่อง (เช่น ความสูง น้ำหนัก สีผิว) ถูกควบคุมด้วยยีนหลายคู่ (Polygenes) และสภาพแวดล้อมมีผลมาก"
+          },
+          {
+            id: 308,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "การกระทำในข้อใดถือเป็น 'การเปลี่ยนแปลงทางเคมี'?",
+            options: [
+              "ก. บดก้อนน้ำแข็งให้เป็นเกล็ดหิมะ",
+              "ข. ปอกเปลือกแอปเปิ้ลทิ้งไว้จนเนื้อเปลี่ยนเป็นสีน้ำตาล",
+              "ค. ผสมทรายกับเกลือเข้าด้วยกัน",
+              "ง. ต้มน้ำจนกลายเป็นไอ"
+            ],
+            answer: 1,
+            explain: "การที่เนื้อแอปเปิ้ลทำปฏิกิริยากับออกซิเจนจนเกิดสารใหม่สีน้ำตาล ถือเป็นการเปลี่ยนแปลงทางเคมี"
+          },
+          {
+            id: 309,
+            cat: "โครงสร้างดอกไม้",
+            text: "พืชชนิดใดหลังการปฏิสนธิแล้ว 'กลีบเลี้ยง (Sepal)' จะยังคงติดอยู่บริเวณขั้วผลไม่หลุดร่วง?",
+            options: ["ก. มะม่วง", "ข. กุหลาบ", "ค. มังคุด และ มะเขือยาว", "ง. แตงกวา"],
+            answer: 2,
+            explain: "มังคุด มะเขือยาว เป็นข้อยกเว้นที่กลีบเลี้ยงยังติดอยู่บริเวณขั้วผลจนกระทั่งผลโตเต็มที่"
+          },
+          {
+            id: 310,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์ชนิดใดที่มีปอดและถุงลม (Air sac) ช่วยในการสำรองอากาศขณะบิน?",
+            options: ["ก. ค้างคาว", "ข. นกและเพนกวิน", "ค. ผีเสื้อ", "ง. แมงกะพรุน"],
+            answer: 1,
+            explain: "สัตว์ปีก (รวมถึงนก เพนกวิน ไก่) มีปอดทำงานร่วมกับถุงลม (Air sacs) ช่วยสำรองอากาศและช่วยแลกเปลี่ยนแก๊ส"
+          },
+          {
+            id: 311,
+            cat: "ระบบย่อยอาหาร",
+            text: "เอนไซม์ไลเพส (Lipase) สังเคราะห์และหลั่งมาจากอวัยวะใดเพื่อย่อยไขมันในลำไส้เล็ก?",
+            options: ["ก. ตับ", "ข. ถุงน้ำดี", "ค. ตับอ่อน (Pancreas)", "ง. กระเพาะอาหาร"],
+            answer: 2,
+            explain: "เอนไซม์ไลเพสถูกสร้างและหลั่งมาจาก 'ตับอ่อน (Pancreas)' ลงสู่ลำไส้เล็กเพื่อย่อยไขมัน"
+          },
+          {
+            id: 312,
+            cat: "การจำแนกพืช",
+            text: "พืชในข้อใดมีส่วนใต้ดินเป็น 'ลำต้นสะสมอาหาร' ไม่ใช่รากแก้ว และจัดเป็นพืชใบเลี้ยงเดี่ยว?",
+            options: ["ก. แครอท", "ข. ขิง ข่า หัวหอม", "ค. มันแกว", "ง. มะเขือเทศ"],
+            answer: 1,
+            explain: "ขิง ข่า หัวหอม กระเทียม กล้วย ส่วนใต้ดินคือลำต้นสะสมอาหาร และจัดเป็นพืชใบเลี้ยงเดี่ยว"
+          },
+          {
+            id: 313,
+            cat: "สถานะของสาร",
+            text: "กระบวนการ 'การควบแน่น (Condensation)' เกิดขึ้นเมื่อสารอยู่ในภาวะใด?",
+            options: [
+              "ก. ของเหลวเปลี่ยนเป็นของแข็ง",
+              "ข. แก๊สเปลี่ยนเป็นของเหลวเนื่องจากคายความร้อน",
+              "ค. ของแข็งเปลี่ยนเป็นแก๊ส",
+              "ง. แก๊สเปลี่ยนเป็นของแข็ง"
+            ],
+            answer: 1,
+            explain: "การควบแน่นคือแก๊สเปลี่ยนเป็นของเหลวเมื่ออุณหภูมิลดลง (คายความร้อน) เช่น การเกิดหยดน้ำเกาะข้างแก้วน้ำเย็น"
+          },
+          {
+            id: 314,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์ชนิดใดที่มีหัวใจ 4 ห้องสมบูรณ์ และเป็นสัตว์เลือดอุ่น?",
+            options: ["ก. จระเข้", "ข. กบ", "ค. มนุษย์ และ เพนกวิน", "ง. งู"],
+            answer: 2,
+            explain: "สัตว์ปีกและสัตว์เลี้ยงลูกด้วยนม (เช่น เพนกวิน มนุษย์ วาฬ) มีหัวใจ 4 ห้องสมบูรณ์และเป็นสัตว์เลือดอุ่น"
+          },
+          {
+            id: 315,
+            cat: "ระบบนิเวศ",
+            text: "ผู้บริโภคซากสัตว์ (Scavenger) แตกต่างจากผู้ย่อยสลาย (Decomposer) อย่างไร?",
+            options: [
+              "ก. ผู้บริโภคซากสัตว์ใช้วิธีการกลืนกินอาหาร ส่วนผู้ย่อยสลายปล่อยเอนไซม์ย่อยภายนอก",
+              "ข. ผู้บริโภคซากสัตว์สร้างอาหารเองได้",
+              "ค. ผู้ย่อยสลายเป็นสัตว์เลือดอุ่น",
+              "ง. ไม่มีความแตกต่างกัน"
+            ],
+            answer: 0,
+            explain: "Scavenger (เช่น แร้ง) กินซากสัตว์โดยการกลืน/กัดกิน ส่วน Decomposer (เห็ด รา) ปล่อยเอนไซม์ย่อยนอกเซลล์แล้วดูดซึม"
+          },
+          {
+            id: 316,
+            cat: "พันธุศาสตร์",
+            text: "ลักษณะใดต่อไปนี้จัดเป็น 'ลักษณะเด่น' (Dominant Trait) ในมนุษย์?",
+            options: ["ก. หนังตาชั้นเดียว", "ข. มีลักยิ้ม", "ค. ห่อลิ้นไม่ได้", "ง. ไม่มีติ่งหู"],
+            answer: 1,
+            explain: "มีลักยิ้ม หนังตาสองชั้น ห่อลิ้นได้ มีติ่งหู และผมหยิก จัดเป็นลักษณะเด่น"
+          },
+          {
+            id: 317,
+            cat: "การจำแนกสาร",
+            text: "สารผสมชนิดใดที่ไม่แสดงปรากฏการณ์ทินดอลล์ และไม่ตกตะกอนเมื่อตั้งทิ้งไว้?",
+            options: ["ก. สารละลาย (Solution)", "ข. สารคอลลอยด์", "ค. สารแขวนลอย", "ง. นมสด"],
+            answer: 0,
+            explain: "สารละลายมีขนาดอนุภาคเล็กกว่า $10^{-7}\text{ cm}$ จึงไม่ตกตะกอน และไม่อาจมองเห็นลำแสงทินดอลล์ได้"
+          },
+          {
+            id: 318,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "นกทะเลมีอวัยวะพิเศษชนิดใดในการกำจัดเกลือส่วนเกินออกจากร่างกาย?",
+            options: ["ก. ตับขนาดใหญ่", "ข. ต่อมเกลือ (Salt gland)", "ค. ถุงลม", "ง. กะบังลม"],
+            answer: 1,
+            explain: "นกทะเลมีการปรับตัวทางสรีรวิทยาโดยใช้ต่อมเกลือ (Salt gland) ขับเกลือส่วนเกินออกจากร่างกาย"
+          },
+          {
+            id: 319,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "การจุดไฟเผาไส้เทียนไข ทำให้เกิดควันและเปลวไฟ จัดเป็นการเปลี่ยนแปลงประเภทใด?",
+            options: ["ก. กายภาพ", "ข. เคมี (Chemical Change)", "ค. ไม่มีการเปลี่ยนแปลง", "ง. การระเหิด"],
+            answer: 1,
+            explain: "การจุดไฟเผาเทียนเกิดปฏิกิริยาการเผาไหม้ได้คาร์บอนไดออกไซด์ ไอน้ำ และเขม่า ถือเป็นการเปลี่ยนแปลงทางเคมี"
+          },
+          {
+            id: 320,
+            cat: "โครงสร้างดอกไม้",
+            text: "เซลล์สืบพันธุ์เพศผู้ (Sperm cell) ของพืชดอก ถูกสร้างขึ้นภายในโครงสร้างใด?",
+            options: ["ก. รังไข่", "ข. ออวุล", "ค. ละอองเรณู (Pollen grain) ในอับเรณู", "ง. ยอดเกสรเพศเมีย"],
+            answer: 2,
+            explain: "ภายในอับเรณูมีละอองเรณู (Pollen grain) ซึ่งทำหน้าที่สร้างเซลล์สืบพันธุ์เพศผู้"
+          }
+        ]
+      },
+
+      // SET 4: Intermediate-Applied
+      {
+        setId: 4,
+        title: "ชุดที่ 4: โจทย์ประยุกต์วิเคราะห์และข้อยกเว้น",
+        difficulty: "ปานกลาง-ประยุกต์",
+        desc: "วิเคราะห์ข้อยกเว้นทางชีววิทยา สัตว์ที่ไม่ใช่ปลา และปฏิกิริยาย่อยอาหารในลำไส้เล็ก",
+        questions: [
+          {
+            id: 401,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์ในข้อใด แม้จะมีคำว่า 'ปลา' นำหน้า แต่แท้จริงแล้วจัดเป็น 'สัตว์เลี้ยงลูกด้วยนม'?",
+            options: ["ก. ปลาดาว และ ปลาหมึก", "ข. ปลาวาฬ และ ปลาโลมา", "ค. ปลากัด และ ม้าน้ำ", "ง. ปลาฉลาม และ ปลาเข็ม"],
+            answer: 1,
+            explain: "วาฬ โลมา พะยูน หายใจด้วยปอด เลือดอุ่น ออกลูกเป็นตัว เลี้ยงลูกด้วยนม จึงไม่ใช่ปลา"
+          },
+          {
+            id: 402,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์เลี้ยงลูกด้วยนมข้อยกเว้นในข้อใดที่ 'ออกลูกเป็นไข่' แต่มีต่อมนมเลี้ยงลูก?",
+            options: ["ก. จิงโจ้", "ข. ค้างคาว", "ค. ตุ่นปากเป็ด (Platypus)", "ง. โคอาลา"],
+            answer: 2,
+            explain: "ตุ่นปากเป็ด และ ตัวกินมดหนาม (Echidna) เป็นสัตว์เลี้ยงลูกด้วยนมข้อยกเว้นที่ออกลูกเป็นไข่"
+          },
+          {
+            id: 403,
+            cat: "การจำแนกพืช",
+            text: "ต้น 'สนสองใบ' และ 'ปรง' แตกต่างจากพืชดอกทั่วไปอย่างไร?",
+            options: [
+              "ก. ไม่มีท่อลำเลียง",
+              "ข. เป็นพืชเมล็ดเปลือย ไร้ดอก สร้าง 'โคน (Cone)' เพื่อสืบพันธุ์",
+              "ค. สืบพันธุ์ด้วยสปอร์เท่านั้น",
+              "ง. มีระบบรากฝอยและใบเลี้ยงคู่"
+            ],
+            answer: 1,
+            explain: "สนและปรงจัดเป็น Gymnosperms (พืชเมล็ดเปลือย) ไร้ดอก สร้างโครงสร้างเรียกว่า 'โคน' ในการสืบพันธุ์"
+          },
+          {
+            id: 404,
+            cat: "ระบบย่อยอาหาร",
+            text: "น้ำตาลโมเลกุลคู่ชนิดใดที่ถูกย่อยด้วยเอนไซม์ซูเครส (Sucrase) แล้วจะได้ กลูโคส + ฟรุกโตส?",
+            options: ["ก. น้ำตาลมอลโทส", "ข. น้ำตาลซูโครส (น้ำตาลทราย)", "ค. น้ำตาลแลกโทส", "ง. แป้ง"],
+            answer: 1,
+            explain: "น้ำตาลซูโครส ถูกย่อยด้วยเอนไซม์ซูเครส ได้น้ำตาลโมเลกุลเดี่ยวคือ กลูโคส + ฟรุกโตส"
+          },
+          {
+            id: 405,
+            cat: "ระบบย่อยอาหาร",
+            text: "เหตุใดกระเพาะอาหารจึงไม่มีการย่อยแป้งทางเคมีโดยเอนไซม์อะไมเลสที่ติดมาจากน้ำลาย?",
+            options: [
+              "ก. ในกระเพาะอาหารไม่มีน้ำ",
+              "ข. สภาวะกรดรุนแรงในกระเพาะอาหารยับยั้งการทำงานของเอนไซม์อะไมเลส",
+              "ค. แป้งถูกย่อยสมบูรณ์หมดแล้วตั้งแต่ในปาก",
+              "ง. กระเพาะอาหารดูดซึมแป้งไปหมดแล้ว"
+            ],
+            answer: 1,
+            explain: "สภาวะที่เป็นกรดสูงในกระเพาะอาหารทำให้เอนไซม์อะไมเลสเสียสภาพและหยุดทำงาน"
+          },
+          {
+            id: 406,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "สัตว์ทะเลทราย เช่น อูฐ มีการปรับตัวทางสรีรวิทยาอย่างไรเพื่อสูญเสียน้ำให้น้อยที่สุด?",
+            options: [
+              "ก. ไตกรองปัสสาวะให้มีความเข้มข้นสูงมาก",
+              "ข. มีผิวหนังเปียกชื้นตลอดเวลา",
+              "ค. มีต่อมเหงื่อขนาดใหญ่ทั่วตัว",
+              "ง. หายใจเข้าออกด้วยความเร็วสูง"
+            ],
+            answer: 0,
+            explain: "ไตของอูฐกรองและดูดน้ำกลับได้ดีมาก ปัสสาวะจึงเข้มข้นมากเพื่อลดการสูญเสียน้ำ"
+          },
+          {
+            id: 407,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "ความสัมพันธ์ระหว่าง 'นกหัวโตอียิปต์กับจระเข้' ตรงกับรูปแบบความสัมพันธ์ในข้อใด?",
+            options: [
+              "ก. ภาวะได้ประโยชน์ร่วมกัน (+, +) นกได้อาหาร จระเข้ได้ทำความสะอาดฟัน",
+              "ข. ภาวะปรสิต (+, -)",
+              "ค. ภาวะอิงอาศัย (+, 0)",
+              "ง. ภาวะพึ่งพากัน (+, +) แยกกันอยู่ไม่ได้"
+            ],
+            answer: 0,
+            explain: "นกหัวโตกินเศษอาหารในปากจระเข้ ทั้งคู่ได้ประโยชน์ (+, +) และสามารถแยกกันอยู่ได้"
+          },
+          {
+            id: 408,
+            cat: "การจำแนกสาร",
+            text: "น้ำปูนใส มีชื่อทางเคมีว่าอย่างไร?",
+            options: ["ก. แคลเซียมออกไซด์", "ข. แคลเซียมไฮดรอกไซด์ ($\text{Ca(OH)}_2$)", "ค. แคลเซียมคาร์บอเนต", "ง. โซเดียมไฮดรอกไซด์"],
+            answer: 1,
+            explain: "น้ำปูนใส คือ แคลเซียมไฮดรอกไซด์ มีสูตรเคมีคือ $\text{Ca(OH)}_2$"
+          },
+          {
+            id: 409,
+            cat: "พันธุศาสตร์",
+            text: "หากพ่อและแม่มีหนังตาสองชั้นทั้งคู่ แต่ลูกเกิดมามี 'หนังตาชั้นเดียว' สามารถอธิบายตามกฎพันธุศาสตร์ได้อย่างไร?",
+            options: [
+              "ก. เกิดจากความผิดปกติทางโครโมโซมเท่านั้น",
+              "ข. พ่อและแม่ถือยีนด้อยแฝงอยู่ (Heterozygous)",
+              "ค. หนังตาชั้นเดียวไม่ใช่ลักษณะทางพันธุกรรม",
+              "ง. เกิดจากการผ่าตัดเปลี่ยนสายพันธุ์"
+            ],
+            answer: 1,
+            explain: "ลักษณะด้อยสามารถซ่อนแฝงอยู่ในรุ่นพ่อแม่ได้ เมื่อยีนด้อยจับคู่กันในรุ่นลูก จะแสดงลักษณะด้อยออกมา (การข้ามรุ่น)"
+          },
+          {
+            id: 410,
+            cat: "สถานะของสาร",
+            text: "ปรากฏการณ์ 'แม่คะนิ้ง' หรือเกล็ดน้ำค้างแข็ง เกิดจากกระบวนการเปลี่ยนสถานะแบบใด?",
+            options: [
+              "ก. การแข็งตัว",
+              "ข. การระเหิดกลับ (Deposition) จากแก๊สเป็นของแข็ง",
+              "ค. การควบแน่น",
+              "ง. การหลอมเหลว"
+            ],
+            answer: 1,
+            explain: "ไอน้ำ (แก๊ส) ในอากาศกระทบความเย็นจัดเปลี่ยนเป็นเกล็ดน้ำแข็ง (ของแข็ง) โดยไม่ผ่านของเหลว เรียกว่า 'การระเหิดกลับ' (คายความร้อน)"
+          },
+          {
+            id: 411,
+            cat: "ระบบนิเวศ",
+            text: "ข้อใดจัดเป็นผู้บริโภคซากสัตว์ (Scavenger)?",
+            options: ["ก. เห็ด รา", "ข. แร้ง และ ไส้เดือนดิน", "ค. เสือ และ สิงโต", "ง. กระต่าย และ วัว"],
+            answer: 1,
+            explain: "แร้ง และไส้เดือนดิน จัดเป็นผู้บริโภคซากสัตว์ (Scavenger) กินสัตว์หรือซากที่ตายแล้วเป็นอาหาร"
+          },
+          {
+            id: 412,
+            cat: "การจำแนกพืช",
+            text: "ข้อใดคือข้อยกเว้นของพืชใบเลี้ยงเดี่ยวที่มีขนาดลำต้นใหญ่โต?",
+            options: ["ก. ต้นมะม่วง", "ข. ต้นมะพร้าว ปาล์ม ไผ่", "ค. ต้นขนุน", "ง. ต้นยางพารา"],
+            answer: 1,
+            explain: "มะพร้าว ปาล์ม หมาก ไผ่ แม้ลำต้นใหญ่แต่จัดเป็นพืชใบเลี้ยงเดี่ยว (สังเกตรากฝอย เส้นใบขนาน ไม่มีวงปี)"
+          },
+          {
+            id: 413,
+            cat: "ระบบย่อยอาหาร",
+            text: "สารอาหารคาร์โบไฮเดรตและโปรตีน เมื่อย่อยสมบูรณ์แล้วจะถูกดูดซึมเข้าสู่โครงสร้างใดที่วิลลัส?",
+            options: ["ก. ท่อน้ำเหลือง", "ข. เส้นเลือดฝอย", "ค. เซลล์ประสาท", "ง. ต่อมน้ำเหลือง"],
+            answer: 1,
+            explain: "น้ำตาลโมเลกุลเดี่ยวและกรดอะมิโนจะถูกดูดซึมเข้าสู่ 'เส้นเลือดฝอย' ผ่านทางวิลลัสที่ลำไส้เล็ก"
+          },
+          {
+            id: 414,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "เหตุการณ์ในข้อใดผันกลับได้ยาก และจัดเป็นการเปลี่ยนแปลงทางเคมี?",
+            options: ["ก. เทียนไขละลายหยดลงพื้น", "ข. การสุกของผลไม้ (เช่น กล้วยหอมสุก)", "ค. น้ำต้มจนเดือดกลายเป็นไอ", "ง. หล่อเกล็ดน้ำแข็ง"],
+            answer: 1,
+            explain: "ผลไม้สุกเกิดการเปลี่ยนแปลงองค์ประกอบเคมี สี กลิ่น รสชาติ และไม่สามารถทำให้กลับเป็นผลไม้ดิบได้"
+          },
+          {
+            id: 415,
+            cat: "การจำแนกสัตว์",
+            text: "งูดิน และ ซาลาแมนเดอร์ จัดอยู่ในสัตว์กลุ่มใด?",
+            options: ["ก. สัตว์เลื้อยคลาน", "ข. สัตว์ครึ่งน้ำครึ่งบก", "ค. สัตว์เลี้ยงลูกด้วยนม", "ง. ปลา"],
+            answer: 1,
+            explain: "งูดิน และซาลาแมนเดอร์ แม้รูปร่างคล้ายงู/กิ้งก่า แต่เป็น 'สัตว์ครึ่งน้ำครึ่งบก' ผิวหนังเปียกชื้นไม่มีเกล็ด"
+          },
+          {
+            id: 416,
+            cat: "โครงสร้างดอกไม้",
+            text: "ส่วนประกอบใดของดอกไม้ที่ทำหน้าที่สังเคราะห์สเปิร์มและหลอดเรณูเพื่อเจาะเข้าสู่รังไข่?",
+            options: ["ก. ละอองเรณู", "ข. กลีบเลี้ยง", "ค. ออวุล", "ง. ฐานรองดอก"],
+            answer: 0,
+            explain: "ละอองเรณูที่ตกบนยอดเกสรเพศเมียจะงอกหลอดเรณูเจาะลงไปในก้านเกสรเพศเมียเพื่อพาละอองสเปิร์มไปปฏิสนธิ"
+          },
+          {
+            id: 417,
+            cat: "วิตามินและอาหาร",
+            text: "วิตามิน C พบมากในอาหารประเภทใด และหากขาดจะเกิดโรคอะไร?",
+            options: [
+              "ก. เนื้อสัตว์ - โรคเหน็บชา",
+              "ข. ผลไม้รสเปรี้ยว - โรคเลือดออกตามไรฟัน",
+              "ค. นมและไข่ - โรคตาบอดกลางคืน",
+              "ง. น้ำมันพืช - โรคกระดูกอ่อน"
+            ],
+            answer: 1,
+            explain: "วิตามิน C พบมากในผลไม้รสเปรี้ยว ช่วยป้องกันโรคเลือดออกตามไรฟัน (ลักปิดลักเปิด)"
+          },
+          {
+            id: 418,
+            cat: "การจำแนกสาร",
+            text: "ข้อใดเป็นสารบริสุทธิ์ประเภท 'ธาตุ' ทั้งหมด?",
+            options: [
+              "ก. ออกซิเจน ($\text{O}_2$), ทองคำ ($\text{Au}$), เหล็ก ($\text{Fe}$)",
+              "ข. น้ำ ($\text{H}_2\text{O}$), เกลือ ($\text{NaCl}$)",
+              "ค. น้ำปูนใส, น้ำส้มสายชู",
+              "ง. อากาศ, ทองเหลือง"
+            ],
+            answer: 0,
+            explain: "ธาตุประกอบด้วยอะตอมชนิดเดียวกัน ไม่สามารถแยกย่อยทางเคมีได้ เช่น $\text{O}_2, \text{Au}, \text{Fe}$"
+          },
+          {
+            id: 419,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "หมีขั้วโลกมีชั้นไขมันใต้ผิวหนังหนาและมีขนสีขาว จัดเป็นการปรับตัวประเภทใด?",
+            options: ["ก. โครงสร้าง", "ข. พฤติกรรม", "ค. สรีรวิทยา", "ง. นิเวศวิทยา"],
+            answer: 0,
+            explain: "ชั้นไขมันหนาและลักษณะขนเป็นชิ้นส่วนอวัยวะร่างกายติดตัวแต่กำเนิด จัดเป็นการปรับตัวทางโครงสร้าง"
+          },
+          {
+            id: 420,
+            cat: "สถานะของสาร",
+            text: "การต้มน้ำจนเดี่ยวกลายเป็นไอ ถือเป็นการเปลี่ยนแปลงพลังงานความร้อนแบบใด?",
+            options: ["ก. ดูดความร้อน (เพิ่มอุณหภูมิ)", "ข. คายความร้อน", "ค. ไม่ใช้พลังงาน", "ง. การควบแน่น"],
+            answer: 0,
+            explain: "ของเหลวเปลี่ยนเป็นแก๊สต้องรับพลังงานความร้อนเข้าไปเพื่อให้อนุภาคแยกห่างกัน จึงเป็นการ 'ดูดความร้อน'"
+          }
+        ]
+      },
+
+      // SET 5: Intermediate-Advanced
+      {
+        setId: 5,
+        title: "ชุดที่ 5: การวิเคราะห์โครงสร้างและกระบวนการทางเคมี",
+        difficulty: "ปานกลาง-สูง",
+        desc: "เน้นวิเคราะห์การเปลี่ยนแปลงหลังปฏิสนธิ สายใยอาหารซับซ้อน และการจำแนกสารเนื้อเดียว/ผสม",
+        questions: [
+          {
+            id: 501,
+            cat: "โครงสร้างดอกไม้",
+            text: "เมื่อรับประทาน 'เนื้อทานตะวัน' หรือ 'เนื้อเม็ดมะม่วงหิมพานต์' สวนนั้นพัฒนามาจากโครงสร้างใดของดอก?",
+            options: ["ก. รังไข่", "ข. ออวุล (Ovule)", "ค. กลีบดอก", "ง. เกสรเพศผู้"],
+            answer: 1,
+            explain: "ส่วนของเมล็ดทั้งหมดพัฒนามาจาก 'ออวุล (Ovule)' หลังได้รับการปฏิสนธิ"
+          },
+          {
+            id: 502,
+            cat: "การจำแนกสาร",
+            text: "น้ำทะเล จัดเป็นสารประเภทใดตามเกณฑ์จำแนกสาร?",
+            options: ["ก. สารบริสุทธิ์ประเภทสารประกอบ", "ข. สารละลาย (จัดอยู่ในสารเนื้อเดียว)", "ค. สารแขวนลอย", "ง. สารเนื้อผสม"],
+            answer: 1,
+            explain: "น้ำทะเลเป็นสารเนื้อเดียวที่มีสารหลายชนิดละลายรวมกันใสเป็นเนื้อเดียว จึงจัดเป็น 'สารละลาย' (Solution)"
+          },
+          {
+            id: 503,
+            cat: "ระบบย่อยอาหาร",
+            text: "หากตัดถุงน้ำดีของผู้ป่วยออกเนื่องจากโรคนิ่ว จะส่งผลกระทบต่อกระบวนการย่อยสารอาหารชนิดใดมากที่สุด?",
+            options: ["ก. คาร์โบไฮเดรต", "ข. โปรตีน", "ค. ไขมัน", "ง. วิตามิน B"],
+            answer: 2,
+            explain: "ถุงน้ำดีทำหน้าที่เก็บน้ำดีจากตับ เพื่อหลั่งออกมาช่วยทำให้ไขมันแตกตัว ดังนั้นจะกระทบการย่อยไขมันมากที่สุด"
+          },
+          {
+            id: 504,
+            cat: "การจำแนกพืช",
+            text: "พืชใบเลี้ยงคู่มีกลีบดอกเป็นทวีคูณเท่าใด?",
+            options: ["ก. ทวีคูณของ 3 (เช่น 3, 6, 9)", "ข. ทวีคูณของ 4 หรือ 5 (เช่น 4, 5, 8, 10)", "ค. ทวีคูณของ 2 เสมอ", "ง. ไม่มีจำนวนแน่นอน"],
+            answer: 1,
+            explain: "พืชใบเลี้ยงคู่มีกลีบดอกเป็นทวีคูณของ 4 หรือ 5 ส่วนพืชใบเลี้ยงเดี่ยวเป็นทวีคูณของ 3"
+          },
+          {
+            id: 505,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "ต้น 'กาฝาก' บนต้นไม้ใหญ่ มีรูปแบบความสัมพันธ์ตรงกับคู่สิ่งมีชีวิตในข้อใด?",
+            options: ["ก. นกเอี้ยงกับควาย", "ข. เห็บกับหมา (ภาวะปรสิต)", "ค. ฉลามกับเหาฉลาม", "ง. เสือกับม้าลาย"],
+            answer: 1,
+            explain: "กาฝากส่งรากไปแย่งสารอาหารจากต้นไม้ใหญ่ ทำให้ต้นไม้ใหญ่เสียประโยชน์ (+, -) จัดเป็นภาวะปรสิต เช่นเดียวกับเห็บกับหมา"
+          },
+          {
+            id: 506,
+            cat: "การจำแนกสัตว์",
+            text: "ดาวทะเล (ปลาดาว) จัดอยู่ในสัตว์กลุ่มใด?",
+            options: ["ก. กลุ่มปลา", "ข. สัตว์ลำตัวนิ่มกลุ่มหอย", "ค. สัตว์ทะเลผิวขรุขระมีหนาม (Echinoderms)", "ง. สัตว์มีขาเป็นข้อ"],
+            answer: 2,
+            explain: "ดาวทะเล เม่นทะเล ปลิงทะเล จัดเป็นสัตว์ทะเลผิวขรุขระมีหนาม ไม่ใช่ปลา"
+          },
+          {
+            id: 507,
+            cat: "พันธุศาสตร์",
+            text: "ข้อใดเป็นลักษณะทางพันธุกรรมที่มีความแปรผันแบบไม่ต่อเนื่อง?",
+            options: ["ก. สีผิว", "ข. ความสูง", "ค. การห่อลิ้นได้ / ห่อลิ้นไม่ได้", "ง. สติปัญญา (IQ)"],
+            answer: 2,
+            explain: "การห่อลิ้นได้/ไม่ได้ สามารถแบ่งกลุ่มชัดเจนแน่นอน จึงเป็นความแปรผันแบบไม่ต่อเนื่อง"
+          },
+          {
+            id: 508,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "ข้อใดเป็นคู่การเปลี่ยนแปลงแบบ 'ทางกายภาพ' และ 'ทางเคมี' ตามลำดับ?",
+            options: [
+              "ก. การจุดไฟเผากระดาษ, น้ำต้มเดือด",
+              "ข. น้ำตาลทรายละลายน้ำ, ไม้จุดไฟกลายเป็นขี้เถ้า",
+              "ค. อาหารบูด, ตะปูขึ้นสนิม",
+              "ง. เกลือละลายน้ำ, เทียนไขละลาย"
+            ],
+            answer: 1,
+            explain: "น้ำตาลละลายน้ำเป็นการเปลี่ยนแปลงทางกายภาพ ส่วนไม้จุดไฟกลายเป็นขี้เถ้าเป็นการเปลี่ยนแปลงทางเคมี"
+          },
+          {
+            id: 509,
+            cat: "ระบบนิเวศ",
+            text: "แบคทีเรีย Rhizobium ในปมรากถั่ว มีความสำคัญในระบบนิเวศอย่างไร?",
+            options: [
+              "ก. ช่วยย่อยเนื้อไม้ให้พืช",
+              "ข. ช่วยตรึงแก๊สไนโตรเจนในอากาศมาเป็นธาตุอาหารให้พืชตระกูลถั่ว",
+              "ค. ช่วยสังเคราะห์ด้วยแสงให้พืช",
+              "ง. ดึงเกลือส่วนเกินออกจากราก"
+            ],
+            answer: 1,
+            explain: "แบคทีเรีย Rhizobium ในปมรากถั่วช่วยตรึงไนโตรเจนให้พืชถั่ว ถั่วให้ที่อยู่อาศัยและสารอาหาร (+, + ภาวะพึ่งพากัน)"
+          },
+          {
+            id: 510,
+            cat: "วิตามินและอาหาร",
+            text: "วิตามินชนิดใดถูกขับออกจากร่างกายทางปัสสาวะได้ง่าย หากได้รับเกินความต้องการ?",
+            options: ["ก. วิตามิน A", "ข. วิตามิน D", "ค. วิตามิน C และกลุ่ม B", "ง. วิตามิน K"],
+            answer: 2,
+            explain: "วิตามิน B และ C ละลายในน้ำ ส่วนเกินจะถูกขับออกทางปัสสาวะได้ง่าย ไม่สะสมในร่างกาย"
+          },
+          {
+            id: 511,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "กบและสัตว์ครึ่งน้ำครึ่งบกมีการปรับตัวทางโครงสร้างอย่างไรเพื่อช่วยในการว่ายน้ำ?",
+            options: ["ก. มีพังผืดระหว่างนิ้วเท้า", "ข. ขุดรูจำศีล", "ค. มีเกล็ดแข็งปกคลุม", "ง. มีถุงลมข้างลำตัว"],
+            answer: 0,
+            explain: "พังผืดระหว่างนิ้วเท้าเป็นโครงสร้างร่างกายที่ช่วยเพิ่มพื้นที่ในการพุ้ยน้ำว่ายน้ำ"
+          },
+          {
+            id: 512,
+            cat: "สถานะของสาร",
+            text: "การหลอมเหลว (Melting) ของน้ำแข็งเป็นการเปลี่ยนแปลงแบบใด?",
+            options: ["ก. ดูดความร้อน", "ข. คายความร้อน", "ค. เกิดปฏิกิริยาเคมี", "ง. การระเหิดกลับ"],
+            answer: 0,
+            explain: "ของแข็งเปลี่ยนเป็นของเหลวต้องการพลังงานความร้อนมาทำลายแรงยึดเหนี่ยว จึงเป็นการดูดความร้อน"
+          },
+          {
+            id: 513,
+            cat: "การจำแนกสาร",
+            text: "กรดเกลือ หรือ กรดไฮโดรคลอริก มีสูตรเคมีคือข้อใด?",
+            options: ["ก. $\text{H}_2\text{SO}_4$", "ข. $\text{HCl}$", "ค. $\text{CH}_3\text{COOH}$", "ง. $\text{NaOH}$"],
+            answer: 1,
+            explain: "กรดเกลือหรือกรดไฮโดรคลอริก มีสูตรเคมีคือ $\text{HCl}$ พบในกระเพาะอาหาร"
+          },
+          {
+            id: 514,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์ชนิดใดที่มีโครงร่างแข็งภายนอก (Exoskeleton) และต้องทำการ 'ลอกคราบ' เมื่อเจริญเติบโต?",
+            options: ["ก. งู", "ข. กบ", "ค. ตั๊กแตน กุ้ง ปู", "ง. นก"],
+            answer: 2,
+            explain: "สัตว์กลุ่ม Arthropoda (แมลง กุ้ง ปู) มีเปลือกสารไคตินแข็งภายนอก จึงต้องลอกคราบเพื่อขยายขนาดตัว"
+          },
+          {
+            id: 515,
+            cat: "ระบบย่อยอาหาร",
+            text: "เอนไซม์ชนิดใดทำหน้าที่ย่อยเพปไทด์สายสั้นในลำไส้เล็กจนกลายเป็น 'กรดอะมิโน'?",
+            options: ["ก. เพปซิน", "ข. ทริปซิน (Trypsin) และเพปทิเดส", "ค. อะไมเลส", "ง. ไลเพส"],
+            answer: 1,
+            explain: "ทริปซินจากตับอ่อนและเพปทิเดสจากลำไส้เล็ก ย่อยสายเพปไทด์จนเป็นโมเลกุลเล็กที่สุดคือ กรดอะมิโน"
+          },
+          {
+            id: 516,
+            cat: "โครงสร้างดอกไม้",
+            text: "การถ่ายละอองเรณู (Pollination) หมายถึงปรากฏการณ์ใด?",
+            options: [
+              "ก. สเปิร์มผสมกับเซลล์ไข่ในออวุล",
+              "ข. ละอองเรณูตกลงบนยอดเกสรเพศเมีย",
+              "ค. รังไข่ขยายขนาดกลายเป็นผล",
+              "ง. กลีบดอกเหี่ยวแห้งหลุดร่วง"
+            ],
+            answer: 1,
+            explain: "การถ่ายละอองเรณูคือขั้นตอนที่ละอองเรณูตกลงบนยอดเกสรเพศเมีย (โดยอาศัยลม น้ำ แมลง)"
+          },
+          {
+            id: 517,
+            cat: "การจำแนกพืช",
+            text: "ผักแว่น ผักกูด และชายผ้าสีดา จัดเป็นพืชกลุ่มใด?",
+            options: ["ก. พืชใบเลี้ยงเดี่ยว", "ข. เฟิน (พืชไร้ดอกสืบพันธุ์ด้วยสปอร์)", "ค. พืชเมล็ดเปลือย", "ง. พืชใบเลี้ยงคู่"],
+            answer: 1,
+            explain: "ผักแว่น ผักกูด ชายผ้าสีดา จัดเป็นพืชกลุ่มเฟิน ไม่มีดอก สืบพันธุ์ด้วยสปอร์"
+          },
+          {
+            id: 518,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "ข้อใดจัดเป็นการเปลี่ยนแปลงทางกายภาพเชิงกลในการย่อยอาหาร?",
+            options: [
+              "ก. การบดเคี้ยวอาหารด้วยฟันในปาก",
+              "ข. เอนไซม์เพปซินย่อยโปรตีน",
+              "ค. เอนไซม์อะไมเลสย่อยแป้ง",
+              "ง. การหมักอาหารของแบคทีเรีย"
+            ],
+            answer: 0,
+            explain: "การบดเคี้ยวด้วยฟันเป็นการตัดบดให้ขนาดชิ้นอาหารเล็กลง ไม่เกิดสารใหม่ ถือเป็นการย่อยเชิงกล (กายภาพ)"
+          },
+          {
+            id: 519,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "ฉลามกับเหาฉลาม มีรูปแบบความสัมพันธ์แบบใด?",
+            options: ["ก. (+, +) พึ่งพากัน", "ข. (+, 0) ภาวะอิงอาศัย", "ค. (+, -) ภาวะปรสิต", "ง. (-, -) การแข่งขัน"],
+            answer: 1,
+            explain: "เหาฉลามได้เศษอาหารและความปลอดภัย (+) ส่วนฉลามไม่ได้และไม่เสียประโยชน์ (0) จึงเป็นภาวะอิงอาศัย"
+          },
+          {
+            id: 520,
+            cat: "การจำแนกสาร",
+            text: "โซดาไฟ มีชื่อทางเคมีว่าอย่างไร?",
+            options: ["ก. โซเดียมไฮดรอกไซด์ ($\text{NaOH}$)", "ข. โซเดียมคลอไรด์", "ค. กรดซัลฟิวริก", "ง. แคลเซียมออกไซด์"],
+            answer: 0,
+            explain: "โซดาไฟ คือ โซเดียมไฮดรอกไซด์ ($\text{NaOH}$) มีฤทธิ์เป็นเบสแก่"
+          }
+        ]
+      },
+
+      // SET 6: Advanced-Applied
+      {
+        setId: 6,
+        title: "ชุดที่ 6: วิเคราะห์เชิงลึกระบบนิเวศและเคมีในชีวิตประจำวัน",
+        difficulty: "ค่อนข้างยาก",
+        desc: "โจทย์จำลองสถานการณ์ การเชื่อมโยงโภชนาการ และปฏิกิริยากรด-เบส",
+        questions: [
+          {
+            id: 601,
+            cat: "วิตามินและอาหาร",
+            text: "ชายคนหนึ่งประสบปัญหาเลือดไหลไม่หยุดเมื่อเกิดบาดแผล แพทย์ตรวจพบว่าเกิดจากภาวะขาดวิตามิน K เนื่องจากร่างกายดูดซึมวิตามินได้น้อย ชายคนนี้ควรปรับโภชนาการอย่างไร?",
+            options: [
+              "ก. งดรับประทานไขมันทุกชนิด",
+              "ข. รับประทานอาหารที่มีไขมันดีควบคู่กับผักใบเขียว",
+              "ค. ดื่มน้ำผลไม้รสเปรี้ยวปริมาณมาก",
+              "ง. รับประทานแป้งและน้ำตาลเพิ่มขึ้น"
+            ],
+            answer: 1,
+            explain: "วิตามิน K ละลายในไขมัน ต้องอาศัยไขมันพาเข้าสู่ร่างกาย ดังนั้นต้องรับประทานไขมันควบคู่เพื่อเพิ่มการดูดซึม"
+          },
+          {
+            id: 602,
+            cat: "การจำแนกสาร",
+            text: "เมื่อหยดน้ำส้มสายชู (กรดแอซิติก) ลงบนหินปูน ($\text{CaCO}_3$) จะเกิดสิ่งใดขึ้น และจัดเป็นการเปลี่ยนแปลงประเภทใด?",
+            options: [
+              "ก. เกิดฟองแก๊สคาร์บอนไดออกไซด์ - การเปลี่ยนแปลงทางเคมี",
+              "ข. หินปูนละลายกลายเป็นน้ำ - การเปลี่ยนแปลงทางกายภาพ",
+              "ค. เกิดการตกตะกอนสีดำ - การระเหิด",
+              "ง. ไม่เกิดการเปลี่ยนแปลงใดๆ"
+            ],
+            answer: 0,
+            explain: "กรดทำปฏิกิริยากับสารประกอบคาร์บอนเนต เกิดฟองแก๊ส $\text{CO}_2$ และสารใหม่ จัดเป็นการเปลี่ยนแปลงทางเคมี"
+          },
+          {
+            id: 603,
+            cat: "การจำแนกสัตว์",
+            text: "หมึกทะเล จัดเป็นสัตว์กลุ่มใดตามหลักอนุกรมวิธาน?",
+            options: ["ก. กลุ่มปลา", "ข. สัตว์ลำตัวนิ่มและมีเปลือกหุ้ม (กลุ่มหอย)", "ค. สัตว์มีขาเป็นข้อ", "ง. สัตว์ลำตัวเป็นปล้อง"],
+            answer: 1,
+            explain: "หมึกจัดเป็นสัตว์ลำตัวนิ่ม (Mollusks) กลุ่มเดียวกับหอย ไม่ใช่ปลา"
+          },
+          {
+            id: 604,
+            cat: "ระบบย่อยอาหาร",
+            text: "โมเลกุลสุดท้ายที่ได้จากการย่อยสารอาหารประเภทแป้งจนสมบูรณ์ที่สุดที่ลำไส้เล็ก คือข้อใด?",
+            options: ["ก. น้ำตาลมอลโทส", "ข. น้ำตาลกลูโคส", "ค. กรดอะมิโน", "ง. กรดไขมัน"],
+            answer: 1,
+            explain: "แป้งย่อยสมบูรณ์ที่สุดได้น้ำตาลโมเลกุลเดี่ยว คือ น้ำตาลกลูโคส"
+          },
+          {
+            id: 605,
+            cat: "การจำแนกพืช",
+            text: "สูตรท่องจำรวดเร็วสำหรับพืชไร้ดอกคือข้อใด?",
+            options: [
+              "ก. มะม่วง - กุหลาบ - ชบา - ถั่ว",
+              "ข. มอส - เฟิน - สน - ปรง - ผักแว่น",
+              "ค. ข้าว - ข้าวโพด - อ้อย - ปาล์ม",
+              "ง. กล้วยไม้ - มะพร้าว - ขิง - ข่า"
+            ],
+            answer: 1,
+            explain: "สูตรจำรวดเร็ว: 'มอส - เฟิน - สน - ปรง - ผักแว่น' เมื่อเจอ 5 คำนี้ให้จัดเป็นพืชไม่มีดอกทันที"
+          },
+          {
+            id: 606,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "สิงโตสองตัวต่อสู้แย่งชิงอาณาเขตและคู่ครอง จัดเป็นความสัมพันธ์แบบใด?",
+            options: ["ก. ภาวะล่าเหยื่อ (+, -)", "ข. ภาวะการแข่งขัน / Competition (-, -)", "ค. ภาวะปรสิต", "ง. ภาวะอิงอาศัย"],
+            answer: 1,
+            explain: "ภาวะการแข่งขัน (-, -) เกิดจากการแย่งชิงปัจจัยที่จำกัด ส่งผลเสียและบาดเจ็บทั้งสองฝ่าย"
+          },
+          {
+            id: 607,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "อูฐมีขนตาสาวและหนา มีกีบเท้ากว้าง จัดเป็นการปรับตัวด้านใดเพื่อการดำรงชีวิตในทะเลทราย?",
+            options: ["ก. พฤติกรรม", "ข. โครงสร้าง (Structural Adaptation)", "ค. สรีรวิทยา", "ง. นิเวศวิทยา"],
+            answer: 1,
+            explain: "ขนตายาวป้องกันทราย และกีบเท้ากว้างกันการจมทราย เป็นลักษณะโครงสร้างร่างกาย"
+          },
+          {
+            id: 608,
+            cat: "พันธุศาสตร์",
+            text: "ลักษณะในข้อใดเกิดจากความแปรผันทางพันธุกรรมแบบต่อเนื่อง และได้รับอิทธิพลจากสภาพแวดล้อมอย่างมาก?",
+            options: ["ก. หมู่เลือด Rh", "ข. ความสูง และ น้ำหนักตัว", "ค. การถนัดมือซ้าย/ขวา", "ง. ติ่งหู"],
+            answer: 1,
+            explain: "ความสูงและน้ำหนักถูกควบคุมด้วยยีนหลายคู่ และได้รับผลจากสภาพแวดล้อม เช่น โภชนาการและการออกกำลังกาย"
+          },
+          {
+            id: 609,
+            cat: "สถานะของสาร",
+            text: "ข้อใดจัดเป็นการเปลี่ยนแปลงประเภท 'คายความร้อน' (ลดอุณหภูมิ)?",
+            options: [
+              "ก. การหลอมเหลวของน้ำแข็ง",
+              "ข. การกลายเป็นไอของน้ำ",
+              "ค. การแข็งตัวของน้ำ และ การควบแน่นของไอน้ำ",
+              "ง. การระเหิดของลูกเหม็น"
+            ],
+            answer: 2,
+            explain: "การแข็งตัวและการควบแน่นทำให้อนุภาคชิดกันมากขึ้น จึงต้องปล่อยหรือคายความร้อนออกมา"
+          },
+          {
+            id: 610,
+            cat: "การจำแนกสาร",
+            text: "สารที่มีขนาดอนุภาคระหว่าง $10^{-7}\text{ cm}$ ถึง $10^{-4}\text{ cm}$ ไม่ตกตะกอน จัดเป็นสารประเภทใด?",
+            options: ["ก. สารละลาย", "ข. สารคอลลอยด์ (Colloid)", "ค. สารแขวนลอย", "ง. สารประกอบ"],
+            answer: 1,
+            explain: "สารคอลลอยด์มีขนาดอนุภาคระหว่าง $10^{-7}$ ถึง $10^{-4}\text{ cm}$ เช่น นมสด หมอก"
+          },
+          {
+            id: 611,
+            cat: "โครงสร้างดอกไม้",
+            text: "โครงสร้างก่อนปฏิสนธิใดที่เจริญไปเป็น 'เยื่อหุ้มเมล็ด (Seed coat)'?",
+            options: ["ก. ผนังรังไข่", "ข. เยื่อหุ้มออวุล (Integument)", "ค. ยอดเกสรเพศเมีย", "ง. กลีบดอก"],
+            answer: 1,
+            explain: "เยื่อหุ้มออวุล (Integument) จะเจริญเติบโตไปเป็นเปลือกคุ้มเมล็ดหรือเยื่อหุ้มเมล็ด"
+          },
+          {
+            id: 612,
+            cat: "ระบบนิเวศ",
+            text: "สิ่งมีชีวิตในข้อใดจัดเป็น Herbivore (ผู้บริโภคพืช)?",
+            options: ["ก. กระต่าย วัว หนอน", "ข. เสือ งู เหยี่ยว", "ค. คน ไก่ หมู", "ง. เห็ด รา"],
+            answer: 0,
+            explain: "Herbivore หรือ Primary Consumer คือผู้บริโภคพืช เช่น กระต่าย วัว หนอน ตั๊กแตน"
+          },
+          {
+            id: 613,
+            cat: "ระบบย่อยอาหาร",
+            text: "การทำงานร่วมกันระหว่าง 'ตับ' 'ถุงน้ำดี' และ 'ตับอ่อน' ทำหน้าที่ย่อยสารอาหารประเภทใดที่ลำไส้เล็ก?",
+            options: ["ก. แป้ง", "ข. โปรตีน", "ค. ไขมัน", "ง. วิตามิน"],
+            answer: 2,
+            explain: "ตับสร้างน้ำดีเก็บที่ถุงน้ำดีช่วยให้ไขมันแตกตัว ตับอ่อนสร้างไลเพสเข้ามาแตกย่อยทางเคมี"
+          },
+          {
+            id: 614,
+            cat: "การจำแนกสัตว์",
+            text: "จระเข้ จัดเป็นสัตว์ประเภทใด และมีหัวใจกี่ห้อง?",
+            options: [
+              "ก. สัตว์ครึ่งน้ำครึ่งบก - 3 ห้อง",
+              "ข. สัตว์เลื้อยคลาน - 4 ห้องสมบูรณ์ (ข้อยกเว้น)",
+              "ค. สัตว์เลี้ยงลูกด้วยนม - 4 ห้อง",
+              "ง. สัตว์ปีก - 4 ห้อง"
+            ],
+            answer: 1,
+            explain: "จระเข้เป็นสัตว์เลื้อยคลานข้อยกเว้นที่มีหัวใจ 4 ห้องสมบูรณ์ (สัตว์เลื้อยคลานทั่วไปมี 3 ห้อง)"
+          },
+          {
+            id: 615,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "การสับเนื้อหมูให้ละเอียดกับการหมักเนื้อหมูด้วยน้ำส้มสายชู แตกต่างกันอย่างไร?",
+            options: [
+              "ก. สับเนื้อ = เคมี, หมักเนื้อ = กายภาพ",
+              "ข. สับเนื้อ = กายภาพ, หมักเนื้อ = เคมี",
+              "ค. เป็นการเปลี่ยนแปลงทางเคมีทั้งคู่",
+              "ง. เป็นการเปลี่ยนแปลงทางกายภาพทั้งคู่"
+            ],
+            answer: 1,
+            explain: "การสับเนื้อหมูเปลี่ยนเฉพาะขนาด (กายภาพ) แต่การหมักด้วยกรดน้ำส้มทำลายโครงสร้างโปรตีนเกิดสารใหม่ (เคมี)"
+          },
+          {
+            id: 616,
+            cat: "การจำแนกพืช",
+            text: "สนทะเล และ สนประดิพัทธ์ จัดเป็นพืชกลุ่มใด?",
+            options: ["ก. พืชเมล็ดเปลือยไร้ดอก", "ข. พืชมีดอก (Angiosperms)", "ค. พืชไม่มีท่อลำเลียง", "ง. เฟิน"],
+            answer: 1,
+            explain: "ข้อควรระวัง! สนทะเล/สนประดิพัทธ์ เป็นพืชมีดอก ต่างจาก สนสองใบ/สนสามใบ ที่เป็นพืชเมล็ดเปลือยไร้ดอก"
+          },
+          {
+            id: 617,
+            cat: "พันธุศาสตร์",
+            text: "ลักษณะแผลเป็นจากการถูกน้ำร้อนลวกในรุ่นพ่อ สามารถถ่ายทอดไปยังรุ่นลูกได้หรือไม่ เพราะเหตุใด?",
+            options: [
+              "ก. ได้ เพราะเป็นบาดแผลใหญ่",
+              "ข. ไม่ได้ เพราะไม่ใช่ลักษณะทางพันธุกรรมที่อยู่ในดีเอ็นเอของเซลล์สืบพันธุ์",
+              "ค. ได้ หากลูกเกิดในฤดูร้อน",
+              "ง. ได้ เพราะเป็นลักษณะเด่น"
+            ],
+            answer: 1,
+            explain: "ลักษณะที่เกิดขึ้นจากอุบัติเหตุภายหลังไม่ได้เปลี่ยนแปลงดีเอ็นเอในเซลล์สืบพันธุ์ จึงไม่ถ่ายทอดสู่รุ่นลูก"
+          },
+          {
+            id: 618,
+            cat: "สถานะของสาร",
+            text: "สารใดต่อไปนี้เกิดการเปลี่ยนสถานะโดย 'ดูดความร้อน' ทั้งหมด?",
+            options: [
+              "ก. การหลอมเหลว, การกลายเป็นไอ, การระเหิด",
+              "ข. การแข็งตัว, การควบแน่น, การระเหิดกลับ",
+              "ค. การกลายเป็นไอ, การแข็งตัว",
+              "ง. การควบแน่น, การหลอมเหลว"
+            ],
+            answer: 0,
+            explain: "การหลอมเหลว (แข็ง&rarr;เหลว), กลายเป็นไอ (เหลว&rarr;แก๊ส), ระเหิด (แข็ง&rarr;แก๊ส) ต้องรับหรือดูดความร้อนเข้ามา"
+          },
+          {
+            id: 619,
+            cat: "การจำแนกสาร",
+            text: "แก๊สคาร์บอนไดออกไซด์ ($\text{CO}_2$) จัดเป็นสารประเภทใด?",
+            options: ["ก. ธาตุ", "ข. สารประกอบ", "ค. สารละลาย", "ง. สารเนื้อผสม"],
+            answer: 1,
+            explain: "$\text{CO}_2$ ประกอบด้วยธาตุ $\text{C}$ และ $\text{O}$ รวมตัวกันทางเคมี จัดเป็นสารประกอบ"
+          },
+          {
+            id: 620,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "ต้นหม้อข้าวหม้อแกงลิงปรับเปลี่ยนใบเป็นกับดักจับแมลง เพื่อวัตถุประสงค์ใดเป็นหลัก?",
+            options: [
+              "ก. เพื่อลดการคายน้ำ",
+              "ข. เพื่อหาธาตุอาหารไนโตรเจนชดเชยดินที่ไม่สมบูรณ์",
+              "ค. เพื่อล่อแมลงมาช่วยผสมเกสร",
+              "ง. เพื่อป้องกันตัวจากสัตว์กินพืช"
+            ],
+            answer: 1,
+            explain: "พืชกินแมลงดักจับแมลงเพื่อย่อยดึงธาตุอาหารไนโตรเจนที่ขาดแคลนในดินบริเวณนั้น"
+          }
+        ]
+      },
+
+      // SET 7: Advanced / Exam-style
+      {
+        setId: 7,
+        title: "ชุดที่ 7: วิเคราะห์โจทย์ข้อสอบแข่งขัน (High-Competition Level)",
+        difficulty: "ยาก",
+        desc: "เน้นกระบวนการย่อย เอนไซม์ วิตามิน และตารางเปรียบเทียบสารและสัตว์",
+        questions: [
+          {
+            id: 701,
+            cat: "ระบบย่อยอาหาร",
+            text: "เอนไซม์เพปซินในกระเพาะอาหาร ย่อยโปรตีนให้กลายเป็นสารใดในขั้นแรก?",
+            options: ["ก. กรดอะมิโน", "ข. เพปไทด์ (Peptide) สายสั้นๆ", "ค. น้ำตาลกลูโคส", "ง. กรดไขมัน"],
+            answer: 1,
+            explain: "เพปซินย่อยโปรตีนสายยาวให้กลายเป็นสายเพปไทด์สั้นๆ ก่อนจะส่งไปย่อยสมบูรณ์เป็นกรดอะมิโนที่ลำไส้เล็ก"
+          },
+          {
+            id: 702,
+            cat: "การจำแนกสาร",
+            text: "ข้อใดเป็นตารางเปรียบเทียบขนาดอนุภาคของ สารละลาย, คอลลอยด์ และ สารแขวนลอย ได้ถูกต้อง?",
+            options: [
+              "ก. สารละลาย (<$10^{-7}$ cm) < คอลลอยด์ ($10^{-7}-10^{-4}$ cm) < สารแขวนลอย (>$10^{-4}$ cm)",
+              "ข. สารแขวนลอย (<$10^{-7}$ cm) < สารละลาย < คอลลอยด์",
+              "ค. คอลลอยด์ (<$10^{-7}$ cm) < สารละลาย < สารแขวนลอย",
+              "ง. ทุกประเภทมีขนาดอนุภาคเท่ากัน"
+            ],
+            answer: 0,
+            explain: "ขนาดอนุภาค: สารละลาย (<$10^{-7}$ cm) < คอลลอยด์ ($10^{-7} - 10^{-4}$ cm) < สารแขวนลอย (>$10^{-4}$ cm)"
+          },
+          {
+            id: 703,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "ความสัมพันธ์ระหว่าง 'ปูเสฉวนกับดอกไม้ทะเล (Sea Anemone)' เป็นความสัมพันธ์แบบใด?",
+            options: [
+              "ก. (+, +) ได้ประโยชน์ร่วมกัน แยกกันอยู่ได้",
+              "ข. (+, +) ภาวะพึ่งพากัน แยกกันอยู่ไม่ได้",
+              "ค. (+, 0) ภาวะอิงอาศัย",
+              "ง. (+, -) ภาวะล่าเหยื่อ"
+            ],
+            answer: 0,
+            explain: "ปูเสฉวนได้ดอกไม้ทะเลช่วยพรางตัว ดอกไม้ทะเลได้เคลื่อนที่หาอาหาร ทั้งคู่ได้ประโยชน์ (+, +) และแยกกันอยู่ได้"
+          },
+          {
+            id: 704,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์ชนิดใดที่มีหัวใจ 3 ห้อง และตัวอ่อนหายใจด้วยเหงือก แต่ตัวเต็มวัยหายใจด้วยปอดและผิวหนัง?",
+            options: ["ก. ฉลาม", "ข. กบ และ เขียด", "ค. เต่า", "ง. จระเข้"],
+            answer: 1,
+            explain: "สัตว์ครึ่งน้ำครึ่งบก (กบ เขียด) มีหัวใจ 3 ห้อง ตัวอ่อน (ลูกอ๊อด) ใช้เหงือก ตัวเต็มวัยใช้ปอด+ผิวหนัง"
+          },
+          {
+            id: 705,
+            cat: "การจำแนกพืช",
+            text: "มอส (Moss) และ ลิเวอร์เวิร์ต แตกต่างจากเฟินอย่างไร?",
+            options: [
+              "ก. มอสสร้างดอก แต่เฟินสร้างสปอร์",
+              "ข. มอสเป็นพืชไม่มีท่อลำเลียง ส่วนเฟินเป็นพืชมีท่อลำเลียง",
+              "ค. มอสมีรากแก้ว แต่เฟินมีรากฝอย",
+              "ง. มอสเป็นพืชใบเลี้ยงคู่"
+            ],
+            answer: 1,
+            explain: "มอส ลิเวอร์เวิร์ต จัดเป็นพืชไม่มีท่อลำเลียง (Non-vascular) ส่วนเฟินมีท่อลำเลียงแล้ว"
+          },
+          {
+            id: 706,
+            cat: "วิตามินและอาหาร",
+            text: "หากเด็กขาดวิตามิน D จะส่งผลให้เกิดโรคหรือความผิดปกติใดเกี่ยวกับร่างกาย?",
+            options: ["ก. โรคเลือดออกตามไรฟัน", "ข. โรคกระดูกอ่อน / กระดูกไม่แข็งแรง", "ค. โรคตาบอดสี", "ง. โรคคอหอยพอก"],
+            answer: 1,
+            explain: "วิตามิน D ทำหน้าที่ช่วยในการดูดซึมแคลเซียม หากขาดจะทำให้เกิดโรคกระดูกอ่อน"
+          },
+          {
+            id: 707,
+            cat: "การเปลี่ยนสถานะ",
+            text: "น้ำแข็งแห้ง (Dry Ice) ทำมาจากสารใด และเมื่อระเหิดจะกลายเป็นแก๊สชนิดใด?",
+            options: [
+              "ก. น้ำแข็งบริสุทธิ์ - ไอน้ำ",
+              "ข. คาร์บอนไดออกไซด์แข็ง - แก๊สคาร์บอนไดออกไซด์ ($\text{CO}_2$)",
+              "ค. แก๊สไนโตรเจนเหลว - แก๊สไนโตรเจน",
+              "ง. เกลือแกง - แก๊สคลอรีน"
+            ],
+            answer: 1,
+            explain: "น้ำแข็งแห้ง คือ คาร์บอนไดออกไซด์ในสถานะของแข็ง มีอุณหภูมิต่ำ $-78.5^\circ\text{C}$ เมื่อระเหิดจะกลายเป็นแก๊ส $\text{CO}_2$"
+          },
+          {
+            id: 708,
+            cat: "พันธุศาสตร์",
+            text: "ความแปรผันทางพันธุกรรมแบบไม่ต่อเนื่อง ถูกควบคุมด้วยยีนและสภาพแวดล้อมอย่างไร?",
+            options: [
+              "ก. ควบคุมด้วยยีน 1-2 คู่ สภาพแวดล้อมไม่มีผลหรือมีผลน้อยมาก",
+              "ข. ควบคุมด้วยยีนหลายคู่ สภาพแวดล้อมมีผลมาก",
+              "ค. สภาพแวดล้อมเป็นผู้กำหนด 100%",
+              "ง. ไม่ถูกควบคุมด้วยยีน"
+            ],
+            answer: 0,
+            explain: "ความแปรผันแบบไม่ต่อเนื่อง (เช่น หมู่เลือด) ถูกควบคุมด้วยยีนเพียง 1-2 คู่ สภาพแวดล้อมแทบไม่มีผล"
+          },
+          {
+            id: 709,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "เสือและแมวเลียขาตนเองในวันที่มีอากาศร้อน จัดเป็นการปรับตัวประเภทใด?",
+            options: ["ก. โครงสร้าง", "ข. พฤติกรรม (Behavioral)", "ค. สรีรวิทยา", "ง. พันธุกรรม"],
+            answer: 1,
+            explain: "การเลียขาเพื่อให้น้ำลายระเหยช่วยคลายร้อน เป็นกิริยาอาการกระทำ จึงจัดเป็นการปรับตัวทางพฤติกรรม"
+          },
+          {
+            id: 710,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "ข้อใดจัดเป็นการเปลี่ยนแปลงทางกายภาพ?",
+            options: [
+              "ก. จุดไฟเผาเทียนไข",
+              "ข. นมสดเปลี่ยนเป็นนมเปรี้ยว",
+              "ค. การทำน้ำเชื่อมโดยการละลายน้ำตาลในน้ำร้อน",
+              "ง. การสุกของมะม่วง"
+            ],
+            answer: 2,
+            explain: "การทำน้ำเชื่อมเป็นการละลายของสารในน้ำ ไม่เกิดสารใหม่ เมื่อระเหยน้ำออกจะได้น้ำตาลกลับคืนมา"
+          },
+          {
+            id: 711,
+            cat: "ระบบนิเวศ",
+            text: "ข้อใดเรียงลำดับการถ่ายทอดพลังงานในห่วงโซ่อาหารได้ถูกต้อง?",
+            options: [
+              "ก. ตั๊กแตน &rarr; พืช &rarr; กบ &rarr; งู",
+              "ข. พืช &rarr; ตั๊กแตน &rarr; กบ &rarr; งู",
+              "ค. งู &rarr; กบ &rarr; ตั๊กแตน &rarr; พืช",
+              "ง. กบ &rarr; งู &rarr; พืช &rarr; ตั๊กแตน"
+            ],
+            answer: 1,
+            explain: "ห่วงโซ่อาหารเริ่มจากผู้ผลิต (พืช) &rarr; ผู้บริโภคพืช (ตั๊กแตน) &rarr; ผู้บริโภคสัตว์ (กบ) &rarr; (งู)"
+          },
+          {
+            id: 712,
+            cat: "ระบบย่อยอาหาร",
+            text: "เอนไซม์แพนเครอติกอะไมเลส (Pancreatic Amylase) ถูกส่งมาจากอวัยวะใดมายังลำไส้เล็ก?",
+            options: ["ก. ตับ", "ข. ตับอ่อน (Pancreas)", "ค. กระเพาะอาหาร", "ง. ต่อมน้ำลาย"],
+            answer: 1,
+            explain: "แพนเครอติกอะไมเลสถูกสร้างและหลั่งมาจาก 'ตับอ่อน' เพื่อย่อยแป้งที่เหลือในลำไส้เล็ก"
+          },
+          {
+            id: 713,
+            cat: "การจำแนกสาร",
+            text: "กรดกำมะถัน มีชื่อทางเคมีและสูตรเคมีตามข้อใด?",
+            options: [
+              "ก. กรดซัลฟิวริก ($\text{H}_2\text{SO}_4$)",
+              "ข. กรดไฮโดรคลอริก ($\text{HCl}$)",
+              "ค. กรดแอซิติก ($\text{CH}_3\text{COOH}$)",
+              "ง. กรดไนตริก ($\text{HNO}_3$)"
+            ],
+            answer: 0,
+            explain: "กรดกำมะถัน คือ กรดซัลฟิวริก มีสูตรเคมีคือ $\text{H}_2\text{SO}_4$ (น้ำกรดในแบตเตอรี่)"
+          },
+          {
+            id: 714,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์ชนิดใดที่มีขนเป็นเส้น (Hair) มีกะบังลม และเลี้ยงลูกด้วยนม?",
+            options: ["ก. นกเพนกวิน", "ข. ค้างคาว และ วาฬ", "ค. จระเข้", "ง. กบ"],
+            answer: 1,
+            explain: "ค้างคาวและวาฬจัดเป็นสัตว์เลี้ยงลูกด้วยนม หายใจด้วยปอด มีกะบังลม ขนเป็นเส้น"
+          },
+          {
+            id: 715,
+            cat: "โครงสร้างดอกไม้",
+            text: "ส่วนของดอกไม้ที่เจริญไปเป็น 'เมล็ด (Seed)' หลังปฏิสนธิคือสิ่งใด?",
+            options: ["ก. รังไข่", "ข. ออวุล (Ovule)", "ค. ผนังรังไข่", "ง. ยอดเกสรเพศเมีย"],
+            answer: 1,
+            explain: "ออวุล (Ovule) เจริญไปเป็น เมล็ด (Seed)"
+          },
+          {
+            id: 716,
+            cat: "การจำแนกพืช",
+            text: "ข้อใดเป็นลักษณะของพืชใบเลี้ยงเดี่ยว?",
+            options: [
+              "ก. ระบบรากแก้ว เส้นใบเป็นร่างแห",
+              "ข. ระบบรากฝอย เส้นใบขนาน กลีบดอกทวีคูณของ 3",
+              "ค. ลำต้นมีวงปีชัดเจน ขยายออกข้างได้ดี",
+              "ง. กลีบดอกทวีคูณของ 4 หรือ 5"
+            ],
+            answer: 1,
+            explain: "พืชใบเลี้ยงเดี่ยว: เส้นใบขนาน + รากฝอย + กลีบดอกทวีคูณของ 3"
+          },
+          {
+            id: 717,
+            cat: "สถานะของสาร",
+            text: "การเปลี่ยนสถานะจาก 'แก๊ส' เป็น 'ของแข็ง' โดยตรง เรียกว่าอะไร?",
+            options: ["ก. การระเหิด", "ข. การระเหิดกลับ (Deposition)", "ค. การหลอมเหลว", "ง. การกลายเป็นไอ"],
+            answer: 1,
+            explain: "แก๊สเปลี่ยนเป็นของแข็งโดยไม่ผ่านของเหลว เรียกว่า 'การระเหิดกลับ' (Deposition)"
+          },
+          {
+            id: 718,
+            cat: "พันธุศาสตร์",
+            text: "ลักษณะใดต่อไปนี้จัดเป็น 'ลักษณะด้อย' (Recessive Trait) ในมนุษย์?",
+            options: ["ก. หนังตาสองชั้น", "ข. หนังตาชั้นเดียว และ ห่อลิ้นไม่ได้", "ค. มีลักยิ้ม", "ง. ผมหยิก"],
+            answer: 1,
+            explain: "หนังตาชั้นเดียว ห่อลิ้นไม่ได้ ไม่มีลักยิ้ม ไม่มีติ่งหู และผมตรง จัดเป็นลักษณะด้อย"
+          },
+          {
+            id: 719,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "ต้นแสมและต้นลำพูในป่าชายเลน มีรากลักษณะใดเพื่อช่วยในการหายใจ?",
+            options: ["ก. รากค้ำจุน", "ข. รากหายใจ (Pneumatophore) โผล่ขึ้นมาจากดินเลน", "ค. รากแก้วลึก", "ง. รากฝอยตื้น"],
+            answer: 1,
+            explain: "แสมและลำพูมีรากหายใจแทงโผล่ขึ้นมาจากดินเลนเพื่อรับแก๊สออกซิเจน"
+          },
+          {
+            id: 720,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "การสุกของกล้วยหอมจนเปลือกเปลี่ยนเป็นสีเหลืองและมีรสหวาน จัดเป็นการเปลี่ยนแปลงประเภทใด?",
+            options: ["ก. กายภาพ", "ข. เคมี (Chemical Change)", "ค. เปลี่ยนสถานะ", "ง. การควบแน่น"],
+            answer: 1,
+            explain: "การสุกของผลไม้เกิดปฏิกิริยาเคมีเปลี่ยนแป้งให้เป็นน้ำตาล เปลี่ยนสีและกลิ่น"
+          }
+        ]
+      },
+
+      // SET 8: High-Level Competition (Suankularb / Demonstration School Style)
+      {
+        setId: 8,
+        title: "ชุดที่ 8: โจทย์สอบเข้า ม.1 โรงเรียนแข่งขันสูง (ชุดวิเคราะห์ 1)",
+        difficulty: "ยากมาก",
+        desc: "เน้นโจทย์วิเคราะห์สถานการณ์ หลุมพรางข้อสอบแข่งขันโรงเรียนดัง (สวนกุหลาบ/สาธิต)",
+        questions: [
+          {
+            id: 801,
+            cat: "การจำแนกสัตว์",
+            text: "พิจารณาเบาะแสสัตว์ต่อไปนี้: 'มีโครงร่างแข็งภายนอก, ลอกคราบได้, ไข่มีวุ้นหุ้ม, ตัวอ่อนกินพืช' สัตว์ชนิดนี้คือข้อใด?",
+            options: ["ก. กบ", "ข. ตั๊กแตนใบไม้", "ค. งู", "ง. นกกระจอก"],
+            answer: 1,
+            explain: "มีโครงร่างแข็งภายนอก + ลอกคราบได้ &rarr; จัดเป็นสัตว์ขาข้อ (Arthropoda) จึงตอบ ตั๊กแตนใบไม้ (แมลง)"
+          },
+          {
+            id: 802,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "พิจารณาความสัมพันธ์คู่ตัวอย่าง: 'จระเข้กับนกหัวโตอียิปต์ (+, +)' ข้อใดมีรูปแบบความสัมพันธ์ตรงกันมากที่สุด?",
+            options: ["ก. กาฝากบนต้นไม้ใหญ่", "ข. ผีเสื้อกับดอกไม้", "ค. เหาฉลามกับฉลาม", "ง. เสือกับม้าลาย"],
+            answer: 1,
+            explain: "จระเข้กับนกหัวโตอียิปต์เป็นภาวะได้ประโยชน์ร่วมกัน (+, +) ซึ่งตรงกับ 'ผีเสื้อกับดอกไม้' (+, +) แยกกันอยู่ได้"
+          },
+          {
+            id: 803,
+            cat: "ระบบย่อยอาหาร",
+            text: "หากเกิดปัญหาสภาพตับอักเสบรุนแรง ทำให้สร้างน้ำดีได้น้อยลง อวัยวะใดจะรับภาระหนักที่สุดในการย่อยไขมัน?",
+            options: ["ก. ปาก", "ข. กระเพาะอาหาร", "ค. ตับอ่อน (Pancreas)", "ง. ลำไส้ใหญ่"],
+            answer: 2,
+            explain: "เมื่อไม่มีน้ำดีช่วยทำให้ไขมันแตกตัว เอนไซม์ไลเพสจาก 'ตับอ่อน' จะต้องทำงานหนักขึ้นในการย่อยไขมัน"
+          },
+          {
+            id: 804,
+            cat: "การจำแนกสาร",
+            text: "น้ำเกลือ และ น้ำทะเล จัดเป็นสารประเภทใดตามผังจำแนกสาร?",
+            options: [
+              "ก. สารบริสุทธิ์ประเภทสารประกอบ",
+              "ข. สารละลาย (อยู่ในกลุ่มสารเนื้อเดียว)",
+              "ค. สารคอลลอยด์",
+              "ง. สารแขวนลอย"
+            ],
+            answer: 1,
+            explain: "น้ำเกลือ/น้ำทะเล มีสารหลายชนิดละลายรวมกันใสเป็นเนื้อเดียว จัดเป็น 'สารละลาย' ในหมวดสารเนื้อเดียว"
+          },
+          {
+            id: 805,
+            cat: "การจำแนกพืช",
+            text: "พืชในข้อใดมีส่วนใต้ดินเป็น 'ลำต้นสะสมอาหาร' และจัดเป็นพืชใบเลี้ยงเดี่ยวทั้งหมด?",
+            options: [
+              "ก. แครอท และ มันแกว",
+              "ข. ขิง, ข่า, หัวหอม, กระเทียม",
+              "ค. มันสำปะหลัง และ เผือก",
+              "ง. มะเขือเทศ และ มันฝรั่ง"
+            ],
+            answer: 1,
+            explain: "ขิง ข่า หัวหอม กระเทียม ส่วนใต้ดินเป็นลำต้นสะสมอาหาร และเป็นพืชใบเลี้ยงเดี่ยว"
+          },
+          {
+            id: 806,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "การจุดไฟเผาเทียนไข ทำให้เนื้อเทียนและไส้เทียนลดลง เกิดเปลวไฟ ควัน และน้ำตาเทียนไหลเยิ้ม เหตุการณ์นี้มีการเปลี่ยนแปลงอย่างไร?",
+            options: [
+              "ก. เกิดการเปลี่ยนแปลงทางเคมีอย่างเดียว",
+              "ข. เกิดการเปลี่ยนแปลงทางกายภาพอย่างเดียว",
+              "ค. เกิดทั้งการเปลี่ยนแปลงทางกายภาพ (เทียนหลอมเหลว) และทางเคมี (เผาไหม้)",
+              "ง. ไม่เกิดการเปลี่ยนแปลงใดๆ"
+            ],
+            answer: 2,
+            explain: "น้ำตาเทียนที่ละลายหลอมเหลว = กายภาพ ส่วนเปลวไฟควันจากการเผาไหม้ = เคมี"
+          },
+          {
+            id: 807,
+            cat: "ระบบนิเวศ",
+            text: "ในการทดลองเลี้ยงสิ่งมีชีวิตในระบบปิด หากเพิ่มจำนวนผู้บริโภคลำดับที่ 1 ขึ้นอย่างรวดเร็ว จะส่งผลอย่างไรต่อผู้ผลิตและผู้บริโภคลำดับที่ 2?",
+            options: [
+              "ก. ผู้ผลิตลดลง, ผู้บริโภคลำดับที่ 2 เพิ่มขึ้น",
+              "ข. ผู้ผลิตเพิ่มขึ้น, ผู้บริโภคลำดับที่ 2 ลดลง",
+              "ค. ลดลงทั้งคู่",
+              "ง. เพิ่มขึ้นทั้งคู่"
+            ],
+            answer: 0,
+            explain: "ผู้บริโภค 1 กินผู้ผลิต (ทำให้ผู้ผลิตลดลง) และผู้บริโภค 1 เป็นอาหารของ ผู้บริโภค 2 (ทำให้ผู้บริโภค 2 เพิ่มขึ้น)"
+          },
+          {
+            id: 808,
+            cat: "โครงสร้างดอกไม้",
+            text: "พืชดอกชนิดหนึ่งมีดอกที่มีกลีบเลี้ยง กลีบดอก และเกสรเพศผู้ แต่ 'ไม่มีเกสรเพศเมีย' ดอกไม้ชนิดนี้จะเจริญไปเป็นผลได้หรือไม่?",
+            options: [
+              "ก. ได้ เพราะมีกลีบดอกช่วยผสมเกสร",
+              "ข. ได้ เพราะมีอับเรณูสมบูรณ์",
+              "ค.ไม่ได้ เพราะไม่มีรังไข่และออวุลที่จะปฏิสนธิเจริญเป็นผลและเมล็ด",
+              "ง. ได้ หาก ได้รับฮอร์โมนภายนอก"
+            ],
+            answer: 2,
+            explain: "ผลพัฒนามาจากรังไข่ในเกสรเพศเมีย หากไม่มีเกสรเพศเมียย่อมไม่สามารถติดผลได้"
+          },
+          {
+            id: 809,
+            cat: "วิตามินและอาหาร",
+            text: "วิตามินชนิดใดที่ไม่สะสมในร่างกายและต้องรับประทานชดเชยทุกวัน แต่หากขาดจะเกิดโรคเหน็บชา?",
+            options: ["ก. วิตามิน A", "ข. วิตามิน B1", "ค. วิตามิน D", "ง. วิตามิน K"],
+            answer: 1,
+            explain: "วิตามิน B1 ละลายในน้ำ ไม่สะสม ป้องกันโรคเหน็บชา พบในข้าวซ้อมมือ ตับ ไข่"
+          },
+          {
+            id: 810,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "ข้อใดจับคู่ประเภทการปรับตัวกับตัวอย่างสิ่งมีชีวิต ได้ 'ถูกต้องและตรงกัน'?",
+            options: [
+              "ก. กบขุดรูจำศีล - การปรับตัวทางโครงสร้าง",
+              "ข. นกอพยพบินย้ายถิ่น - การปรับตัวทางพฤติกรรม",
+              "ค. นกทะเลมีต่อมเกลือขับเกลือ - การปรับตัวทางโครงสร้าง",
+              "ง. ต้นกระบองเพชรใบลดรูปเป็นหนาม - การปรับตัวทางพฤติกรรม"
+            ],
+            answer: 1,
+            explain: "การอพยพบินย้ายถิ่นหนีความหนาวเป็นพฤติกรรม (Behavioral) ตอบถูกส่วนข้ออื่นจับคู่ผิดประเภท"
+          },
+          {
+            id: 811,
+            cat: "สถานะของสาร",
+            text: "เมื่อนำแก้วน้ำเย็นมาตั้งไว้ในห้องอุณหภูมิห้อง พบว่ามี 'หยดน้ำเกาะข้างแก้ว' ปรากฏการณ์นี้เรียกว่าอะไร และเป็นการดูดหรือคายความร้อน?",
+            options: [
+              "ก. การระเหย - ดูดความร้อน",
+              "ข. การควบแน่น (Condensation) - คายความร้อน",
+              "ค. การหลอมเหลว - ดูดความร้อน",
+              "ง. การระเหิดกลับ - ดูดความร้อน"
+            ],
+            answer: 1,
+            explain: "ไอน้ำในอากาศกระทบแก้วเย็นแล้วเปลี่ยนเป็นหยดน้ำ เรียกว่า 'การควบแน่น' (แก๊ส&rarr;ของเหลว) เกิดจากการคายความร้อน"
+          },
+          {
+            id: 812,
+            cat: "พันธุศาสตร์",
+            text: "หากจับคู่ยีนของพ่อแม่เป็น $Tt \times Tt$ (โดย $T$ เป็นยีนเด่นต้นสูง, $t$ เป็นยีนด้อยต้นแคระ) อัตราส่วนฟีโนไทป์ของลูกจะเป็นอย่างไร?",
+            options: [
+              "ก. ต้นสูงทั้งหมด 100%",
+              "ข. ต้นสูง : ต้นแคระ = 3 : 1",
+              "ค. ต้นสูง : ต้นแคระ = 1 : 1",
+              "ง. ต้นแคระทั้งหมด 100%"
+            ],
+            answer: 1,
+            explain: "การจับคู่ $Tt \times Tt$ จะได้ยีน $TT, Tt, Tt, tt$ ทำให้ได้ ต้นสูง 3 ส่วน (75%) และต้นแคระ 1 ส่วน (25%) สัดส่วน 3:1"
+          },
+          {
+            id: 813,
+            cat: "การจำแนกสาร",
+            text: "ปูนขาว มีชื่อทางเคมีและสูตรเคมีตามข้อใด?",
+            options: [
+              "ก. แคลเซียมออกไซด์ ($\text{CaO}$)",
+              "ข. แคลเซียมไฮดรอกไซด์",
+              "ค. โซเดียมไฮดรอกไซด์",
+              "ง. กรดซัลฟิวริก"
+            ],
+            answer: 0,
+            explain: "ปูนขาว คือ แคลเซียมออกไซด์ ($\text{CaO}$)"
+          },
+          {
+            id: 814,
+            cat: "การจำแนกสัตว์",
+            text: "ตุ่นปากเป็ด และ ตัวกินมดหนาม จัดอยู่ในสัตว์กลุ่มใด และมีลักษณะพิเศษอย่างไร?",
+            options: [
+              "ก. สัตว์เลื้อยคลาน - ออกลูกเป็นตัว",
+              "ข. สัตว์เลี้ยงลูกด้วยนม - ออกลูกเป็นไข่ (แต่มีต่อมนม)",
+              "ค. สัตว์ครึ่งน้ำครึ่งบก - เลือดอุ่น",
+              "ง. สัตว์ปีก - หายใจด้วยเหงือก"
+            ],
+            answer: 1,
+            explain: "เป็นสัตว์เลี้ยงลูกด้วยนมข้อยกเว้นพิเศษ ออกลูกเป็นไข่ แต่มีต่อมนมเลี้ยงลูก"
+          },
+          {
+            id: 815,
+            cat: "ระบบย่อยอาหาร",
+            text: "เอนไซม์ชนิดใดในกระเพาะอาหารของทารกที่ทำหน้าที่ตกตะกอนโปรตีนในนม?",
+            options: ["ก. เพปซิน", "ข. เรนนิน (Rennin)", "ค. ทริปซิน", "ง. ไลเพส"],
+            answer: 1,
+            explain: "ในทารกจะมีเอนไซม์ เรนนิน (Rennin) ช่วยตกตะกอนโปรตีนเคซีนในนม"
+          },
+          {
+            id: 816,
+            cat: "การจำแนกพืช",
+            text: "พืชในข้อใดจัดเป็น 'พืชเมล็ดเปลือย (Gymnosperms)' ทั้งหมด?",
+            options: [
+              "ก. สนสองใบ, สนสามใบ, ปรง, แปะก๊วย",
+              "ข. มอส, ลิเวอร์เวิร์ต, ฮอร์นเวิร์ต",
+              "ค. ผักกูด, ผักแว่น, ชายผ้าสีดา",
+              "ง. กุหลาบ, ทานตะวัน, ข้าวโพด"
+            ],
+            answer: 0,
+            explain: "สนสองใบ สนสามใบ ปรง แปะก๊วย มะเมื่อย จัดเป็นกลุ่มพืชเมล็ดเปลือย ไร้ดอก สร้างโคน"
+          },
+          {
+            id: 817,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "ข้อใดคือสัญญาณที่บ่งชี้ว่าเกิด 'การเปลี่ยนแปลงทางเคมี'?",
+            options: [
+              "ก. มีการเปลี่ยนสถานะของสารผันกลับได้",
+              "ข. เกิดสารใหม่ มีการเปลี่ยนสี กลิ่น เกิดฟองแก๊ส หรือการคายความร้อน/แสง",
+              "ค. ขนาดของโมเลกุลเล็กลงแต่สมบัติเหมือนเดิม",
+              "ง. สารละลายในน้ำแล้วระเหยกลับได้"
+            ],
+            answer: 1,
+            explain: "การเปลี่ยนแปลงทางเคมีจะเกิดสารใหม่เสมอ มักสังเกตได้จาก สี กลิ่น ตะกอน ฟองแก๊ส หรือพลังงาน"
+          },
+          {
+            id: 818,
+            cat: "ระบบนิเวศ",
+            text: "ความสัมพันธ์ระหว่าง 'โพรโทซัวในลำไส้ปลวก' เป็นความสัมพันธ์แบบใด?",
+            options: [
+              "ก. ภาวะพึ่งพากัน (+, +) แยกจากกันจะตาย",
+              "ข. ภาวะได้ประโยชน์ร่วมกัน (+, +) แยกกันอยู่ได้",
+              "ค. ภาวะปรสิต (+, -)",
+              "ง. ภาวะอิงอาศัย (+, 0)"
+            ],
+            answer: 0,
+            explain: "โพรโทซัวช่วยย่อยไม้ให้ปลวก ปลวกให้อาหารและที่อยู่ ทั้งคู่ขาดกันไม่ได้ หากแยกกันจะตาย"
+          },
+          {
+            id: 819,
+            cat: "การจำแนกสาร",
+            text: "ทราย หรือ ซิลิกอนไดออกไซด์ มีสูตรเคมีคือข้อใด?",
+            options: ["ก. $\text{SiO}_2$", "ข. $\text{NaCl}$", "ค. $\text{NaOH}$", "ง. $\text{CaCO}_3$"],
+            answer: 0,
+            explain: "ทราย มีองค์ประกอบเคมีหลักคือ ซิลิกอนไดออกไซด์ ($\text{SiO}_2$)"
+          },
+          {
+            id: 820,
+            cat: "โครงสร้างดอกไม้",
+            text: "ดอกไม้ที่มีองค์ประกอบครบทั้ง 4 ส่วน (กลีบเลี้ยง กลีบดอก เกสรตัวผู้ เกสรตัวเมีย) เรียกว่าอะไร?",
+            options: ["ก. ดอกไม่สมบูรณ์", "ข. ดอกสมบูรณ์ (Complete flower)", "ค. ดอกไม่สมบูรณ์เพศ", "ง. ดอกเดี่ยว"],
+            answer: 1,
+            explain: "ดอกสมบูรณ์ (Complete flower) ต้องมีส่วนประกอบครบทั้ง 4 ชั้นหลัก"
+          }
+        ]
+      },
+
+      // SET 9: High-Level Competition 2
+      {
+        setId: 9,
+        title: "ชุดที่ 9: โจทย์สอบเข้า ม.1 โรงเรียนแข่งขันสูง (ชุดวิเคราะห์ 2)",
+        difficulty: "ยากมาก",
+        desc: "เน้นวิเคราะห์เชื่อมโยงหลายบทเรียน สรีรวิทยาการย่อย และพันธุศาสตร์ข้ามรุ่น",
+        questions: [
+          {
+            id: 901,
+            cat: "ระบบย่อยอาหาร",
+            text: "กระบวนการย่อยทางเคมีของสารอาหารคาร์โบไฮเดรต โปรตีน และไขมัน จะสิ้นสุดและถูกดูดซึมมากที่สุดที่อวัยวะใด?",
+            options: ["ก. ปาก", "ข. กระเพาะอาหาร", "ค. ลำไส้เล็ก (Small Intestine)", "ง. ลำไส้ใหญ่"],
+            answer: 2,
+            explain: "ลำไส้เล็กเป็นอวัยวะเดียวที่มีการย่อยสมบูรณ์ของสารอาหารทุกประเภท และเป็นจุดดูดซึมสารอาหารมากที่สุด"
+          },
+          {
+            id: 902,
+            cat: "การจำแนกสัตว์",
+            text: "ข้อใดเปรียบเทียบสิ่งปกคลุมร่างกาย อวัยวะหายใจ และลักษณะไข่ของ 'สัตว์เลื้อยคลาน' ได้ถูกต้อง?",
+            options: [
+              "ก. ผิวเปียกชื้น, หายใจด้วยเหงือก, ไข่มีวุ้นหุ้ม",
+              "ข. ผิวแห้งมีเกล็ดแข็ง, หายใจด้วยปอด, ไข่มีเปลือกแข็งหรือเปลือกเหนียวหุ้ม",
+              "ค. ขนเป็นแผง, หายใจด้วยปอด+ถุงลม, ไข่เปลือกหินปูน",
+              "ง. ขนเป็นเส้น, หายใจด้วยปอดมีกะบังลม, ออกลูกเป็นตัว"
+            ],
+            answer: 1,
+            explain: "สัตว์เลื้อยคลานมีผิวหนังแห้งมีเกล็ดแข็ง หายใจด้วยปอด และวางไข่บนบกมีเปลือกเหนียว/แข็งคุ้มกัน"
+          },
+          {
+            id: 903,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "กล้วยไม้ หรือ เฟิน ที่เจริญเกาะอยู่บนกิ่งของต้นไม้ใหญ่ จัดเป็นความสัมพันธ์แบบใด?",
+            options: [
+              "ก. ภาวะพึ่งพากัน (+, +)",
+              "ข. ภาวะอิงอาศัย หรือ พึ่งพาฝ่ายเดียว (+, 0)",
+              "ค. ภาวะปรสิต (+, -)",
+              "ง. ภาวะการแข่งขัน (-, -)"
+            ],
+            answer: 1,
+            explain: "กล้วยไม้เกาะต้นไม้ใหญ่เพื่อรับแสงแดด (+) ส่วนต้นไม้ใหญ่ไม่ได้และไม่เสียประโยชน์ (0)"
+          },
+          {
+            id: 904,
+            cat: "การจำแนกสาร",
+            text: "น้ำแป้งดิบ และ น้ำโคลน จัดอยู่ในหมวดหมู่สารประเภทใด?",
+            options: ["ก. สารละลาย", "ข. สารคอลลอยด์", "ค. สารแขวนลอย (Suspension)", "ง. สารบริสุทธิ์"],
+            answer: 2,
+            explain: "น้ำแป้งดิบและน้ำโคลนมีอนุภาคใหญ่กว่า $10^{-4}\text{ cm}$ มองเห็นด้วยตาเปล่าและตกตะกอนเมื่อตั้งทิ้งไว้"
+          },
+          {
+            id: 905,
+            cat: "พันธุศาสตร์",
+            text: "ลักษณะความแปรผันทางพันธุกรรมแบบไม่ต่อเนื่อง (Discontinuous Variation) มีคุณลักษณะตามข้อใด?",
+            options: [
+              "ก. ไม่มีความต่อเนื่อง แยกเป็นกลุ่มชัดเจน ถูกควบคุมด้วยยีน 1-2 คู่",
+              "ข. สามารถวัดขนาดเป็นตัวเลขได้อย่างต่อเนื่อง",
+              "ค. ได้รับอิทธิพลจากสิ่งแวดล้อมอย่างมาก",
+              "ง. ไม่ถ่ายทอดทางพันธุกรรม"
+            ],
+            answer: 0,
+            explain: "ความแปรผันแบบไม่ต่อเนื่องแบ่งกลุ่มเด็ดขาด เช่น หมู่เลือด การห่อลิ้น มีผลจากสิ่งแวดล้อมน้อยมาก"
+          },
+          {
+            id: 906,
+            cat: "สถานะของสาร",
+            text: "การเปลี่ยนสถานะจาก 'ของเหลว' กลายเป็น 'ของแข็ง' เรียกว่าอะไร และเป็นการเปลี่ยนแปลงความร้อนแบบใด?",
+            options: [
+              "ก. การหลอมเหลว - ดูดความร้อน",
+              "ข. การแข็งตัว (Freezing) - คายความร้อน",
+              "ค. การควบแน่น - คายความร้อน",
+              "ง. การระเหิด - ดูดความร้อน"
+            ],
+            answer: 1,
+            explain: "ของเหลวกลายเป็นของแข็ง เรียกว่าการแข็งตัว เกิดจากการลดอุณหภูมิหรือคายความร้อน"
+          },
+          {
+            id: 907,
+            cat: "โครงสร้างดอกไม้",
+            text: "ข้อใดเรียงลำดับขั้นตอนการสืบพันธุ์แบบอาศัยเพศของพืชดอกได้ถูกต้อง?",
+            options: [
+              "ก. การปฏิสนธิ &rarr; การถ่ายละอองเรณู &rarr; การงอกหลอดเรณู",
+              "ข. การถ่ายละอองเรณู &rarr; การงอกหลอดเรณู &rarr; การปฏิสนธิ",
+              "ค. การงอกหลอดเรณู &rarr; การปฏิสนธิ &rarr; การถ่ายละอองเรณู",
+              "ง. การปฏิสนธิ &rarr; การงอกหลอดเรณู &rarr; การถ่ายละอองเรณู"
+            ],
+            answer: 1,
+            explain: "เริ่มจาก 1. ถ่ายละอองเรณูตกลงยอดเกสรเมีย &rarr; 2. งอกหลอดเรณู &rarr; 3. สเปิร์มเข้าปฏิสนธิกับไข่ในออวุล"
+          },
+          {
+            id: 908,
+            cat: "การจำแนกพืช",
+            text: "ตารางเปรียบเทียบระบบรากและเส้นใบของพืชใบเลี้ยงเดี่ยวและคู่ ข้อใดถูกต้อง?",
+            options: [
+              "ก. เดี่ยว = ร่างแห + รากแก้ว / คู่ = ขนาน + รากฝอย",
+              "ข. เดี่ยว = ขนาน + รากฝอย / คู่ = ร่างแห + รากแก้ว",
+              "ค. เดี่ยว = ขนาน + รากแก้ว / คู่ = ร่างแห + รากฝอย",
+              "ง. ทั้งสองกลุ่มมีระบบรากและเส้นใบเหมือนกัน"
+            ],
+            answer: 1,
+            explain: "สูตรจำ: 'เดี่ยว = ขนาน + รากฝอย' และ 'คู่ = ร่างแห + รากแก้ว'"
+          },
+          {
+            id: 909,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "สัตว์ทะเลทรายออกหากินในเวลากลางคืน จัดเป็นการปรับตัวประเภทใด?",
+            options: ["ก. การปรับตัวทางโครงสร้าง", "ข. การปรับตัวทางพฤติกรรม", "ค. การปรับตัวทางสรีรวิทยา", "ง. การปรับตัวทางเคมี"],
+            answer: 1,
+            explain: "การเลือกเวลาออกหากินกลางคืนเพื่อเลี่ยงความร้อนเป็นพฤติกรรม (Behavioral Adaptation)"
+          },
+          {
+            id: 910,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "ข้อใดต่อไปนี้จัดเป็น 'การเปลี่ยนแปลงทางเคมี' ทั้งหมด?",
+            options: [
+              "ก. เทียนไขหลอมเหลว, ต้มน้ำเดือด, สับเนื้อ",
+              "ข. ตะปูขึ้นสนิม, ผลไม้สุก, อาหารบูด",
+              "ค. ละลายเกลือในน้ำ, ฉีกกระดาษ, ปั้นดินน้ำมัน",
+              "ง. ละลายน้ำตาล, ไอของน้ำแข็ง dry ice"
+            ],
+            answer: 1,
+            explain: "สนิม ผลไม้สุก อาหารบูด เกิดจากปฏิกิริยาเคมี ได้สารใหม่ผันกลับไม่ได้"
+          },
+          {
+            id: 911,
+            cat: "ระบบนิเวศ",
+            text: "สิ่งมีชีวิตใดจัดเป็นผู้บริโภคทั้งพืชและสัตว์ (Omnivore)?",
+            options: ["ก. กระต่าย", "ข. เสือ", "ค. มนุษย์ หมู ไก่", "ง. วัว"],
+            answer: 2,
+            explain: "มนุษย์ หมู ไก่ นก กินทั้งพืชและสัตว์เป็นอาหาร"
+          },
+          {
+            id: 912,
+            cat: "วิตามินและอาหาร",
+            text: "วิตามินกลุ่มใดต่อไปนี้ สามารถสะสมไว้ที่ตับและเนื้อเยื่อไขมันในร่างกายได้ หากรับประทานมากเกินไปอาจเกิดพิษสะสม?",
+            options: ["ก. วิตามิน B1 และ B2", "ข. วิตามิน C", "ค. วิตามิน A, D, E, K", "ง. วิตามิน B12"],
+            answer: 2,
+            explain: "วิตามิน ADEK ละลายในไขมัน สะสมในตับและเนื้อเยื่อไขมันได้ หากรับประทานมากเกินไปอาจเกิดพิษสะสม"
+          },
+          {
+            id: 913,
+            cat: "ระบบย่อยอาหาร",
+            text: "อวัยวะใดทำหน้าที่ย่อยแป้งด้วยเอนไซม์อะไมเลสเป็นอวัยวะแรกสุด?",
+            options: ["ก. ปาก", "ข. กระเพาะอาหาร", "ค. ลำไส้เล็ก", "ง. ตับ"],
+            answer: 0,
+            explain: "ปากหลั่งเอนไซม์อะไมเลสในน้ำลายย่อยแป้งเป็นน้ำตาลมอลโทสเป็นจุดแรก"
+          },
+          {
+            id: 914,
+            cat: "การจำแนกสัตว์",
+            text: "แมงมุม แมงป่อง เห็บ มีจำนวนขาทั้งหมดกี่ขา?",
+            options: ["ก. 6 ขา (3 คู่)", "ข. 8 ขา (4 คู่)", "ค. 10 ขา (5 คู่)", "ง. ขาจำนวนมาก"],
+            answer: 1,
+            explain: "กลุ่มแมงมี 8 ขา (4 คู่)"
+          },
+          {
+            id: 915,
+            cat: "การจำแนกสาร",
+            text: "น้ำส้มสายชู มีกรดชนิดใดเป็นองค์ประกอบหลัก?",
+            options: ["ก. กรดไฮโดรคลอริก", "ข. กรดแอซิติก ($\text{CH}_3\text{COOH}$)", "ค. กรดซัลฟิวริก", "ง. กรดไนตริก"],
+            answer: 1,
+            explain: "น้ำส้มสายชูมีกรดแอซิติก ($\text{CH}_3\text{COOH}$) เป็นองค์ประกอบ"
+          },
+          {
+            id: 916,
+            cat: "สถานะของสาร",
+            text: "การเปลี่ยนสถานะจาก 'ของแข็ง' เป็น 'แก๊ส' ของลูกเหม็นและพิมเสน เกิดขึ้นจากการดูดหรือคายความร้อน?",
+            options: ["ก. ดูดความร้อน", "ข. คายความร้อน", "ค. ไม่เปลี่ยนพลังงาน", "ง. คายแสงสว่าง"],
+            answer: 0,
+            explain: "การระเหิดของแข็งเป็นแก๊ส ต้องดูดพลังงานความร้อนเข้าสู่อนุภาค"
+          },
+          {
+            id: 917,
+            cat: "การจำแนกพืช",
+            text: "พืชในข้อใดเป็นพืชไม่มีดอกสืบพันธุ์ด้วยสปอร์?",
+            options: ["ก. เฟิน และ ชายผ้าสีดา", "ข. สนสองใบ", "ค. มะพร้าว", "ง. กุหลาบ"],
+            answer: 0,
+            explain: "เฟิน ชายผ้าสีดา ผักกูด เป็นพืชไร้ดอกสืบพันธุ์ด้วยสปอร์"
+          },
+          {
+            id: 918,
+            cat: "พันธุศาสตร์",
+            text: "บุคคลที่มีหมู่เลือด A, B, AB, O จัดเป็นความแปรผันทางพันธุกรรมแบบใด?",
+            options: ["ก. ความแปรผันแบบต่อเนื่อง", "ข. ความแปรผันแบบไม่ต่อเนื่อง", "ค. ไม่เป็นความแปรผันทางพันธุกรรม", "ง. เกิดจากอาหารการกิน"],
+            answer: 1,
+            explain: "หมู่เลือดแบ่งกลุ่มชัดเจนแน่นอน เป็นความแปรผันแบบไม่ต่อเนื่อง"
+          },
+          {
+            id: 919,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "การที่หมีขั้วโลกนอนจำศีลในถ้ำช่วงฤดูหนาวจัดเป็นการปรับตัวด้านใด?",
+            options: ["ก. โครงสร้าง", "ข. พฤติกรรม (Behavioral)", "ค. สรีรวิทยา", "ง. เคมี"],
+            answer: 1,
+            explain: "การนอนจำศีลเป็นการแสดงพฤติกรรมเพื่อลดอัตราเมแทบอลิซึม"
+          },
+          {
+            id: 920,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "การละลายของน้ำตาลทรายในน้ำร้อน เป็นการเปลี่ยนแปลงประเภทใด และเพราะเหตุใด?",
+            options: [
+              "ก. ทางเคมี เพราะน้ำหวานขึ้น",
+              "ข. ทางกายภาพ เพราะองค์ประกอบเคมีของน้ำตาลยังเหมือนเดิมและระเหยน้ำกลับได้",
+              "ค. การระเหิด เพราะโมเลกุลหายไป",
+              "ง. การตกตะกอน"
+            ],
+            answer: 1,
+            explain: "การละลายเป็นการเปลี่ยนแปลงทางกายภาพ ไม่เกิดสารใหม่ แยกกลับได้ด้วยการระเหยแห้ง"
+          }
+        ]
+      },
+
+      // SET 10: Ultimate Challenge / High-Competition Mock Exam
+      {
+        setId: 10,
+        title: "ชุดที่ 10: แบบทดสอบจำลองเสมือนจริง สอบเข้า ม.1 (Ultimate Challenge)",
+        difficulty: "ระดับแข่งขันสูงสุด",
+        desc: "โจทย์ครอบคลุมทั้ง 12 บทเรียน รูปแบบวิเคราะห์ซับซ้อน วัดความเชี่ยวชาญก่อนลงสนามจริง",
+        questions: [
+          {
+            id: 1001,
+            cat: "ระบบนิเวศ & Biomagnification",
+            text: "จากห่วงโซ่อาหาร: สาหร่ายทะเล &rarr; กุ้ง &rarr; ปลาเล็ก &rarr; ปลาใหญ่ &rarr; นกเหยี่ยว หากมีการทิ้งปรอตลงในทะเล สัตว์ชนิดใดจะถูกตรวจพบปริมาณปรอทสะสมสูงที่สุดในเนื้อเยื่อ?",
+            options: ["ก. สาหร่ายทะเล", "ข. กุ้ง", "ค. ปลาเล็ก", "ง. นกเหยี่ยว"],
+            answer: 3,
+            explain: "นกเหยี่ยวอยู่ลำดับสูงสุดของห่วงโซ่อาหาร (Top Predator) จะได้รับการสะสมสารพิษปรอทมากที่สุดตามหลัก Biomagnification"
+          },
+          {
+            id: 1002,
+            cat: "โครงสร้างดอกไม้และการปฏิสนธิ",
+            text: "พิจารณาการเปลี่ยนแปลงหลังการปฏิสนธิ ข้อใดจับคู่ส่วนประกอบก่อนและหลังปฏิสนธิได้ 'ถูกต้องทั้งหมด'?",
+            options: [
+              "ก. Ovary &rarr; เมล็ด, Ovule &rarr; ผล",
+              "ข. Ovary &rarr; ผล, Ovule &rarr; เมล็ด, Integument &rarr; เปลือกคุ้มเมล็ด",
+              "ค. Ovary wall &rarr; เมล็ด, Ovule &rarr; เปลือกผล",
+              "ง. Petal &rarr; ผล, Sepal &rarr; เมล็ด"
+            ],
+            answer: 1,
+            explain: "รังไข่ (Ovary) &rarr; ผล, ออวุล (Ovule) &rarr; เมล็ด, เยื่อหุ้มออวุล (Integument) &rarr; เปลือกคุ้มเมล็ด"
+          },
+          {
+            id: 1003,
+            cat: "การจำแนกพืชข้อยกเว้น",
+            text: "พืชในข้อใดมีเส้นใบขนาน ระบบรากฝอย แต่ลำต้นขยายขนาดใหญ่และไม่มีวงปี?",
+            options: ["ก. มะม่วง และ ขนุน", "ข. มะพร้าว, ปาล์ม, ไผ่", "ค. กุหลาบ และ ชบา", "ง. แตงกวา และ ส้ม"],
+            answer: 1,
+            explain: "มะพร้าว ปาล์ม ไผ่ เป็นพืชใบเลี้ยงเดี่ยวที่มีขนาดลำต้นใหญ่แต่ไร้วงปี"
+          },
+          {
+            id: 1004,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์มีกระดูกสันหลังกลุ่มใดบ้างที่เป็น 'สัตว์เลือดเย็น' และวางไข่มีวุ้นหุ้มในน้ำ?",
+            options: [
+              "ก. ปลา และ สัตว์ครึ่งน้ำครึ่งบก",
+              "ข. สัตว์เลื้อยคลาน และ สัตว์ปีก",
+              "ค. สัตว์ปีก และ สัตว์เลี้ยงลูกด้วยนม",
+              "ง. สัตว์เลื้อยคลาน และ ปลา"
+            ],
+            answer: 0,
+            explain: "ปลา และสัตว์ครึ่งน้ำครึ่งบก เป็นสัตว์เลือดเย็น และไข่มีวุ้นหุ้มไม่มีเปลือกแข็ง วางไข่ในน้ำ"
+          },
+          {
+            id: 1005,
+            cat: "ความสัมพันธ์ในระบบนิเวศ",
+            text: "ข้อใดระบุสัญลักษณ์ความสัมพันธ์ (+, -, 0) ของ 'ภาวะอิงอาศัย' และ 'ภาวะปรสิต' ตามลำดับได้ถูกต้อง?",
+            options: [
+              "ก. (+, +) และ (+, -)",
+              "ข. (+, 0) และ (+, -)",
+              "ค. (+, -) และ (-, -)",
+              "ง. (+, 0) และ (-, 0)"
+            ],
+            answer: 1,
+            explain: "ภาวะอิงอาศัย = (+, 0) และ ภาวะปรสิต = (+, -)"
+          },
+          {
+            id: 1006,
+            cat: "ระบบย่อยอาหาร & ไขมัน",
+            text: "ขั้นตอนการย่อยไขมันในลำไส้เล็ก ข้อใดเรียงลำดับบทบาทของ น้ำดี และ เอนไซม์ไลเพส ได้ถูกต้อง?",
+            options: [
+              "ก. ไลเพสย่อยไขมันก่อน &rarr; น้ำดีเข้ามาทำให้ละลาย",
+              "ข. น้ำดีทำให้ก้อนไขมันแตกตัวเป็นหยดเล็กๆ &rarr; ไลเพสย่อยทางเคมีเป็นกรดไขมัน+กลีเซอรอล",
+              "ค. น้ำดีและไลเพสย่อยโปรตีนพร้อมกัน",
+              "ง. ไม่ต้องใช้น้ำดี ใช้ไลเพสอย่างเดียว"
+            ],
+            answer: 1,
+            explain: "ขั้นที่ 1 น้ำดีทำให้ไขมันแตกตัวเป็นหยดเล็กๆ ขั้นที่ 2 เอนไซม์ไลเพสย่อยเคมีเป็นกรดไขมันและกลีเซอรอล"
+          },
+          {
+            id: 1007,
+            cat: "วิตามินและการละลาย",
+            text: "หากผู้ป่วยไม่รับประทานอาหารที่มีไขมันเลยเป็นเวลานาน จะเสี่ยงต่อการขาดวิตามินกลุ่มใดมากที่สุด?",
+            options: ["ก. วิตามิน B รวม", "ข. วิตามิน C", "ค. วิตามิน A, D, E, K", "ง. แร่ธาตุเหล็ก"],
+            answer: 2,
+            explain: "วิตามิน ADEK ต้องอาศัยไขมันในการละลายและพาเข้าสู่ร่างกาย หากไม่ทานไขมันเลยจะขาดวิตามินกลุ่มนี้"
+          },
+          {
+            id: 1008,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "ข้อใดจัดเป็นการปรับตัวทางสรีรวิทยา (Physiological Adaptation)?",
+            options: [
+              "ก. กระบองเพชรใบลดรูปเป็นหนาม",
+              "ข. งูพิษสังเคราะห์และสร้างน้ำพิษเพื่อล่าเหยื่อ",
+              "ค. นกอพยพบินหนีความหนาว",
+              "ง. หมีขั้วโลกมีขนหนาสีขาว"
+            ],
+            answer: 1,
+            explain: "การสร้างสารเคมีหรือพิษภายในอวัยวะจัดเป็นการปรับตัวทางสรีรวิทยา/ระบบภายใน"
+          },
+          {
+            id: 1009,
+            cat: "พันธุศาสตร์",
+            text: "ลักษณะความแปรผันทางพันธุกรรมแบบต่อเนื่อง (Continuous Variation) ถูกควบคุมโดยสิ่งใด?",
+            options: [
+              "ก. ยีนคู่เดียวเท่านั้น",
+              "ข. ยีนหลายคู่ (Polygenes) และสภาพแวดล้อมมีผลอย่างมาก",
+              "ค. สภาพแวดล้อมอย่างเดียว ยีนไม่มีผล",
+              "ง. โครโมโซมเพศเท่านั้น"
+            ],
+            answer: 1,
+            explain: "ลักษณะแปรผันแบบต่อเนื่อง เช่น ความสูง สีผิว ถูกควบคุมด้วยยีนหลายคู่ ร่วมกับสภาพแวดล้อม"
+          },
+          {
+            id: 1010,
+            cat: "สถานะและการเปลี่ยนสถานะ",
+            text: "กระบวนการใดต่อไปนี้เกิดขึ้นจากการ 'คายความร้อน' ของสาร?",
+            options: [
+              "ก. การหลอมเหลวของน้ำแข็ง",
+              "ข. การต้มน้ำเดือดกลายเป็นไอ",
+              "ค. การเกาะตัวของหยดน้ำค้าง (การควบแน่น)",
+              "ง. การระเหิดของก้อนพิมเสน"
+            ],
+            answer: 2,
+            explain: "ไอน้ำควบแน่นกลายเป็นหยดน้ำ เกิดจากการลดอุณหภูมิหรือคายความร้อน"
+          },
+          {
+            id: 1011,
+            cat: "การจำแนกสาร",
+            text: "สารในข้อใดจัดเป็นสารเนื้อเดียวประเภท 'สารละลาย' ทั้งหมด?",
+            options: [
+              "ก. น้ำเกลือ, น้ำทะเล, อากาศ, ทองเหลือง",
+              "ข. น้ำโคลน, น้ำแป้งดิบ, นมสด",
+              "ค. ทองคำ, น้ำบริสุทธิ์, เกลือแกง",
+              "ง. หมอก, ควัน, เจลาติน"
+            ],
+            answer: 0,
+            explain: "น้ำเกลือ น้ำทะเล อากาศ ทองเหลือง เป็นสารเนื้อเดียวที่มีสารผสมกันเกิน 2 ชนิด จัดเป็นสารละลาย"
+          },
+          {
+            id: 1012,
+            cat: "การเปลี่ยนแปลงทางเคมี",
+            text: "การกระทำในข้อใดถือว่าเกิด 'การเปลี่ยนแปลงทางเคมี' (เกิดสารใหม่)?",
+            options: [
+              "ก. ละลายน้ำตาลทรายในน้ำ",
+              "ข. ตะปูเหล็กตากฝนจนเกิดสนิมสีน้ำตาลแดง",
+              "ค. หลอมเหลวเทียนไข",
+              "ง. หั่นผักเป็นชิ้นเล็กๆ"
+            ],
+            answer: 1,
+            explain: "การเกิดสนิมเหล็กเป็นปฏิกิริยาเคมี ได้สารใหม่ผันกลับไม่ได้"
+          },
+          {
+            id: 1013,
+            cat: "ระบบนิเวศ",
+            text: "กฎ 10 เปอร์เซ็นต์ (10% Law) ในห่วงโซ่อาหาร พลังงานอีก 90% ที่หายไป ถูกนำไปใช้ในสิ่งใด?",
+            options: [
+              "ก. สะสมไว้ในยีน",
+              "ข. ใช้ในการดำรงชีวิตของสิ่งมีชีวิตและสูญเสียในรูปความร้อน",
+              "ค. ส่งต่อไปยังผู้ย่อยสลายทั้งหมด",
+              "ง. เปลี่ยนเป็นสารพิษสะสม"
+            ],
+            answer: 1,
+            explain: "พลังงาน 90% ถูกนำไปใช้ในกระบวนการดำรงชีวิต การหายใจ และสูญเสียในรูปความร้อน"
+          },
+          {
+            id: 1014,
+            cat: "โครงสร้างดอกไม้",
+            text: "อวัยวะใดของพืชดอกที่มีสารเหนียวๆ คอยจับละอองเรณู?",
+            options: ["ก. อับเรณู", "ข. ยอดเกสรเพศเมีย (Stigma)", "ค. กลีบดอก", "ง. รังไข่"],
+            answer: 1,
+            explain: "ยอดเกสรเพศเมีย (Stigma) อยู่ชั้นบนสุด มีสารเหนียวดักจับละอองเรณู"
+          },
+          {
+            id: 1015,
+            cat: "การจำแนกพืช",
+            text: "ข้อใดเป็นพืชไม่มีดอกที่สืบพันธุ์ด้วยการสร้าง 'โคน (Cone)'?",
+            options: ["ก. มอส", "ข. เฟิน", "ค. สนสองใบ และ ปรง", "ง. ผักแว่น"],
+            answer: 2,
+            explain: "สนและปรงจัดเป็นพืชเมล็ดเปลือย ไร้ดอก สร้าง 'โคน' ในการสืบพันธุ์"
+          },
+          {
+            id: 1016,
+            cat: "การจำแนกสัตว์",
+            text: "สัตว์ชนิดใดที่มีหัวใจ 4 ห้องสมบูรณ์ ขนเป็นแผง และวางไข่เปลือกหินปูน?",
+            options: ["ก. สัตว์ปีก (เช่น นก ไก่ เพนกวิน)", "ข. สัตว์เลี้ยงลูกด้วยนม", "ค. สัตว์เลื้อยคลาน", "ง. สัตว์ครึ่งน้ำครึ่งบก"],
+            answer: 0,
+            explain: "สัตว์ปีกมีหัวใจ 4 ห้องสมบูรณ์ ขนเป็นแผง หายใจด้วยปอด+ถุงลม ไข่มีเปลือกหินปูน"
+          },
+          {
+            id: 1017,
+            cat: "ระบบย่อยอาหาร",
+            text: "โมเลกุลสารอาหารประเภทโปรตีนเมื่อถูกย่อยสมบูรณ์ที่สุดจะได้สิ่งใด?",
+            options: ["ก. น้ำตาลกลูโคส", "ข. กรดอะมิโน (Amino acid)", "ค. กรดไขมัน", "ง. กลีเซอรอล"],
+            answer: 1,
+            explain: "โปรตีนถูกย่อยสมบูรณ์เป็น กรดอะมิโน"
+          },
+          {
+            id: 1018,
+            cat: "การจำแนกสาร",
+            text: "หินปูน มีสูตรเคมีคือข้อใด?",
+            options: ["ก. $\text{NaCl}$", "ข. $\text{CaCO}_3$", "ค. $\text{NaHCO}_3$", "ง. $\text{NaOH}$"],
+            answer: 1,
+            explain: "หินปูน คือ แคลเซียมคาร์บอเนต ($\text{CaCO}_3$)"
+          },
+          {
+            id: 1019,
+            cat: "การปรับตัวสิ่งมีชีวิต",
+            text: "การที่ต้นโกงกางมีรากค้ำจุนยึดเลน จัดเป็นการปรับตัวด้านใด?",
+            options: ["ก. โครงสร้าง", "ข. พฤติกรรม", "ค. สรีรวิทยา", "ง. พันธุกรรม"],
+            answer: 0,
+            explain: "รากค้ำจุนเป็นอวัยวะโครงสร้างร่างกาย"
+          },
+          {
+            id: 1020,
+            cat: "การเปลี่ยนแปลงของสาร",
+            text: "การสุกของผลไม้ ถือเป็นการเปลี่ยนแปลงประเภทใด?",
+            options: ["ก. กายภาพ", "ข. เคมี", "ค. เปลี่ยนสถานะ", "ง. การควบแน่น"],
+            answer: 1,
+            explain: "การสุกของผลไม้เกิดปฏิกิริยาเคมี ได้สารใหม่"
+          }
+        ]
+      }
+    ];
+
+    /* ==========================================================================
+       2. APPLICATION STATE MANAGEMENT & LOGIC
+       ========================================================================== */
+    const app = {
+      currentPage: 'dashboard',
+      currentSetIndex: 0,
+      currentQuestionIndex: 0,
+      userAnswers: [], // stores index of selected option
+      timerSeconds: 0,
+      timerInterval: null,
+      history: [],
+      chartInstance: null,
+
+      init() {
+        this.loadHistoryFromStorage();
+        this.renderDashboard();
+        this.applyTheme();
+        this.renderChart();
+      },
+
+      // Navigation handler
+      showPage(pageId) {
+        document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+        document.getElementById(`page-${pageId}`).classList.remove('hidden');
+        this.currentPage = pageId;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        if (pageId === 'dashboard') {
+          this.renderDashboard();
+        } else if (pageId === 'analytics') {
+          this.renderAnalytics();
+        }
+      },
+
+      // Render Dashboard Cards & Quick Stats
+      renderDashboard() {
+        const grid = document.getElementById('sets-grid');
+        grid.innerHTML = '';
+
+        let totalCompletedSets = 0;
+        let totalScoreSum = 0;
+        let maxScoreEver = 0;
+
+        QUESTION_DATABASE.forEach((set, idx) => {
+          const setHistory = this.history.filter(h => h.setId === set.setId);
+          const hasDone = setHistory.length > 0;
+          let bestScore = 0;
+
+          if (hasDone) {
+            totalCompletedSets++;
+            bestScore = Math.max(...setHistory.map(h => h.score));
+            totalScoreSum += bestScore;
+            if (bestScore > maxScoreEver) maxScoreEver = bestScore;
+          }
+
+          const card = document.createElement('div');
+          card.className = "bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4 group relative overflow-hidden";
+          
+          card.innerHTML = `
+            <div class="space-y-2">
+              <div class="flex justify-between items-start">
+                <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-100 dark:border-sky-900">
+                  ${set.difficulty}
+                </span>
+                ${hasDone ? `
+                  <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                    <i class="fa-solid fa-circle-check"></i> ทำแล้ว
+                  </span>
+                ` : ''}
+              </div>
+              <h4 class="font-bold text-base sm:text-lg group-hover:text-sky-600 dark:group-hover:text-sky-400 transition">${set.title}</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">${set.desc}</p>
+            </div>
+
+            <div class="space-y-3 pt-3 border-t border-slate-100 dark:border-slate-700">
+              <div class="flex justify-between text-xs text-slate-500">
+                <span>คะแนนสูงสุด:</span>
+                <span class="font-bold text-slate-700 dark:text-slate-200">${hasDone ? `${bestScore} / 20 (${(bestScore/20*100).toFixed(0)}%)` : 'ยังไม่ได้ทำ'}</span>
+              </div>
+              <button onclick="app.startQuiz(${idx})" class="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-medium text-sm hover:bg-sky-600 dark:hover:bg-sky-400 dark:hover:text-white transition flex items-center justify-center gap-2 shadow-sm">
+                <i class="fa-solid fa-play text-xs"></i> ${hasDone ? 'ทำแบบฝึกหัดอีกครั้ง' : 'เริ่มทำแบบทดสอบ'}
+              </button>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+        // Update Stat Badges
+        document.getElementById('stat-completed-count').innerText = `${totalCompletedSets} / 10 ชุด`;
+        const avgScore = totalCompletedSets > 0 ? ((totalScoreSum / (totalCompletedSets * 20)) * 100).toFixed(0) : 0;
+        document.getElementById('stat-avg-score').innerText = `${avgScore}%`;
+        document.getElementById('stat-max-score').innerText = `${maxScoreEver} / 20`;
+        document.getElementById('stat-total-attempts').innerText = `${this.history.length} ครั้ง`;
+      },
+
+      // Start Quiz Session
+      startQuiz(setIndex) {
+        this.currentSetIndex = setIndex;
+        this.currentQuestionIndex = 0;
+        const set = QUESTION_DATABASE[setIndex];
+        this.userAnswers = new Array(set.questions.length).fill(null);
+
+        // Header info
+        document.getElementById('quiz-title').innerText = set.title;
+        document.getElementById('quiz-difficulty-tag').innerText = `ระดับความยาก: ${set.difficulty}`;
+
+        // Timer Reset
+        this.timerSeconds = 0;
+        clearInterval(this.timerInterval);
+        this.timerInterval = setInterval(() => {
+          this.timerSeconds++;
+          const mins = String(Math.floor(this.timerSeconds / 60)).padStart(2, '0');
+          const secs = String(this.timerSeconds % 60).padStart(2, '0');
+          document.getElementById('quiz-timer').innerText = `${mins}:${secs}`;
+        }, 1000);
+
+        this.showPage('quiz');
+        this.renderQuestion();
+        this.renderQuestionGridNav();
+      },
+
+      // Render Current Question
+      renderQuestion() {
+        const set = QUESTION_DATABASE[this.currentSetIndex];
+        const q = set.questions[this.currentQuestionIndex];
+
+        document.getElementById('q-number-badge').innerText = `ข้อที่ ${this.currentQuestionIndex + 1} / ${set.questions.length}`;
+        document.getElementById('q-category-tag').innerText = q.cat;
+        document.getElementById('q-text').innerText = q.text;
+
+        const optionsContainer = document.getElementById('q-options');
+        optionsContainer.innerHTML = '';
+
+        q.options.forEach((optText, optIdx) => {
+          const isSelected = this.userAnswers[this.currentQuestionIndex] === optIdx;
+          const btn = document.createElement('button');
+          btn.className = `w-full text-left p-4 rounded-xl border transition flex items-center justify-between text-sm sm:text-base ${
+            isSelected
+              ? 'bg-sky-50 dark:bg-sky-950/60 border-sky-500 text-sky-700 dark:text-sky-300 font-medium shadow-sm'
+              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200'
+          }`;
+          btn.onclick = () => this.selectOption(optIdx);
+
+          btn.innerHTML = `
+            <span>${optText}</span>
+            <div class="w-5 h-5 rounded-full border flex items-center justify-center ${
+              isSelected ? 'border-sky-500 bg-sky-500 text-white' : 'border-slate-300 dark:border-slate-600'
+            }">
+              ${isSelected ? '<i class="fa-solid fa-check text-xs"></i>' : ''}
+            </div>
+          `;
+          optionsContainer.appendChild(btn);
+        });
+
+        // Update Prev/Next buttons
+        document.getElementById('btn-prev-q').disabled = this.currentQuestionIndex === 0;
+        const nextBtn = document.getElementById('btn-next-q');
+        if (this.currentQuestionIndex === set.questions.length - 1) {
+          nextBtn.innerHTML = `ส่งคำตอบ <i class="fa-solid fa-paper-plane"></i>`;
+          nextBtn.onclick = () => this.submitQuiz();
+        } else {
+          nextBtn.innerHTML = `ถัดไป <i class="fa-solid fa-chevron-right"></i>`;
+          nextBtn.onclick = () => this.navQuestion(1);
+        }
+
+        // Update Answered Count
+        const answeredCount = this.userAnswers.filter(a => a !== null).length;
+        document.getElementById('quiz-answered-count').innerText = `ตอบแล้ว ${answeredCount}/${set.questions.length} ข้อ`;
+
+        this.renderQuestionGridNav();
+      },
+
+      selectOption(optionIndex) {
+        this.userAnswers[this.currentQuestionIndex] = optionIndex;
+        this.renderQuestion();
+      },
+
+      navQuestion(direction) {
+        const set = QUESTION_DATABASE[this.currentSetIndex];
+        const newIdx = this.currentQuestionIndex + direction;
+        if (newIdx >= 0 && newIdx < set.questions.length) {
+          this.currentQuestionIndex = newIdx;
+          this.renderQuestion();
+        }
+      },
+
+      jumpToQuestion(index) {
+        this.currentQuestionIndex = index;
+        this.renderQuestion();
+      },
+
+      renderQuestionGridNav() {
+        const gridNav = document.getElementById('q-grid-nav');
+        gridNav.innerHTML = '';
+        const set = QUESTION_DATABASE[this.currentSetIndex];
+
+        set.questions.forEach((_, idx) => {
+          const isAnswered = this.userAnswers[idx] !== null;
+          const isCurrent = this.currentQuestionIndex === idx;
+
+          const btn = document.createElement('button');
+          btn.className = `h-9 rounded-lg font-bold text-xs transition flex items-center justify-center ${
+            isCurrent ? 'ring-2 ring-sky-500 ring-offset-2 dark:ring-offset-slate-800' : ''
+          } ${
+            isAnswered
+              ? 'bg-sky-500 text-white'
+              : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
+          }`;
+          btn.innerText = idx + 1;
+          btn.onclick = () => this.jumpToQuestion(idx);
+          gridNav.appendChild(btn);
+        });
+      },
+
+      confirmExitQuiz() {
+        document.getElementById('modal-confirm').classList.remove('hidden');
+      },
+
+      exitQuizNow() {
+        clearInterval(this.timerInterval);
+        this.closeModal('modal-confirm');
+        this.showPage('dashboard');
+      },
+
+      closeModal(modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+      },
+
+      // Submit Quiz & Process Results
+      submitQuiz() {
+        const set = QUESTION_DATABASE[this.currentSetIndex];
+        const unanswered = this.userAnswers.filter(a => a === null).length;
+
+        if (unanswered > 0) {
+          if (!confirm(`คุณยังไม่ได้ตอบข้อสอบอีก ${unanswered} ข้อ คุณแน่ใจหรือไม่ว่าต้องการส่งคำตอบ?`)) {
+            return;
+          }
+        }
+
+        clearInterval(this.timerInterval);
+
+        // Calculate Score
+        let score = 0;
+        set.questions.forEach((q, idx) => {
+          if (this.userAnswers[idx] === q.answer) {
+            score++;
+          }
+        });
+
+        const percent = Math.round((score / set.questions.length) * 100);
+        const timeFormatted = document.getElementById('quiz-timer').innerText;
+
+        // Save to History LocalStorage
+        const historyRecord = {
+          id: Date.now(),
+          setId: set.setId,
+          setTitle: set.title,
+          score: score,
+          total: set.questions.length,
+          percent: percent,
+          time: timeFormatted,
+          timestamp: new Date().toLocaleString('th-TH')
+        };
+        this.history.unshift(historyRecord);
+        this.saveHistoryToStorage();
+
+        // Display Results Page
+        document.getElementById('result-score').innerText = `${score} / ${set.questions.length}`;
+        document.getElementById('result-percent').innerText = `${percent}%`;
+        document.getElementById('result-time').innerText = timeFormatted;
+
+        const titleElem = document.getElementById('result-title');
+        const iconElem = document.getElementById('result-icon');
+
+        if (percent >= 80) {
+          titleElem.innerText = "สุดยอดเยี่ยม! ผ่านเกณฑ์ระดับสูง";
+          iconElem.className = "fa-solid fa-trophy text-amber-300";
+        } else if (percent >= 60) {
+          titleElem.innerText = "เก่งมาก! ทำได้ดีเยี่ยม";
+          iconElem.className = "fa-solid fa-award text-sky-300";
+        } else {
+          titleElem.innerText = "พยายามได้ดี! อ่านเฉลยแล้วลองอีกครั้งนะ";
+          iconElem.className = "fa-solid fa-book-open text-emerald-300";
+        }
+
+        this.renderExplanations();
+        this.showPage('result');
+      },
+
+      retakeCurrentQuiz() {
+        this.startQuiz(this.currentSetIndex);
+      },
+
+      // Render Explanations
+      renderExplanations() {
+        const container = document.getElementById('explanations-list');
+        container.innerHTML = '';
+        const set = QUESTION_DATABASE[this.currentSetIndex];
+
+        set.questions.forEach((q, idx) => {
+          const userAns = this.userAnswers[idx];
+          const isCorrect = userAns === q.answer;
+
+          const card = document.createElement('div');
+          card.className = `p-5 rounded-2xl border ${
+            isCorrect
+              ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800'
+              : 'bg-rose-50/50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-800'
+          } space-y-3`;
+
+          card.innerHTML = `
+            <div class="flex justify-between items-start gap-2">
+              <span class="font-bold text-sm ${isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
+                ข้อที่ ${idx + 1}: ${isCorrect ? '<i class="fa-solid fa-circle-check"></i> ตอบถูกต้อง' : '<i class="fa-solid fa-circle-xmark"></i> ตอบผิด'}
+              </span>
+              <span class="text-xs px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-medium">
+                ${q.cat}
+              </span>
+            </div>
+            
+            <p class="font-semibold text-base text-slate-800 dark:text-slate-100">${q.text}</p>
+            
+            <div class="space-y-1.5 text-sm">
+              <div class="p-2.5 rounded-lg ${userAns === q.answer ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-200 font-medium' : 'bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-200'}">
+                <span class="font-bold">คำตอบของคุณ:</span> ${userAns !== null ? q.options[userAns] : 'ไม่ได้ตอบ'}
+              </div>
+              ${!isCorrect ? `
+                <div class="p-2.5 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-200 font-medium">
+                  <span class="font-bold">คำตอบที่ถูกต้อง:</span> ${q.options[q.answer]}
+                </div>
+              ` : ''}
+            </div>
+
+            <div class="pt-2 border-t border-slate-200 dark:border-slate-700 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed bg-white/60 dark:bg-slate-800/60 p-3 rounded-lg">
+              <span class="font-bold text-sky-600 dark:text-sky-400"><i class="fa-solid fa-lightbulb"></i> คำอธิบายอย่างละเอียด:</span> ${q.explain}
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      },
+
+      // Analytics & Progress Page
+      renderAnalytics() {
+        const tableBody = document.getElementById('history-table-body');
+        tableBody.innerHTML = '';
+
+        if (this.history.length === 0) {
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="6" class="p-6 text-center text-slate-400 text-sm">ยังไม่มีบันทึกประวัติการทำแบบทดสอบ</td>
+            </tr>
+          `;
+        } else {
+          this.history.forEach((h, idx) => {
+            const row = document.createElement('tr');
+            row.className = "hover:bg-slate-50 dark:hover:bg-slate-750 transition";
+            row.innerHTML = `
+              <td class="p-3.5 text-xs text-slate-500">${h.timestamp}</td>
+              <td class="p-3.5 font-medium text-slate-800 dark:text-slate-200">${h.setTitle}</td>
+              <td class="p-3.5 font-bold">${h.score} / ${h.total}</td>
+              <td class="p-3.5">
+                <span class="px-2 py-0.5 rounded text-xs font-bold ${h.percent >= 80 ? 'bg-emerald-100 text-emerald-700' : h.percent >= 50 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'}">
+                  ${h.percent}%
+                </span>
+              </td>
+              <td class="p-3.5 text-xs font-mono text-slate-500">${h.time}</td>
+              <td class="p-3.5 text-right">
+                <button onclick="app.revisitExplanations(${h.setId})" class="px-2.5 py-1 rounded bg-sky-50 dark:bg-sky-950/50 text-sky-600 dark:text-sky-400 text-xs font-medium hover:bg-sky-100 transition">
+                  ดูเฉลย
+                </button>
+              </td>
+            `;
+            tableBody.appendChild(row);
+          });
+        }
+
+        this.renderChart();
+      },
+
+      revisitExplanations(setId) {
+        const setIdx = QUESTION_DATABASE.findIndex(s => s.setId === setId);
+        if (setIdx !== -1) {
+          this.currentSetIndex = setIdx;
+          this.userAnswers = new Array(QUESTION_DATABASE[setIdx].questions.length).fill(null);
+          this.renderExplanations();
+          this.showPage('result');
+        }
+      },
+
+      renderChart() {
+        const ctx = document.getElementById('progressChart');
+        if (!ctx) return;
+
+        const labels = QUESTION_DATABASE.map(s => `Set ${s.setId}`);
+        const dataScores = QUESTION_DATABASE.map(s => {
+          const setHistory = this.history.filter(h => h.setId === s.setId);
+          if (setHistory.length === 0) return 0;
+          const maxScore = Math.max(...setHistory.map(h => h.score));
+          return Math.round((maxScore / 20) * 100);
+        });
+
+        if (this.chartInstance) {
+          this.chartInstance.destroy();
+        }
+
+        this.chartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'คะแนนสูงสุด (% ความถูกต้อง)',
+              data: dataScores,
+              backgroundColor: 'rgba(2, 132, 199, 0.7)',
+              borderColor: 'rgba(2, 132, 199, 1)',
+              borderWidth: 1,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                  callback: function(value) { return value + '%'; }
+                }
+              }
+            }
+          }
+        });
+      },
+
+      // Storage Management
+      saveHistoryToStorage() {
+        localStorage.setItem('sci_m1_history', JSON.stringify(this.history));
+      },
+
+      loadHistoryFromStorage() {
+        const stored = localStorage.getItem('sci_m1_history');
+        if (stored) {
+          try {
+            this.history = JSON.parse(stored);
+          } catch (e) {
+            this.history = [];
+          }
+        }
+      },
+
+      clearHistoryData() {
+        if (confirm("คุณแน่ใจหรือไม่ว่าต้องการล้างประวัติการทำแบบทดสอบทั้งหมด?")) {
+          this.history = [];
+          this.saveHistoryToStorage();
+          this.renderDashboard();
+          this.renderAnalytics();
+        }
+      },
+
+      // Theme toggle
+      toggleTheme() {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('sci_m1_theme', isDark ? 'dark' : 'light');
+      },
+
+      applyTheme() {
+        const savedTheme = localStorage.getItem('sci_m1_theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    };
+
+    // Initialize Application on Window Load
+    window.onload = function() {
+      app.init();
+    };
+  </script>
+</body>
+</html>
